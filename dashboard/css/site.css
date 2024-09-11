@@ -1,0 +1,73 @@
+
+
+
+.dropdown-toggle::after {
+    border-top: initial !important;
+}
+
+
+
+
+.help-block {
+    color: #DE2545;
+    font-size: 14px;
+    margin-top: 1%;
+}
+
+.navbar-brand-logo{
+
+    width:100%;
+   
+    min-width:4rem;
+    max-width:4rem;
+}
+
+.navbar-vertical-aside .navbar-brand-logo-mini{
+
+
+    width:100%;
+   
+    min-width:2.5rem;
+    max-width:2.5rem;
+    
+}
+.logo-span{
+font-size: large;
+font-weight: 700;
+color: #0F172A;
+}
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+  
+.save-button{
+ width: 150px;
+}
+
+.offcanvas-footer {
+    padding: 1.5rem 2rem;
+    border-top: initial;
+}
+
+.offcanvas-backdrop.show {
+    background-color: rgba(255, 255, 255, 0.43);
+}
+
+.image-form{
+    background-color: #fff;
+    /* padding: 0rem 1rem; */
+    border: .0625rem solid rgba(231, 234, 243, .7);
+    width:110px;
+}
+
+
+/*  */
+
+/* Example of increasing width */
+
+
+

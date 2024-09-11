@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /cgi-bin/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /test/
+
+# Allow all other pages to be indexed
+Allow: /
+
+

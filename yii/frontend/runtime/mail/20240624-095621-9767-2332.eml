@@ -1,0 +1,49 @@
+From: My Application robot <support@example.com>
+To: lana@gmail.com
+Subject: Account registration at My Application
+MIME-Version: 1.0
+Date: Mon, 24 Jun 2024 09:56:21 +0200
+Message-ID: <0fd6c33025558b637a28ba93b856852c@example.com>
+Content-Type: multipart/alternative; boundary=vjMHlEaQ
+
+--vjMHlEaQ
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hello Lana,
+
+Follow the link below to verify your email:
+
+http://lo=
+calhost/site/verify-email?token=3DPlbc2o4R3RW4uB0PYfvCJi7vCaJCga_t_17192157=
+81
+--vjMHlEaQ
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns=3D"http://www.w3.org/1999/=
+xhtml">
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/ht=
+ml; charset=3DUTF-8" />
+    <title></title>
+    </head>
+<body>
+    =
+    <div class=3D"verify-email">
+    <p>Hello Lana,</p>
+
+    <p>Follo=
+w the link below to verify your email:</p>
+
+    <p><a href=3D"http://lo=
+calhost/site/verify-email?token=3DPlbc2o4R3RW4uB0PYfvCJi7vCaJCga_t_17192157=
+81">http://localhost/site/verify-email?token=3DPlbc2o4R3RW4uB0PYfvCJi7vCaJC=
+ga_t_1719215781</a></p>
+</div>
+    </body>
+</html>
+
+--vjMHlEaQ--

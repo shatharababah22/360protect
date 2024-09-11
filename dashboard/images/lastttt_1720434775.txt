@@ -1,0 +1,68 @@
+
+<!--Featured in start-->
+<div class="my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-12" data-cue="fadeIn">
+                <ul class="list-inline text-center">
+
+    <!-- <?php
+$apiUrl = 'https://restcountries.com/v3.1/all';
+
+// Fetch data from API
+$response = file_get_contents($apiUrl);
+$data = json_decode($response, true);
+
+$apiCountryLogos = []; // Array to store country logos fetched from API
+
+if ($data && is_array($data)) {
+    foreach ($data as $country) {
+        $countryName = $country['name']['common'] ?? 'Unknown Country';
+        $logoUrl = $country['flags'][0] ?? '/assets/flags/default.png'; // Default logo if not provided
+        
+        // Store in array with country name as key for quick lookup
+        $apiCountryLogos[$countryName] = $logoUrl;
+    }
+}
+?> -->
+
+
+<?php foreach (\common\models\Countries::find()->all() as $country) : ?>
+    <?php
+    $countryName = $country->country;
+    $logoUrl = isset($apiCountries[$countryName]) ? $apiCountries[$countryName] : '/assets/flags/default.png';
+    ?>
+
+    <li class="list-inline-item d-inline-flex align-items-center me-3 mb-2 mb-lg-0">
+        <img src="<?= htmlspecialchars($logoUrl) ?>" class="rounded-circle" width="24" height="24" alt="<?= htmlspecialchars($countryName) ?>" />
+        <h6 class="my-2 ms-2"><?= htmlspecialchars($countryName) ?></h6>
+    </li>
+
+<?php endforeach; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Assurance
+check plans->on plans 
+edit table
+export and import for plans and pricing based on plan code ? overview and decription ?
+edit->From US To AU->county name
+
+check befor import 
+Khalid AlKhalidi
+Khalid@123
+
+edit the benfit link
+edit country ->from

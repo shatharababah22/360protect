@@ -1,0 +1,49 @@
+From: My Application robot <support@example.com>
+To: shatha@gmail.com
+Subject: Account registration at My Application
+MIME-Version: 1.0
+Date: Mon, 08 Jul 2024 12:32:09 +0200
+Message-ID: <cea8a803681a7fc59580ce66a67404ce@example.com>
+Content-Type: multipart/alternative; boundary=c5dO8Op6
+
+--c5dO8Op6
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hello shatha,
+
+Follow the link below to verify your email:
+
+http://=
+localhost/site/verify-email?token=3DSoJqxkM66gu9pC3YWYKXTiGZh43VdVhk_172043=
+4729
+--c5dO8Op6
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns=3D"http://www.w3.org/1999/=
+xhtml">
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/ht=
+ml; charset=3DUTF-8" />
+    <title></title>
+    </head>
+<body>
+    =
+    <div class=3D"verify-email">
+    <p>Hello shatha,</p>
+
+    <p>Fol=
+low the link below to verify your email:</p>
+
+    <p><a href=3D"http://=
+localhost/site/verify-email?token=3DSoJqxkM66gu9pC3YWYKXTiGZh43VdVhk_172043=
+4729">http://localhost/site/verify-email?token=3DSoJqxkM66gu9pC3YWYKXTiGZh4=
+3VdVhk_1720434729</a></p>
+</div>
+    </body>
+</html>
+
+--c5dO8Op6--
