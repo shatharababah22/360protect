@@ -93,7 +93,7 @@ class PricingController extends Controller
         $sheet->setCellValue('C1', 'Passenger');
         $sheet->setCellValue('D1', 'Price');
         $sheet->setCellValue('E1', 'Discount Price');
-        $sheet->setCellValue('F1', 'Status');
+        // $sheet->setCellValue('F1', 'Status');
 
         $headerStyle = [
             'fill' => [
@@ -119,8 +119,8 @@ class PricingController extends Controller
             $sheet->setCellValue('D' . $row, $model->price);
             $sheet->setCellValue('E' . $row, $model->discount_price);
 
-            $status = isset($statusLabels[$model->status]) ? $statusLabels[$model->status] : $model->status;
-            $sheet->setCellValue('F' . $row, $status);
+            // $status = isset($statusLabels[$model->status]) ? $statusLabels[$model->status] : $model->status;
+            // $sheet->setCellValue('F' . $row, $status);
 
             $row++;
         }
