@@ -178,19 +178,21 @@ $this->title = 'Trip Details Submission';
             </div>
         </div>
     </div>
-    <div class="col-md-12 mt-2">
+  
+    <?php if ($model->attributes()): ?>
+        <div class="col-md-12 mt-2">
     <h5 ><?= Yii::t('app', 'Passports') ?></h5>
     <hr>
-    <?php if ($model->attributes()): ?>
                                     <p class="mb-3"><?= Yii::t('app', 'Upload all passengers passports separated') ?></p>
                                     <?php foreach ($model->attributes() as $input) : ?>
                                         <div class="col-md-12" dir='ltr'>
                                             <?= $form->field($model, $input)->fileInput() ?>
                                         </div>
                                     <?php endforeach; ?>
+                                    </div>
                                 <?php endif; ?>
 
-    </div>
+
     <!-- Second Section -->
     <?php if (!empty($savedFiles)) : ?>
         <div class="col-md-12 mt-4">
