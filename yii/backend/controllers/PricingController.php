@@ -186,10 +186,9 @@ class PricingController extends Controller
     
                     $planCode = $rowData[0][0];
                     $plan = Plans::find()->where(['plan_code' => $planCode])->one();
-                    // if (!$plan) {
-                    //     echo "Plan with code " . $planCode . " not found.<br>";
-                    //     continue;
-                    // }
+                    if (!$plan) {
+                        continue;
+                    }
     
                     // $existingPricing = Pricing::find()
                     //     ->where(['plan_id' => $plan->id])
@@ -206,12 +205,12 @@ class PricingController extends Controller
                     $pricing->passenger = $rowData[0][2];
                     $pricing->price = $rowData[0][3];
                     $pricing->discount_price = $rowData[0][4];
-                    $pricing->status = isset($statusLabels[$rowData[0][5]]) ? $statusLabels[$rowData[0][5]] : null;
+                    // $pricing->status = isset($statusLabels[$rowData[0][5]]) ? $statusLabels[$rowData[0][5]] : null;
 
-                    if ($pricing->status === null) {
-                        echo "Invalid status value in row " . $row . ".<br>";
-                        continue;
-                    }
+                    // if ($pricing->status === null) {
+                    //     echo "Invalid status value in row " . $row . ".<br>";
+                    //     continue;
+                    // }
     
                     // if ($pricing->save()) {
                     //     echo "Pricing entry for plan with code " . $planCode . " and duration " . (int)$rowData[0][1] . " saved successfully.<br>";
@@ -221,10 +220,16 @@ class PricingController extends Controller
                     // }
 
 
-                    if ($pricing->save()) {
+                    if (!$pricing->save()) {
                         print_r($pricing->getErrors());
                     }
                 }
+
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'model' => $model,
+                    'dataProvider' => $dataProvider,
+                ]);
             } else {
                 echo "File upload failed.<br>";
             }

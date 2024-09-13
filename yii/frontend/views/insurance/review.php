@@ -123,13 +123,27 @@ $this->title = 'Review Your Insurance Details';
                                 </div>
                                 <?php if ($customer !== null && $customer->credit != 0): ?>
     <div class="mt-2">
-        <?= Html::a(Yii::t('app', 'Continue'), ['/asurance/payment', 'id' => base64_encode($policy->id)], ['class' => 'btn btn-warning w-100']) ?>
+        <h1>dfdf</h1>
+        <?php 
+          
+            $price = (float) $policy->price;
+            $credit = (float) $customer->credit;
+
+           
+            $remainingAmount = max(0, $price - $credit);
+
+          
+            $formattedAmount = number_format($remainingAmount, 2);
+        ?>
+        <?= Html::a(Yii::t('app', 'Continue') . ' ' . $formattedAmount, ['/asurance/payment', 'id' => base64_encode($policy->id)], ['class' => 'btn btn-warning w-100']) ?>
     </div>
 <?php else: ?>
     <div class="mt-2">
         <?= Html::a(Yii::t('app', 'Pay Now'), ['/asurance/payment', 'id' => base64_encode($policy->id)], ['class' => 'btn btn-warning w-100']) ?>
     </div>
 <?php endif; ?>
+
+
 
                             </div>
                         </div>
@@ -162,9 +176,9 @@ $this->title = 'Review Your Insurance Details';
             $encodedPolicyId = base64_encode($policy->id);
 
             $actionUrl = Url::to([
-                'asurance/retake',
+                'asurance/review',
                 'id' => $encodedPassengerId,
-                'policyId' => $encodedPolicyId
+                'draft' => $encodedPolicyId
             ]);
             ?>
             <!-- Body -->

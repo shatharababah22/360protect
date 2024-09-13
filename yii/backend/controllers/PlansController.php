@@ -161,7 +161,7 @@ class PlansController extends Controller
                      $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
      
                      $planCode = $rowData[0][1];
-                     $existingPlan = Plans::findOne(['plan_code' => $planCode]);
+                    //  $existingPlan = Plans::findOne(['plan_code' => $planCode]);
                      $insuranceName = $rowData[0][4];
                      $insurance = Insurances::find()->where(['name' => $insuranceName])->one();
                      $sourceCountry=$rowData[0][5];
@@ -170,6 +170,15 @@ class PlansController extends Controller
                     //  if ($existingPlan) {
                     //      continue; 
                     //  }
+
+                    if (!$source) {
+                        continue;
+                    }
+    
+                    if (!$insurance) {
+                        continue;
+                    }
+    
                     //  if ($insurance) {
                          $newPlan = new Plans();
                          $newPlan->name = $rowData[0][0];
@@ -190,6 +199,12 @@ class PlansController extends Controller
 
                     
                  }
+
+                 return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'model' => $model,
+                    'dataProvider' => $dataProvider,
+                ]);
              }
          }
      

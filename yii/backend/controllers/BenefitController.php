@@ -179,7 +179,7 @@ class BenefitController extends Controller
         $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
         if ($model->upload()) {
       
-            $inputFile = 'images/' .time() .  $model->imageFile->baseName . '.' . $model->imageFile->extension;
+            $inputFile = 'images/' .  $model->imageFile->baseName . '.' . $model->imageFile->extension;
             echo "File uploaded: " . $inputFile . "<br>";
             $spreadsheet = IOFactory::load($inputFile);
             echo "Spreadsheet loaded successfully.<br>";
