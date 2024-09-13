@@ -198,6 +198,8 @@ $this->title = 'Trip Details Submission';
         <div class="col-md-12 mt-4">
             <h5><?= Yii::t('app', 'Uploaded Files') ?></h5>
             <hr>
+            <p class="mb-3"><?= Yii::t('app', 'The files for all passenger passports have been successfully uploaded.') ?></p>
+
             <div class="table-responsive">
                 <table class="table table-sm table-bordered">
                     <thead>

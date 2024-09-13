@@ -15,6 +15,8 @@ return [
     'العربية' => 'Arabic',
     'Policies' => 'تأميناتك',
 'Your'=>' ',
+'The files for all passenger passports have been successfully uploaded.' => 'تم رفع الملفات الخاصة بجوازات جميع الركاب بنجاح.',
+
 'Review' => 'مراجعة',
 'Details' => 'التفاصيل',
 'New Insurance' => 'تأمين جديد',

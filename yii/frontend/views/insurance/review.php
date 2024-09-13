@@ -136,7 +136,7 @@ $this->title = 'Review Your Insurance Details';
             $formattedAmount = number_format($remainingAmount, 2);
             
         ?>
-        <?= Html::a(Yii::t('app', 'Continue') . ' ' . $formattedAmount, ['/asurance/payment', 'id' => base64_encode($policy->id)], ['class' => 'btn btn-warning w-100']) ?>
+        <?= Html::a(Yii::t('app', 'Continue') . ' ' .'($'. $formattedAmount.')', ['/asurance/payment', 'id' => base64_encode($policy->id)], ['class' => 'btn btn-warning w-100']) ?>
     </div>
 <?php else: ?>
     <div class="mt-2">
