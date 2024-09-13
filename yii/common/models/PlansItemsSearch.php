@@ -11,7 +11,7 @@ use common\models\Plans;
  */
 class PlansItemsSearch extends PlansItems
 {
-    public $plan_code; // Add a new public property
+
 
     /**
      * {@inheritdoc}
@@ -19,7 +19,7 @@ class PlansItemsSearch extends PlansItems
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id','insurance_id'], 'integer'],
             [['title'], 'safe'],
         ];
     }
@@ -66,9 +66,11 @@ class PlansItemsSearch extends PlansItems
    
         $query->andFilterWhere([
             'id' => $this->id,
+            'insurance_id' => $this->insurance_id
         ]);
     
         $query->andFilterWhere(['like', 'title', $this->title]);
+              
     
         $totalCount = $query->count();
     

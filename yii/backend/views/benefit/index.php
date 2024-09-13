@@ -114,6 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
           </th>
           <th >Title</th>
+          <th >Insurance Name</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -139,7 +140,14 @@ $this->params['breadcrumbs'][] = $this->title;
               </td>
 
 
+              <td class="table-column-ps-0">
+              <a class="d-flex align-items-center" href="<?= Url::to(['view', 'id' => $benefit->id]) ?>">
 
+                  <div class="flex-grow-1 ms-3">
+                    <h5 class="text-inherit mb-0"><?= Html::encode($benefit->insurance->name) ?></h5>
+                  </div>
+                </a>
+              </td>
 
 
               <td>

@@ -15,16 +15,14 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <!-- <?= $form->field($model, 'id',['options' => ['class' => 'mt-2']])  ?> -->
-
-    <!-- <?= $form->field($model, 'plan_code',['options' => ['class' => 'mt-2']])  ?> -->
+    
 
     <?= $form->field($model, 'title',['options' => ['class' => 'mt-2']])  ?>
 
     <?= $form->field($model, 'insurance_id', ['options' => ['class' => 'mt-2']])->dropDownList(
         \yii\helpers\ArrayHelper::map(
             \common\models\Insurances::find()->all(),
-            
+    
             'id',
             'name'
         ),
