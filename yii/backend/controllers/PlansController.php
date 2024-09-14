@@ -145,7 +145,7 @@ class PlansController extends Controller
          if (Yii::$app->request->isPost) {
              $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
              if ($model->upload()) {
-                 $inputFile = 'images/' . $model->imageFile->baseName . '.' . $model->imageFile->extension;
+                 $inputFile = 'images/' . $model->imageFile->baseName . '_' . time() . '.' . $model->imageFile->extension;
                  try {
                      $spreadsheet = IOFactory::load($inputFile);
                  } catch (Exception $e) {
