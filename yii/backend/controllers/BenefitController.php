@@ -94,7 +94,7 @@ class BenefitController extends Controller
             $row++;
         }
 
-        
+
 
         $writer = new Xlsx($spreadsheet);
         $fileName = 'Benefit.xlsx';
@@ -193,8 +193,10 @@ class BenefitController extends Controller
 
             $startRow = 2;
             for ($row = $startRow; $row <= $highestRow; $row++) {
-                $insuranceName = $sheet->getCell('A' . $row)->getValue();
-                $titleName = $sheet->getCell('B' . $row)->getValue();
+
+                $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+                $insuranceName =  $rowData[0][0];
+             
 
     
                 $insurance = Insurances::find()->where(['name' => $insuranceName])->one();
@@ -208,7 +210,7 @@ class BenefitController extends Controller
           
                     $planItem = new PlansItems();
                     $planItem->insurance_id = $insurance->id;
-                    $planItem->title = $titleName;
+                    $planItem->title = $rowData[0][1];
                     if (!$planItem->save()) {
                         print_r($planItem->getErrors());
                     } 
