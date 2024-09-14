@@ -161,25 +161,16 @@ class PricingController extends Controller
         if (Yii::$app->request->isPost) {
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->upload()) {
-                $inputFile = 'images/' . $model->imageFile->baseName . '.' . $model->imageFile->extension;
-                echo "File uploaded: " . $inputFile . "<br>";
-    
-                try {
-                    $spreadsheet = IOFactory::load($inputFile);
-                    echo "Spreadsheet loaded successfully.<br>";
-                } catch (Exception $e) {
-                    die('Error loading file "' . pathinfo($inputFile, PATHINFO_BASENAME) . '": ' . $e->getMessage());
-                }
+                $inputFile = 'images/'. $model->imageFile->baseName . '_' . time() . '.' . $model->imageFile->extension;
+                $spreadsheet = IOFactory::load($inputFile);
+           
     
                 $sheet = $spreadsheet->getActiveSheet();
                 $highestRow = $sheet->getHighestRow();
                 $highestColumn = $sheet->getHighestColumn();
     
                 $startRow = 2;
-                $statusLabels = [
-                    'Inactive' => 0,
-                    'Active' => 1,
-                ];
+         
     
                 for ($row = $startRow; $row <= $highestRow; $row++) {
                     $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
