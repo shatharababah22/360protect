@@ -246,7 +246,8 @@ $this->title = 'Your Policy';
                             <!-- Checkbox or selection feature can be added here -->
                         </div>
                     </td>
-                    <td><?= Html::encode(ucwords(strtolower($policy->customer->name))) ?></td>
+                    <td><?= Html::encode($policy->customer ? ucwords(strtolower($policy->customer->name)) : 'N/A') ?></td>
+
                     <td>
                         <img src="/assets/flags/<?= strtolower($policy->DepartCountryCode) ?>.png"
                              class="rounded-circle" width="24" height="24"

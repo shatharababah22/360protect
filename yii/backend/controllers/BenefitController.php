@@ -215,6 +215,11 @@ class BenefitController extends Controller
                         print_r($planItem->getErrors());
                     } 
             }
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'model' => $model, 
+            ]);
         }
     }
 
