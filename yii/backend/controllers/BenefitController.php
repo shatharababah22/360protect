@@ -94,6 +94,8 @@ class BenefitController extends Controller
             $row++;
         }
 
+        
+
         $writer = new Xlsx($spreadsheet);
         $fileName = 'Benefit.xlsx';
         $temp_file = tempnam(sys_get_temp_dir(), $fileName);
@@ -196,18 +198,20 @@ class BenefitController extends Controller
 
     
                 $insurance = Insurances::find()->where(['name' => $insuranceName])->one();
-                if ($insurance) {
+
+                
+                if (!$insurance) {
+                    continue;
+                }
+
+
+          
                     $planItem = new PlansItems();
                     $planItem->insurance_id = $insurance->id;
                     $planItem->title = $titleName;
-                    if ($planItem->save()) {
-                        echo "Row $row saved successfully.<br>";
-                    } else {
-                        echo "Error saving row $row.<br>";
-                    }
-                } else {
-                    echo "Insurance not found for row $row.<br>";
-                }
+                    if (!$planItem->save()) {
+                        print_r($planItem->getErrors());
+                    } 
             }
         }
     }

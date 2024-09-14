@@ -191,11 +191,6 @@ class PlansController extends Controller
                              print_r($newPlan->getErrors());
                          }
 
-                    //      dd( $rowData[0][0],$rowData[0][1],$rowData[0][2], $rowData[0][3], $rowData[0][4], $rowData[0][5]);
-                    //  } else {
-                    //      continue;
-                    //  }
-
 
                     
                  }
