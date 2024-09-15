@@ -916,10 +916,9 @@ class AsuranceController extends BaseController
             }
         }
         // dd($attr);
-      if (count($savedFiles) == ($policy->AdultCount + $policy->ChildrenCount + $policy->InfantCount)) {
-                return $this->redirect(['review', 'draft' => base64_encode($policy->id), 'passengers' => base64_encode($passengers)]);
-            }
-    
+        // if (count($savedFiles) == ($policy->AdultCount + $policy->ChildrenCount + $policy->InfantCount)) {
+        //     return $this->redirect(['review', 'draft' => base64_encode($policy->id), 'passengers' => base64_encode($passengers)]);
+        // }
 
         if ($policy->adult != null) {
             $attr = [];
