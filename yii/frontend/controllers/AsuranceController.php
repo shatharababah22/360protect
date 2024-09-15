@@ -1407,33 +1407,33 @@ class AsuranceController extends BaseController
     {
         $decodedDraft = base64_decode($draft);
         $policy = PolicyDraft::findOne($decodedDraft);
-    
+
         // if (!$policy) {
         //     Yii::$app->session->setFlash('error', 'Policy draft not found.');
         // }
-    
+
         $model = new \yii\base\DynamicModel(['file']);
-        
-        if ($id !== null) { 
-       
+
+        if ($id !== null) {
+
             $id = base64_decode($id);
             $passengerdraft = PolicyDraftPassengers::findOne($id);
-    
+
             // if (!$passengerdraft) {
             //     Yii::$app->session->setFlash('error', 'Passenger draft not found.');
             //     return $this->redirect(['review', 'draft' => base64_encode($policy->id)]);
             // }
-    
+
             $model->addRule(['file'], 'required');
-    
+
             if ($model->load(Yii::$app->request->post())) {
                 $file = UploadedFile::getInstance($model, 'file');
                 if ($file) {
                     $fileName = time() . '_' . $file->baseName . '.' . $file->extension;
                     $path = Yii::getAlias('@webroot/uploads/') . $fileName;
-    
+
                     if ($file->saveAs($path)) {
-               
+
                         $post = [
                             'file_base64' => base64_encode(file_get_contents($path)),
                             'apikey' => 'pS2xHPtEAwqbspQBxFBYKpFIO54pqwNg',
@@ -1442,28 +1442,31 @@ class AsuranceController extends BaseController
                             'verify_expiry' => true,
                             'type' => "IPD"
                         ];
-    
+
                         $ch = curl_init();
                         curl_setopt($ch, CURLOPT_URL, 'https://api.idanalyzer.com');
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
                         $response = curl_exec($ch);
                         curl_close($ch);
-    
+
                         $json_request = json_decode($response, true);
-    
+
                         if (isset($json_request['error'])) {
                             Yii::$app->session->setFlash('error', 'Error processing the file.');
                         } elseif ($json_request['verification']['passed']) {
-            
-                            $passengerdraft->delete();
-    
-                
+
+                            if ($passengerdraft !== null) {
+                                
+                                $passengerdraft->delete();
+                                 dd("shatha");
+                            }
+
                             $dob = $json_request['result']['dob'] ?? "null";
                             $dobDate = new \DateTime($dob);
                             $now = new \DateTime();
                             $age = $now->diff($dobDate)->y;
-    
+
                             $passenger = new PolicyDraftPassengers();
                             $passenger->draft_id = $policy->id;
                             $passenger->id_number = $json_request['result']['documentNumber'] ?? "null";
@@ -1479,7 +1482,7 @@ class AsuranceController extends BaseController
                             $passenger->warning = isset($json_request['authentication']['warning']) ? implode(',', $json_request['authentication']['warning']) : "null";
                             $passenger->document_link = '/uploads/' . $fileName;
                             $passenger->save();
-    
+
                             Yii::$app->session->setFlash('success', 'Document has been updated successfully.');
                             return $this->render('/insurance/review', [
                                 'policy' => $policy,
@@ -1497,13 +1500,13 @@ class AsuranceController extends BaseController
                 }
             }
         }
-    
+
         return $this->render('/insurance/review', [
             'policy' => $policy,
             'model' => $model,
         ]);
     }
-    
+
 
 
     public function actionCheck()
@@ -2322,7 +2325,7 @@ class AsuranceController extends BaseController
 
         $interval = $departureDate->diff($returnDate);
 
-        $days = $interval->days+1;
+        $days = $interval->days + 1;
         $dob = new DateTime($passenger->dob);
         $now = new DateTime();
         $age = $now->diff($dob)->y;
