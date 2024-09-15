@@ -310,16 +310,25 @@ class AsuranceController extends BaseController
                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
                     ->all();
-            } else {
-                // dd("shatha");
+            } elseif($model->to_country === 'AE') {
+          
                 $plans = Plans::find()
                     ->where(['insurance_id' => $model->type])
                     ->andWhere(['source_id' => $id])
-                    ->andWhere(['not like', 'plan_code', 'USCA']) 
+                    ->andWhere(['like', 'plan_code', 'A2A']) 
                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
                     ->all();
-                    // dd(    $plans );
+                 
+            }else{
+                $plans = Plans::find()
+                ->where(['insurance_id' => $model->type])
+                ->andWhere(['source_id' => $id])
+                ->andWhere(['not like', 'plan_code', 'USCA']) 
+                ->andWhere(['between', 'min_age', $minAge, $maxAge])
+                ->andWhere(['between', 'max_age', $minAge, $maxAge])
+                ->all();
+
             }
             
      
