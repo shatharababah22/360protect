@@ -390,7 +390,8 @@ AppAsset::register($this);
                                 <ul class="list-unstyled mb-0 py-3 py-lg-0 px-0">
                                         <?php foreach (\common\models\Insurances::find()->limit(6)->all() as $insurance) : ?>
                                             <li class="mb-2">
-                                                <?= Html::a(Yii::t('app',  ucwords(strtolower($language === 'ar' ?$insurance->name_ar:$insurance->name))), ['/insurance/programs', 'slug' => $insurance->slug], ['class' => 'text-decoration-none', 'style' => 'color:#64748B;']) ?>
+                                                <?= Html::a(Yii::t('app',  ucwords(strtolower($language === 'ar' ?$insurance->name_ar:$insurance->name))), ['/insurance/programs', 'slug' => $insurance->slug],
+                                                 ['class' => 'text-decoration-none', 'style' => 'color:#64748B;']) ?>
 
                                             </li>
                                         <?php endforeach; ?>
@@ -430,7 +431,7 @@ $countries = $language === 'ar'
  
  
  <?php foreach ($countries as $country) : ?>
-        <li>
+    <li class="mb-2">
             <?php
          
             $countryName = $language === 'ar' 
@@ -440,7 +441,7 @@ $countries = $language === 'ar'
                  echo Html::a(
                 Yii::t('app', ucwords(strtolower($countryName))),
                 ['/site/index', 'slug' => $country->slug],
-                ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']
+                ['class' => 'text-decoration-none', 'style' => 'color:#64748B;']
             );
             ?>
         </li>
