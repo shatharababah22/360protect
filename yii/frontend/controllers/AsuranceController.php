@@ -737,235 +737,22 @@ class AsuranceController extends BaseController
     // }
 
 
-    // public function actionPassengers($draft, $passengers = null)
-    // {
-
-
-
-
-  
-    //     $decodedDraft = base64_decode($draft);
-    //     $policy = PolicyDraft::findOne($decodedDraft);
-    //     $policy->setScenario('update');
-
-    //     $attr = [];
-    //     $labels = [];
- 
-    //     if ($policy->adult != null) {
-    //         for ($i = 1; $i <= $policy->adult; $i++) {
-    //             $name = 'Adult' . ($i);
-    //             $attr[] = $name;
-    //             $labels[$name] = ucwords(Yii::t('app', "Adult Passport (#" . ($i) . ")"));
-    //         }
-    //     }
-    //     if ($policy->children != null) {
-    //         for ($i = 1; $i <= $policy->children; $i++) {
-    //             $name = 'Child' . ($i);
-    //             $attr[] = $name;
-    //             $labels[$name] = ucwords(Yii::t('app', "Child Passport (#" . ($i) . ")"));
-    //         }
-    //     }
-    //     if ($policy->infant != null) {
-    //         for ($i = 1; $i <= $policy->infant; $i++) {
-    //             $name = 'Infant' . ($i);
-    //             $attr[] = $name;
-    //             $labels[$name] = ucwords(Yii::t('app', "Infant Passport (#" . ($i) . ")"));
-    //         }
-    //     }
-
-    //     $model = new \yii\base\DynamicModel($attr);
-    //     $model->setAttributeLabels($labels);
-    //     $model->addRule($attr, 'required');
-    //     $savedFiles = [];
-
-    //     if ($model->load(Yii::$app->request->post()) && $policy->load(Yii::$app->request->post())) {
-    //         $policy->save();
-    //         $allFilesProcessed = true;
-    //         $errorMessages = [];
-    //         $successfulRecords = [];
-
-    //         foreach ($attr as $item) {
-    //             $files = UploadedFile::getInstances($model, $item);
-
-    //             foreach ($files as $file) {
-    //                 if ($file !== null) {
-    //                     $fileName = $file->baseName . '.' . time() . $file->extension;
-    //                     $path = Yii::getAlias('@webroot/uploads/') . $fileName;
-
-    //                     if ($file->saveAs($path)) {
-    //                         $post = [
-    //                             'file_base64' => base64_encode(file_get_contents($path)),
-    //                             'apikey' => 'pS2xHPtEAwqbspQBxFBYKpFIO54pqwNg',
-    //                             'authenticate' => true,
-    //                             'authenticate_module' => 2,
-    //                             'verify_expiry' => true,
-    //                             'type' => "IPD"
-    //                         ];
-
-    //                         $ch = curl_init();
-    //                         curl_setopt($ch, CURLOPT_URL, 'https://api.idanalyzer.com');
-    //                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //                         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-    //                         $response = curl_exec($ch);
-    //                         curl_close($ch);
-
-    //                         //    dd(     $response );
-    //                         $json_request = json_decode($response, true);
-    //                         // dd(     $response );
-    //                         if (isset($json_request['error'])) {
-    //                             $errorMessages[$item][] = $json_request['error']['message'] . ' (File: ' . $fileName . ')';
-    //                             $allFilesProcessed = false;
-    //                             continue;
-    //                         } elseif ($json_request['verification']['passed']) {
-    //                             $dob = $json_request['result']['dob'] ?? "null";
-    //                             $dobDate = new DateTime($dob);
-    //                             $now = new DateTime();
-    //                             $age = $now->diff($dobDate)->y;
-
-    //                             if ((strpos($item, 'Adult') !== false && $age < 18) ||
-    //                                 (strpos($item, 'Child') !== false && $age >= 18)
-    //                             ) {
-    //                                 $errorMessages[$item][] = 'The uploaded document does not match the passenger type. Age: ' . $age . '. The document was uploaded for: ' . $item . '. Please ensure that the document is appropriate for the passenger\'s age group (Adult, Child, or Infant).';
-    //                                 $allFilesProcessed = false;
-    //                                 continue;
-    //                             }
-
-    //                             $existingRecord = PolicyDraftPassengers::find()
-    //                                 ->where(['draft_id' => $policy->id])
-    //                                 ->andWhere([
-    //                                     'first_name' => $json_request['result']['firstName'] ?? "null",
-    //                                     'middle_name' => $json_request['result']['middleName'] ?? "null",
-    //                                     'last_name' => $json_request['result']['lastName'] ?? "null"
-    //                                 ])
-    //                                 ->one();
-
-    //                             if ($existingRecord === null) {
-
-    //                                 if (strpos($item, 'Adult') !== false && $policy->adult > 0) {
-    //                                     $policy->adult--;
-    //                                 } elseif (strpos($item, 'Child') !== false && $policy->children > 0) {
-    //                                     $policy->children--;
-    //                                 } elseif (strpos($item, 'Infant') !== false && $policy->infant > 0) {
-    //                                     $policy->infant--;
-    //                                 }
-    //                                 $policy->save();
-    //                                 $PolicyDraftPassengers = new PolicyDraftPassengers();
-    //                                 $PolicyDraftPassengers->draft_id = $policy->id;
-    //                                 $PolicyDraftPassengers->id_number = $json_request['result']['documentNumber'] ?? "null";
-    //                                 $PolicyDraftPassengers->first_name = $json_request['result']['firstName'] ?? "null";
-    //                                 $PolicyDraftPassengers->middle_name = $json_request['result']['middleName'] ?? "null";
-    //                                 $PolicyDraftPassengers->last_name = $json_request['result']['lastName'] ?? "null";
-    //                                 $PolicyDraftPassengers->dob = $dob;
-    //                                 $PolicyDraftPassengers->id_type = $json_request['result']['documentType'] ?? "null";
-    //                                 $PolicyDraftPassengers->country = $json_request['result']['issuerOrg_iso2'] ?? "null";
-    //                                 $PolicyDraftPassengers->nationality = $json_request['result']['nationality_iso2'] ?? "null";
-    //                                 $PolicyDraftPassengers->gender = ($json_request['result']['sex'] ?? "null") === 'M' ? 'Male' : 'Female';
-    //                                 $PolicyDraftPassengers->id_type = ($json_request['result']['documentType'] ?? "null") === 'P' ? 'Passport' : $PolicyDraftPassengers->id_type;
-    //                                 $PolicyDraftPassengers->warning = isset($json_request['authentication']['warning']) ? implode(',', $json_request['authentication']['warning']) : "null";
-    //                                 $PolicyDraftPassengers->document_link = '/uploads/' . $fileName;
-    //                                 $PolicyDraftPassengers->save();
-
-
-
-    //                                 $savedFiles[] = $PolicyDraftPassengers;
-    //                             } else {
-    //                                 $errorMessages[$item][] = 'A document for this person already exists. You cannot upload another document for the same person. Please try with a different person or document.';
-    //                                 $allFilesProcessed = false;
-    //                                 continue;
-    //                             }
-    //                         } else {
-    //                             $errorMessages[$item][] = join(" and ", $json_request['authentication']['warning']);
-    //                             $allFilesProcessed = false;
-    //                             continue;
-    //                         }
-    //                     } else {
-    //                         $errorMessages[$item][] = 'Failed to save file: ' . $file->name;
-    //                         $allFilesProcessed = false;
-    //                         continue;
-    //                     }
-    //                 }
-    //             }
-    //         }
-
-    //         if ($allFilesProcessed || !empty($passengers)) {
-
-    //             return $this->redirect(['review', 'draft' => base64_encode($policy->id), 'passengers' =>  base64_encode($passengers)]);
-    //         }
-
-
-    //         if (!empty($errorMessages)) {
-    //             $errorMessage = '';
-    //             foreach ($errorMessages as $item => $messages) {
-    //                 $label = isset($labels[$item]) ? $labels[$item] : $item;
-    //                 $errorMessage .= 'Errors for ' . $label . ':<br>' . implode('<br>', $messages) . '<br><br>';
-    //             }
-    //             Yii::$app->session->setFlash('warning', $errorMessage);
-    //         }
-    //     }
-    
-    //     if ($policy->adult != null) {
-    //         $attr = [];
-    //         $labels = [];
-
-    //         for ($i = 1; $i <= $policy->adult; $i++) {
-    //             $name = 'Adult' . ($i);
-    //             $attr[] = $name;
-    //             $labels[$name] = ucwords(Yii::t('app', "Adult Passport (#" . ($i) . ")"));
-    //         }
-    //     }
-
-    //     if ($policy->children != null) {
-    //         for ($i = 1; $i <= $policy->children; $i++) {
-    //             $name = 'Child' . ($i);
-    //             $attr[] = $name;
-    //             $labels[$name] = ucwords(Yii::t('app', "Child Passport (#" . ($i) . ")"));
-    //         }
-    //     }
-
-    //     if ($policy->infant != null) {
-    //         for ($i = 1; $i <= $policy->infant; $i++) {
-    //             $name = 'Infant' . ($i);
-    //             $attr[] = $name;
-    //             $labels[$name] = ucwords(Yii::t('app', "Infant Passport (#" . ($i) . ")"));
-    //         }
-    //     }
-
-
-    //     $model = new \yii\base\DynamicModel($attr);
-    //     $model->setAttributeLabels($labels);
-    //     $model->addRule($attr, 'required');
-
-
-    //     $savedFiles = PolicyDraftPassengers::find()
-    //         ->where(['draft_id' => $policy->id])
-    //         ->all();
-
-    //         if( $savedFiles ->count() ==($policy->adult+$policy->infant) || $policy->children){
-    //             return $this->redirect(['review', 'draft' => base64_encode($policy->id), 'passengers' =>  base64_encode($passengers)]);
-
-    //         }
-    //     $fromCountryName = $this->getCountryName($policy->DepartCountryCode);
-    //     $toCountryName = $this->getCountryName($policy->ArrivalCountryCode);
-
-    //     return $this->render('/insurance/passengers', [
-    //         'model' => $model,
-    //         'policy' => $policy,
-    //         'savedFiles' => $savedFiles,
-    //         'fromCountryName' => $fromCountryName,
-    //         'toCountryName' => $toCountryName
-    //     ]);
-    // }
-
     public function actionPassengers($draft, $passengers = null)
     {
+
+
+
+
+        // if ($language !== null) {
+        //     Yii::$app->language = $language;
+        // }
         $decodedDraft = base64_decode($draft);
         $policy = PolicyDraft::findOne($decodedDraft);
         $policy->setScenario('update');
-    
+
         $attr = [];
         $labels = [];
-    
-        // Set up the attributes and labels for adults, children, and infants
+        // dd($policy->adult );
         if ($policy->adult != null) {
             for ($i = 1; $i <= $policy->adult; $i++) {
                 $name = 'Adult' . ($i);
@@ -987,27 +774,27 @@ class AsuranceController extends BaseController
                 $labels[$name] = ucwords(Yii::t('app', "Infant Passport (#" . ($i) . ")"));
             }
         }
-    
+
         $model = new \yii\base\DynamicModel($attr);
         $model->setAttributeLabels($labels);
         $model->addRule($attr, 'required');
         $savedFiles = [];
-    
+
         if ($model->load(Yii::$app->request->post()) && $policy->load(Yii::$app->request->post())) {
             $policy->save();
             $allFilesProcessed = true;
             $errorMessages = [];
-    
+            $successfulRecords = [];
+
             foreach ($attr as $item) {
                 $files = UploadedFile::getInstances($model, $item);
-    
+
                 foreach ($files as $file) {
                     if ($file !== null) {
                         $fileName = $file->baseName . '.' . time() . $file->extension;
                         $path = Yii::getAlias('@webroot/uploads/') . $fileName;
-    
+
                         if ($file->saveAs($path)) {
-                            // Process the file and perform ID Analyzer API call
                             $post = [
                                 'file_base64' => base64_encode(file_get_contents($path)),
                                 'apikey' => 'pS2xHPtEAwqbspQBxFBYKpFIO54pqwNg',
@@ -1016,15 +803,17 @@ class AsuranceController extends BaseController
                                 'verify_expiry' => true,
                                 'type' => "IPD"
                             ];
-    
+
                             $ch = curl_init();
                             curl_setopt($ch, CURLOPT_URL, 'https://api.idanalyzer.com');
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
                             $response = curl_exec($ch);
                             curl_close($ch);
-    
+
+                            //    dd(     $response );
                             $json_request = json_decode($response, true);
+                            // dd(     $response );
                             if (isset($json_request['error'])) {
                                 $errorMessages[$item][] = $json_request['error']['message'] . ' (File: ' . $fileName . ')';
                                 $allFilesProcessed = false;
@@ -1034,7 +823,7 @@ class AsuranceController extends BaseController
                                 $dobDate = new DateTime($dob);
                                 $now = new DateTime();
                                 $age = $now->diff($dobDate)->y;
-    
+
                                 if ((strpos($item, 'Adult') !== false && $age < 18) ||
                                     (strpos($item, 'Child') !== false && $age >= 18)
                                 ) {
@@ -1042,7 +831,7 @@ class AsuranceController extends BaseController
                                     $allFilesProcessed = false;
                                     continue;
                                 }
-    
+
                                 $existingRecord = PolicyDraftPassengers::find()
                                     ->where(['draft_id' => $policy->id])
                                     ->andWhere([
@@ -1051,9 +840,20 @@ class AsuranceController extends BaseController
                                         'last_name' => $json_request['result']['lastName'] ?? "null"
                                     ])
                                     ->one();
-    
+
                                 if ($existingRecord === null) {
-                                    // Update the policy passenger counts
+
+                                    // $policy->adult != 0 ? $policy->adult-- : $policy->adult;
+                                    // $policy->children != 0 ? $policy->children-- : $policy->children;
+
+                                    // if ($policy->adult != 0) {
+                                    //     $policy->adult--;
+
+                                    //     $attr = array_filter($attr, function($item) use ($policy) {
+                                    //         return strpos($item, 'Adult') === false || $item !== 'Adult' . ($policy->adult + 1);
+                                    //     });
+                                    // }
+
                                     if (strpos($item, 'Adult') !== false && $policy->adult > 0) {
                                         $policy->adult--;
                                     } elseif (strpos($item, 'Child') !== false && $policy->children > 0) {
@@ -1062,8 +862,6 @@ class AsuranceController extends BaseController
                                         $policy->infant--;
                                     }
                                     $policy->save();
-                                    
-                                    // Save the passenger record
                                     $PolicyDraftPassengers = new PolicyDraftPassengers();
                                     $PolicyDraftPassengers->draft_id = $policy->id;
                                     $PolicyDraftPassengers->id_number = $json_request['result']['documentNumber'] ?? "null";
@@ -1079,7 +877,9 @@ class AsuranceController extends BaseController
                                     $PolicyDraftPassengers->warning = isset($json_request['authentication']['warning']) ? implode(',', $json_request['authentication']['warning']) : "null";
                                     $PolicyDraftPassengers->document_link = '/uploads/' . $fileName;
                                     $PolicyDraftPassengers->save();
-    
+
+
+
                                     $savedFiles[] = $PolicyDraftPassengers;
                                 } else {
                                     $errorMessages[$item][] = 'A document for this person already exists. You cannot upload another document for the same person. Please try with a different person or document.';
@@ -1098,42 +898,78 @@ class AsuranceController extends BaseController
                         }
                     }
                 }
-    
-                if ($allFilesProcessed || count($savedFiles) == ($policy->AdultCount + $policy->ChildrenCount + $policy->InfantCount)) {
-                    return $this->redirect(['review', 'draft' => base64_encode($policy->id), 'passengers' => base64_encode($passengers)]);
-                }
-    
-                if (!empty($errorMessages)) {
-                    $errorMessage = '';
-                    foreach ($errorMessages as $item => $messages) {
-                        $label = isset($labels[$item]) ? $labels[$item] : $item;
-                        $errorMessage .= 'Errors for ' . $label . ':<br>' . implode('<br>', $messages) . '<br><br>';
-                    }
-                    Yii::$app->session->setFlash('warning', $errorMessage);
-                }
             }
-    
-            $savedFiles = PolicyDraftPassengers::find()
-                ->where(['draft_id' => $policy->id])
-                ->all();
-    
-            if (count($savedFiles) == ($policy->adult + $policy->children + $policy->infant)) {
+
+            if ($allFilesProcessed || !empty($passengers)) {
+
+                return $this->redirect(['review', 'draft' => base64_encode($policy->id), 'passengers' =>  base64_encode($passengers)]);
+            }
+
+
+            if (!empty($errorMessages)) {
+                $errorMessage = '';
+                foreach ($errorMessages as $item => $messages) {
+                    $label = isset($labels[$item]) ? $labels[$item] : $item;
+                    $errorMessage .= 'Errors for ' . $label . ':<br>' . implode('<br>', $messages) . '<br><br>';
+                }
+                Yii::$app->session->setFlash('warning', $errorMessage);
+            }
+        }
+        // dd($attr);
+      if (count($savedFiles) == ($policy->AdultCount + $policy->ChildrenCount + $policy->InfantCount)) {
                 return $this->redirect(['review', 'draft' => base64_encode($policy->id), 'passengers' => base64_encode($passengers)]);
             }
     
-            $fromCountryName = $this->getCountryName($policy->DepartCountryCode);
-            $toCountryName = $this->getCountryName($policy->ArrivalCountryCode);
-    
-            return $this->render('/insurance/passengers', [
-                'model' => $model,
-                'policy' => $policy,
-                'savedFiles' => $savedFiles,
-                'fromCountryName' => $fromCountryName,
-                'toCountryName' => $toCountryName,
-            ]);
+
+        if ($policy->adult != null) {
+            $attr = [];
+            $labels = [];
+
+            for ($i = 1; $i <= $policy->adult; $i++) {
+                $name = 'Adult' . ($i);
+                $attr[] = $name;
+                $labels[$name] = ucwords(Yii::t('app', "Adult Passport (#" . ($i) . ")"));
+            }
         }
+
+        if ($policy->children != null) {
+            for ($i = 1; $i <= $policy->children; $i++) {
+                $name = 'Child' . ($i);
+                $attr[] = $name;
+                $labels[$name] = ucwords(Yii::t('app', "Child Passport (#" . ($i) . ")"));
+            }
+        }
+
+        if ($policy->infant != null) {
+            for ($i = 1; $i <= $policy->infant; $i++) {
+                $name = 'Infant' . ($i);
+                $attr[] = $name;
+                $labels[$name] = ucwords(Yii::t('app', "Infant Passport (#" . ($i) . ")"));
+            }
+        }
+
+
+        $model = new \yii\base\DynamicModel($attr);
+        $model->setAttributeLabels($labels);
+        $model->addRule($attr, 'required');
+
+
+        $savedFiles = PolicyDraftPassengers::find()
+            ->where(['draft_id' => $policy->id])
+            ->all();
+        $fromCountryName = $this->getCountryName($policy->DepartCountryCode);
+        $toCountryName = $this->getCountryName($policy->ArrivalCountryCode);
+
+        return $this->render('/insurance/passengers', [
+            'model' => $model,
+            'policy' => $policy,
+            'savedFiles' => $savedFiles,
+            'fromCountryName' => $fromCountryName,
+            'toCountryName' => $toCountryName
+        ]);
     }
-    
+
+
 
     // public function actionPassengers($draft, $passengers = null)
     // {
