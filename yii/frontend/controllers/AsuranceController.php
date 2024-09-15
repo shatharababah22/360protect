@@ -1459,7 +1459,7 @@ class AsuranceController extends BaseController
                             if ($passengerdraft !== null) {
                                 
                                 $passengerdraft->delete();
-                                 dd("shatha");
+                             
                             }
 
                             $dob = $json_request['result']['dob'] ?? "null";
