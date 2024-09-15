@@ -311,6 +311,7 @@ class AsuranceController extends BaseController
                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
                     ->all();
             } else {
+                // dd("shatha");
                 $plans = Plans::find()
                     ->where(['insurance_id' => $model->type])
                     ->andWhere(['source_id' => $id])
@@ -318,6 +319,7 @@ class AsuranceController extends BaseController
                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
                     ->all();
+                    // dd(    $plans );
             }
             
      
@@ -2491,7 +2493,7 @@ class AsuranceController extends BaseController
         $customer = Customers::findOne(['mobile' => $policyDraft->mobile]);
         if (!$customer) {
             $customer = new Customers();
-            $customer->email = $policyDraft->name;
+            $customer->name = $policyDraft->name;
             $customer->email = $policyDraft->email;
             $customer->mobile = $policyDraft->mobile;
 
