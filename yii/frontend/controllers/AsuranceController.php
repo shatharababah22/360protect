@@ -85,6 +85,7 @@ class AsuranceController extends BaseController
         }
 
         // dd( $data);
+        // US or CA 
         // dd($data);
         // $fromCountryName = $this->getCountryName($model->from_country);
         // // dd(   $fromCountryName[name_en] );
@@ -294,19 +295,32 @@ class AsuranceController extends BaseController
 
         $selectedPaxType = $model->pax_type;
         // dd(   $paxTypeRanges);
+
+   
         if (isset($paxTypeRanges[$selectedPaxType])) {
             // dd("shatha");
             $range = $paxTypeRanges[$selectedPaxType];
             $minAge = $range['min_age'];
             $maxAge = $range['max_age'];
-
-
-            $plans = Plans::find()
-                ->where(['insurance_id' => $model->type])
-                ->andWhere(['source_id' => $id])
-                ->andWhere(['between', 'min_age', $minAge, $maxAge])
-                ->andWhere(['between', 'max_age', $minAge, $maxAge])
-                ->all();
+            if ($model->to_country === 'US' || $model->to_country === 'CA') {
+                $plans = Plans::find()
+                    ->where(['insurance_id' => $model->type])
+                    ->andWhere(['source_id' => $id])
+                    ->andWhere(['like', 'plan_code', 'USCA']) 
+                    ->andWhere(['between', 'min_age', $minAge, $maxAge])
+                    ->andWhere(['between', 'max_age', $minAge, $maxAge])
+                    ->all();
+            } else {
+                $plans = Plans::find()
+                    ->where(['insurance_id' => $model->type])
+                    ->andWhere(['source_id' => $id])
+                    ->andWhere(['not like', 'plan_code', 'USCA']) 
+                    ->andWhere(['between', 'min_age', $minAge, $maxAge])
+                    ->andWhere(['between', 'max_age', $minAge, $maxAge])
+                    ->all();
+            }
+            
+     
 
             // dd($id,$model->type);
 
