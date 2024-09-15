@@ -37,7 +37,7 @@ return [
         ],
         'reCaptcha' => [
             'class' => 'himiklab\yii2\recaptcha\ReCaptchaConfig',
-            'siteKey' => '6LfutA8qAAAAAEbLnOcFLoc_K_sxlTxwTfoEr1Yp',
+            'siteKey' => '6LfQb0QqAAAAAMJY2zbsTnjoxEzTmlkG7CW7WbE6',
             'secretV3' => '6LfutA8qAAAAAE-Vh475F2Jf60KM8Wgrkqtmu-z9',
         ],
         'user' => [

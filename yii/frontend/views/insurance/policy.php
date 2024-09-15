@@ -82,7 +82,7 @@ $this->title = 'Check Policy';
                                         [
                                             'class' => 'btn btn-primary p-2 g-recaptcha',
                                             'style' => 'width: 150px',
-                                            'data-sitekey' => '6LfeOw8qAAAAAAMfV9GShxK0ZwZEnw-JWIMgnyR5',
+                                            'data-sitekey' => '6LfQb0QqAAAAAMJY2zbsTnjoxEzTmlkG7CW7WbE6',
                                             'data-callback' => 'onSubmit',
                                             'data-action' => 'submit',
                                         ]
@@ -93,7 +93,7 @@ $this->title = 'Check Policy';
                             <div class="col-sm-10">
                                 <?= $form->field($model, 'reCaptcha')->widget(
                                     \himiklab\yii2\recaptcha\ReCaptcha3::class,
-                                    ['siteKey' => '6LfeOw8qAAAAAAMfV9GShxK0ZwZEnw-JWIMgnyR5']
+                                    ['siteKey' => '6LfQb0QqAAAAAMJY2zbsTnjoxEzTmlkG7CW7WbE6']
                                 )->label(false) ?>
                             </div>
 
