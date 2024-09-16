@@ -6,7 +6,7 @@ use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var common\models\Countries $model */
 
-$this->title = 'Update Country: ' . $model->country;
+$this->title = 'Update Country: ' . $model->name_en;
 $this->params['breadcrumbs'][] = ['label' => 'Countries', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

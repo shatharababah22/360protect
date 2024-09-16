@@ -21,7 +21,7 @@ use yii\bootstrap5\ActiveForm;
 
     <div class="row mb-2">
         <div class="col-sm-6">
-            <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-sm-6">
             <?= $form->field($model, 'active')->dropDownList(
@@ -36,21 +36,14 @@ use yii\bootstrap5\ActiveForm;
 
     <div class="row mb-2">
         <div class="col-sm-6">
-            <?= $form->field($model, 'callCode')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'call_key')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-sm-6">
             <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
 
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <?= $form->field($model, 'currency')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-sm-6">
-            <?= $form->field($model, 'zone')->textInput(['maxlength' => true]) ?>
-        </div>
-    </div>
+
     <div class="form-group d-flex justify-content-end ">
         <?= Html::submitButton('Save', ['class' => 'btn btn-primary save-button']) ?>
 

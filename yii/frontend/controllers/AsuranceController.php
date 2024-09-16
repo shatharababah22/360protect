@@ -188,7 +188,7 @@ class AsuranceController extends BaseController
         }
 
         $defaultCountry = 'united arab emirates';
-
+        $shatha = 0;
         $id = null;
 
         function findCountryByPartialName($countries, $partialName)
@@ -202,24 +202,97 @@ class AsuranceController extends BaseController
         }
 
 
-        $fromCountryNameKey = strtolower($fromCountryNameEn);
-        if (isset($countryLookup[$fromCountryNameKey])) {
-            $id = $countryLookup[$fromCountryNameKey]['id'];
-            $model->source = $countryLookup[$fromCountryNameKey]['source_country'];
-        } else {
-            $id = findCountryByPartialName($sourceCountries, 'emirate');
 
-            if ($id === null && isset($countryLookup[strtolower($defaultCountry)])) {
-                $id = $countryLookup[strtolower($defaultCountry)]['id'];
-                $model->source = $countryLookup[strtolower($defaultCountry)]['source_country'];
-            }
-        }
+        $paxTypeRanges = [
+            '76-85' => ['min_age' => 76, 'max_age' => 85],
+            '19-75' => ['min_age' => 19, 'max_age' => 75],
+            '2-18' => ['min_age' => 2, 'max_age' => 18],
+        ];
 
+        $selectedPaxType = $model->pax_type;
+        // dd(   $paxTypeRanges);
 
 
         // dd(     $id );
         // dd(   $id );
+        function getPlans($insuranceId, $sourceId, $planCodeLike, $planCodeNotLike, $minAge, $maxAge) {
+            $plans = Plans::find()
+                ->where(['insurance_id' => $insuranceId])
+                ->andWhere(['source_id' => $sourceId])
+                ->andWhere(['between', 'min_age', $minAge, $maxAge])
+                ->andWhere(['between', 'max_age', $minAge, $maxAge]);
+            
+            if ($planCodeLike) {
+                $plans->andWhere(['like', 'plan_code', $planCodeLike]);
+            }
+            
+            if ($planCodeNotLike) {
+                $plans->andWhere(['not like', 'plan_code', $planCodeNotLike]);
+            }
+            
+            return $plans->all();
+        }
+        
+        $plans = []; 
+        
+        if (isset($paxTypeRanges[$selectedPaxType])) {
+            $range = $paxTypeRanges[$selectedPaxType];
+            $minAge = $range['min_age'];
+            $maxAge = $range['max_age'];
+            $fromCountryNameKey = strtolower($fromCountryNameEn);
+            $id = null;
+        
+            if (isset($countryLookup[$fromCountryNameKey]) && $countryLookup[$fromCountryNameKey]['source_country'] !== 'United Arab Emirates') {
+                $id = $countryLookup[$fromCountryNameKey]['id'];
+                $model->source = $countryLookup[$fromCountryNameKey]['source_country'];
 
+                if ($model->to_country === 'US' || $model->to_country === 'CA') {
+               
+                        $plans = getPlans($model->type, $id, 'USCA',  null, $minAge, $maxAge);
+                 
+                } else {
+                    // dd("shatha");
+                        $plans = getPlans($model->type, $id, null, 'USCA', $minAge, $maxAge);
+                  
+                }
+
+
+            } else {
+                $id = findCountryByPartialName($sourceCountries, 'emirates');
+                if ($id && isset($countryLookup[strtolower($defaultCountry)]) && strpos(strtolower($countryLookup[strtolower($defaultCountry)]['source_country']), 'emirates') !== false) {
+                    $id = $countryLookup[strtolower($defaultCountry)]['id'];
+                    $model->source = $countryLookup[strtolower($defaultCountry)]['source_country'];
+                }
+
+                if ($id !== null) {
+                    if ($model->to_country === 'US' || $model->to_country === 'CA') {
+                        if ($model->from_country === 'AE') {
+                     
+                            $plans = getPlans($model->type, $id, 'USCA', 'A2A', $minAge, $maxAge);
+                        } else {
+                        //    dd("shatha");
+                            $plans = getPlans($model->type, $id,  ['USCA', 'A2A'], null, $minAge, $maxAge);
+                        }
+                    } else {
+                        if ($model->from_country === 'AE') {
+                          
+                            $plans = getPlans($model->type, $id, null, ['USCA', 'A2A'], $minAge, $maxAge);
+                        } else {
+                         
+                            $plans = getPlans($model->type, $id, 'A2A', 'USCA', $minAge, $maxAge);
+                        }
+                    }
+                }
+
+
+            }
+        
+           
+        
+         
+            // dd( $model->source);
+        }
+     
         if ($model->load(Yii::$app->request->post())) {
             // dd($model->type);
             $passengers = $model->adult + $model->children + $model->adult_senior;
@@ -227,16 +300,9 @@ class AsuranceController extends BaseController
                 ->where(['plan_id' => $model->plan])
                 ->andWhere(['duration' => $model->duration])
                 ->one();
-            // dd( $pricing);
+     
             $price = $pricing->discount_price  && $pricing->status == 1  ? $pricing->discount_price : $pricing->price;
 
-            // dd($price);
-            // if (!$price) {
-
-            //     Yii::$app->session->setFlash('error', 'No pricing found for selected plan and duration.');
-            //     return $this->refresh(); 
-            // }
-            // dd($model->from_country);
 
             $draft = new PolicyDraft();
             $draft->insurance_id = $model->type;
@@ -272,7 +338,7 @@ class AsuranceController extends BaseController
             if ($draft->save()) {
 
 
-                // dd($draft);
+                // dd(    $draft->source);
                 return $this->redirect(['passengers', 'draft' => base64_encode($draft->id)]);
             } else {
                 var_dump($draft->errors);
@@ -287,73 +353,187 @@ class AsuranceController extends BaseController
 
 
 
-        $paxTypeRanges = [
-            '76-85' => ['min_age' => 76, 'max_age' => 85],
-            '19-75' => ['min_age' => 19, 'max_age' => 75],
-            '2-18' => ['min_age' => 2, 'max_age' => 18],
-        ];
 
-        $selectedPaxType = $model->pax_type;
-        // dd(   $paxTypeRanges);
 
-   
-        if (isset($paxTypeRanges[$selectedPaxType])) {
-            // dd("shatha");
-            $range = $paxTypeRanges[$selectedPaxType];
-            $minAge = $range['min_age'];
-            $maxAge = $range['max_age'];
-            if ($model->to_country === 'US' || $model->to_country === 'CA') {
-                $plans = Plans::find()
-                    ->where(['insurance_id' => $model->type])
-                    ->andWhere(['source_id' => $id])
-                    ->andWhere(['like', 'plan_code', 'USCA']) 
-                    ->andWhere(['between', 'min_age', $minAge, $maxAge])
-                    ->andWhere(['between', 'max_age', $minAge, $maxAge])
-                    ->all();
-            } elseif($model->to_country === 'AE') {
-          
-                $plans = Plans::find()
-                    ->where(['insurance_id' => $model->type])
-                    ->andWhere(['source_id' => $id])
-                    ->andWhere(['like', 'plan_code', 'A2A']) 
-                    ->andWhere(['between', 'min_age', $minAge, $maxAge])
-                    ->andWhere(['between', 'max_age', $minAge, $maxAge])
-                    ->all();
+
+        // if (isset($paxTypeRanges[$selectedPaxType])) {
+
+        //     $range = $paxTypeRanges[$selectedPaxType];
+        //     $minAge = $range['min_age'];
+        //     $maxAge = $range['max_age'];
+
+
+
+        //     $fromCountryNameKey = strtolower($fromCountryNameEn);
+        //     if (isset($countryLookup[$fromCountryNameKey]) && $countryLookup[$fromCountryNameKey]['source_country'] !== 'United Arab Emirates') {
+         
+        //         $id = $countryLookup[$fromCountryNameKey]['id'];
+        //         $model->source = $countryLookup[$fromCountryNameKey]['source_country'];
+
+        //         if ($model->to_country === 'US' || $model->to_country === 'CA') {
+        //             $plans = Plans::find()
+        //                 ->where(['insurance_id' => $model->type])
+        //                 ->andWhere(['source_id' => $id])
+        //                 ->andWhere(['like', 'plan_code', 'USCA'])
+        //                 ->andWhere(['between', 'min_age', $minAge, $maxAge])
+        //                 ->andWhere(['between', 'max_age', $minAge, $maxAge])
+        //                 ->all();
+        //         } else {
+                  
+        //             $plans = Plans::find()
+        //                 ->where(['insurance_id' => $model->type])
+        //                 ->andWhere(['source_id' => $id])
+        //                 ->andWhere(['not like', 'plan_code', 'USCA'])
+        //                 ->andWhere(['between', 'min_age', $minAge, $maxAge])
+        //                 ->andWhere(['between', 'max_age', $minAge, $maxAge])
+        //                 ->all();
+                  
+        //         }
+        //     } else {
+        //         $id = findCountryByPartialName($sourceCountries, 'emirates');
+
+        
+        //             if (strpos(strtolower($countryLookup[strtolower($defaultCountry)]['source_country']), 'emirates') !== false) {
+
                  
-            }else{
-                $plans = Plans::find()
-                ->where(['insurance_id' => $model->type])
-                ->andWhere(['source_id' => $id])
-                ->andWhere(['not like', 'plan_code', 'USCA']) 
-                ->andWhere(['between', 'min_age', $minAge, $maxAge])
-                ->andWhere(['between', 'max_age', $minAge, $maxAge])
-                ->all();
+        //             $id = $countryLookup[strtolower($defaultCountry)]['id'];
+        //             $model->source = $countryLookup[strtolower($defaultCountry)]['source_country'];
 
-            }
-            
-     
+        //             if (($model->to_country === 'US' || $model->to_country === 'CA') && $model->from_country === 'AE') {
+                           
+        //                 $plans = Plans::find()
+        //                     ->where(['insurance_id' => $model->type])
+        //                     ->andWhere(['source_id' => $id])
+        //                     ->andWhere(['like', 'plan_code', 'USCA'])
+        //                     ->andWhere(['not like', 'plan_code', 'A2A'])
+        //                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
+        //                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
+        //                     ->all();
+                        
+        //             } elseif (($model->to_country != 'US' || $model->to_country != 'CA') && $model->from_country === 'AE') {
+                 
+        //                 $plans = Plans::find()
+        //                     ->where(['insurance_id' => $model->type])
+        //                     ->andWhere(['source_id' => $id])
+        //                     ->andWhere(['not like', 'plan_code', 'USCA'])
+        //                     ->andWhere(['not like', 'plan_code', 'A2A'])
+        //                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
+        //                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
+        //                     ->all();
+                         
+        //             }  elseif ($model->from_country !== 'AE' && ($model->to_country === 'US' || $model->to_country === 'CA')) {
+                 
+        //                 $plans = Plans::find()
+        //                     ->where(['insurance_id' => $model->type])
+        //                     ->andWhere(['source_id' => $id])
+        //                     ->andWhere(['like', 'plan_code', 'A2A'])
+        //                     ->andWhere(['like', 'plan_code', 'USCA'])
+        //                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
+        //                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
+        //                     ->all();
+                        
+        //             } else {
 
-            // dd($id,$model->type);
+                    
+        //                 $plans = Plans::find()
+        //                     ->where(['insurance_id' => $model->type])
+        //                     ->andWhere(['source_id' => $id])
+        //                     ->andWhere(['like', 'plan_code', 'A2A'])
+        //                     ->andWhere(['not like', 'plan_code', 'USCA'])
+        //                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
+        //                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
+        //                     ->all();
+        //                           dd($plans);
+        //             }
+        //         }
+        //     }
+        // }
 
-            //     // if (empty($plans)) {
-            //     //     dd('No plans found', $model->type, $id, $minAge, $maxAge);
-            //     // } else {
-            //     //     dd('Plans found', $plans);
-            //     // }
-            // } else {
-            //     dd('Invalid pax_type');
-            // }
+        // function getPlans($insuranceId, $sourceId, $planCodeLike, $planCodeNotLike, $minAge, $maxAge) {
+        //    $plans= Plans::find()
+        //         ->where(['insurance_id' => $insuranceId])
+        //         ->andWhere(['source_id' => $sourceId])
+        //         ->andWhere(['between', 'min_age', $minAge, $maxAge])
+        //         ->andWhere(['between', 'max_age', $minAge, $maxAge]);
+        
+        //     if ($planCodeLike) {
+        //            $plans->andWhere(['like', 'plan_code', $planCodeLike]);
+        //     }
+        
+        //     if ($planCodeNotLike) {
+        //            $plans->andWhere(['not like', 'plan_code', $planCodeNotLike]);
+        //     }
+        
+        //     return    $plans->all();
+        // }
+        
+        // if (isset($paxTypeRanges[$selectedPaxType])) {
+        //     $range = $paxTypeRanges[$selectedPaxType];
+        //     $minAge = $range['min_age'];
+        //     $maxAge = $range['max_age'];
+        //     $fromCountryNameKey = strtolower($fromCountryNameEn);
+        //     $id = null;
+        
+        //     if (isset($countryLookup[$fromCountryNameKey]) && $countryLookup[$fromCountryNameKey]['source_country'] !== 'United Arab Emirates') {
+        //         $id = $countryLookup[$fromCountryNameKey]['id'];
+        //         $model->source = $countryLookup[$fromCountryNameKey]['source_country'];
+        //     } else {
+        //         // Assuming findCountryByPartialName is a function that retrieves a country ID based on a partial name match.
+        //         $id = findCountryByPartialName($sourceCountries, 'emirates');
+        //         if ($id && isset($countryLookup[strtolower($defaultCountry)]) && strpos(strtolower($countryLookup[strtolower($defaultCountry)]['source_country']), 'emirates') !== false) {
+        //             $id = $countryLookup[strtolower($defaultCountry)]['id'];
+        //             $model->source = $countryLookup[strtolower($defaultCountry)]['source_country'];
+        //         }
+        //     }
+        
+        //     if ($id !== null) {
+        //         if ($model->to_country === 'US' || $model->to_country === 'CA') {
+        //             if ($model->from_country === 'AE') {
+        //                 $plans = getPlans($model->type, $id, 'USCA', 'A2A', $minAge, $maxAge);
+        //             } else {
+        //                 $plans = getPlans($model->type, $id, 'A2A', null, $minAge, $maxAge);
+        //             }
+        //         } else {
+        //             if ($model->from_country === 'AE') {
+        //                 $plans = getPlans($model->type, $id, null, ['USCA', 'A2A'], $minAge, $maxAge);
+        //             } else {
+        //                 $plans = getPlans($model->type, $id, 'A2A', 'USCA', $minAge, $maxAge);
+        //             }
+        //         }
+        //     }
+        
+        //     dd($plans);
+        // }
+        
 
-        }
 
-        // dd($plans );
-        // $CountryCode = strtoupper($model->from_country);
+        // $insuranceCountry = InsuranceCountries::findOne($id);
 
+        // $options = [];
+
+
+        // foreach ($plans as $plan) {
+        //     $insuranceTitle = $plan->insurance->name;
+        //     $insuranceTitleAr = $plan->insurance->name_ar;
+        //     $price = Pricing::find()
+        //         ->where(['plan_id' => $plan->id])
+        //         ->andWhere(['duration' => $model->duration])
+        //         ->one();
+
+        //     $options[$plan->id] = [
+        //         'name' => $plan->name,
+        //         'name_ar' => $plan->name_ar,
+        //         'price' => $price ? $price->price : 0,
+        //         'discount_price' => $price ? $price->discount_price : null,
+        //         'status' => $price ? $price->status : 'Pricing::STATUS_INACTIVE',
+        //     ];
+        // }
+        // dd( $model->source);
+
+        
         $insuranceCountry = InsuranceCountries::findOne($id);
-
         $options = [];
-
-
+        
         foreach ($plans as $plan) {
             $insuranceTitle = $plan->insurance->name;
             $insuranceTitleAr = $plan->insurance->name_ar;
@@ -361,7 +541,7 @@ class AsuranceController extends BaseController
                 ->where(['plan_id' => $plan->id])
                 ->andWhere(['duration' => $model->duration])
                 ->one();
-
+        
             $options[$plan->id] = [
                 'name' => $plan->name,
                 'name_ar' => $plan->name_ar,
@@ -370,12 +550,12 @@ class AsuranceController extends BaseController
                 'status' => $price ? $price->status : 'Pricing::STATUS_INACTIVE',
             ];
         }
-
+        
         if (empty($options)) {
             Yii::$app->session->setFlash('errorr', 'No plans are available for the selected options.');
             return $this->redirect(Yii::$app->getRequest()->getReferrer());
         }
-
+        // dd($options);
         return $this->render('/insurance/index', [
             'model' => $model,
             'options' => $options,
@@ -983,7 +1163,7 @@ class AsuranceController extends BaseController
             ->all();
         $fromCountryName = $this->getCountryName($policy->DepartCountryCode);
         $toCountryName = $this->getCountryName($policy->ArrivalCountryCode);
-
+// dd($policy);
         return $this->render('/insurance/passengers', [
             'model' => $model,
             'policy' => $policy,
@@ -1482,9 +1662,9 @@ class AsuranceController extends BaseController
     //                     } elseif ($json_request['verification']['passed']) {
 
     //                         if ($passengerdraft !== null) {
-                                
+
     //                             $passengerdraft->delete();
-                             
+
     //                         }
 
     //                         $dob = $json_request['result']['dob'] ?? "null";
@@ -1537,24 +1717,24 @@ class AsuranceController extends BaseController
     {
         $decodedDraft = base64_decode($draft);
         $policy = PolicyDraft::findOne($decodedDraft);
-    
+
         $model = new \yii\base\DynamicModel(['file']);
-    
+
         if ($id !== null) {
-    
+
             $id = base64_decode($id);
             $passengerdraft = PolicyDraftPassengers::findOne($id);
-    
+
             $model->addRule(['file'], 'required');
-    
+
             if ($model->load(Yii::$app->request->post())) {
                 $file = UploadedFile::getInstance($model, 'file');
                 if ($file) {
                     $fileName = time() . '_' . $file->baseName . '.' . $file->extension;
                     $path = Yii::getAlias('@webroot/uploads/') . $fileName;
-    
+
                     if ($file->saveAs($path)) {
-    
+
                         $post = [
                             'file_base64' => base64_encode(file_get_contents($path)),
                             'apikey' => 'pS2xHPtEAwqbspQBxFBYKpFIO54pqwNg',
@@ -1563,27 +1743,27 @@ class AsuranceController extends BaseController
                             'verify_expiry' => true,
                             'type' => "IPD"
                         ];
-    
+
                         $ch = curl_init();
                         curl_setopt($ch, CURLOPT_URL, 'https://api.idanalyzer.com');
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
                         $response = curl_exec($ch);
                         curl_close($ch);
-    
+
                         $json_request = json_decode($response, true);
-    
+
                         if (isset($json_request['error'])) {
                             Yii::$app->session->setFlash('error', 'Error processing the file.');
                         } elseif ($json_request['verification']['passed']) {
-    
+
                             $dob = $json_request['result']['dob'] ?? "null";
                             $dobDate = new \DateTime($dob);
                             $now = new \DateTime();
                             $age = $now->diff($dobDate)->y;
-    
+
                             if ($passengerdraft !== null) {
-                          
+
                                 $passengerdraft->id_number = $json_request['result']['documentNumber'] ?? "null";
                                 $passengerdraft->first_name = $json_request['result']['firstName'] ?? "null";
                                 $passengerdraft->middle_name = $json_request['result']['middleName'] ?? "null";
@@ -1596,7 +1776,7 @@ class AsuranceController extends BaseController
                                 $passengerdraft->id_type = ($json_request['result']['documentType'] ?? "null") === 'P' ? 'Passport' : $passengerdraft->id_type;
                                 $passengerdraft->warning = isset($json_request['authentication']['warning']) ? implode(',', $json_request['authentication']['warning']) : "null";
                                 $passengerdraft->document_link = '/uploads/' . $fileName;
-                 
+
                                 if ($passengerdraft->save()) {
                                     Yii::$app->session->setFlash('success', 'Document has been updated successfully.');
                                 } else {
@@ -1605,7 +1785,7 @@ class AsuranceController extends BaseController
                             } else {
                                 Yii::$app->session->setFlash('error', 'Passenger draft not found.');
                             }
-    
+
                             return $this->render('/insurance/review', [
                                 'policy' => $policy,
                                 'model' => $model,
@@ -1621,13 +1801,13 @@ class AsuranceController extends BaseController
                 }
             }
         }
-    
+
         return $this->render('/insurance/review', [
             'policy' => $policy,
             'model' => $model,
         ]);
     }
-    
+
     public function actionCheck()
     {
 
@@ -2426,7 +2606,8 @@ class AsuranceController extends BaseController
             $age = $now->diff($dob)->y;
 
             $passengersArray[] = [
-                "IsInfant" => 0,
+                "IsInfant" =>  $age < 2 ? 1 : 0,
+
                 "FirstName" => 'Test',
                 "LastName" => 'Test',
                 "Gender" => $passenger->gender,
@@ -2484,7 +2665,7 @@ class AsuranceController extends BaseController
 
         $apiResponseData = json_decode($apiResponse, true);
 
-
+       
         if (isset($apiResponseData['id']) && !empty($apiResponseData['id'])) {
 
             $this->processView($policyDraft,  $passengers, $apiResponseData);
@@ -2510,43 +2691,129 @@ class AsuranceController extends BaseController
                 Yii::$app->session->setFlash('error', 'Failed to save the customer.');
                 return $this->redirect(['error-page']);
             }
+        }else{
+            $customer->name = $policyDraft->name;
+            $customer->email = $policyDraft->email; 
+            $customer->save(false);
         }
 
-        $policies = [];
+      
 
 
 
+// foreach ($passengers as $passenger) {
+// $PassengerCount=count($passengers);
+//     $dob = new DateTime($passenger->dob);
+//             $now = new DateTime();
+//             $age = $now->diff($dob)->y;
+
+//             if($age < 2){
+//                 $PassengerCount=count($passengers)-1;
+
+// }else{
+
+//     $PassengerCount=count($passengers);
+// }}
+
+        
+//         foreach ($passengers as $passenger) {
+
+        
 
 
-        foreach ($passengers as $passenger) {
+          
+//             $policy = new Policy();
+//             $policy->customer_id = $customer->id;
+//             $policy->source = $policyDraft->source;
+//             $policy->from_airport = $policyDraft->from_airport;
+//             $policy->DepartCountryCode = $policyDraft->DepartCountryCode;
+//             $policy->departure_date = $policyDraft->departure_date;
+//             $policy->going_to = $policyDraft->going_to;
+//             $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
+//             $policy->return_date = $policyDraft->return_date;
+           
+// if($age <2){
+//     $policy->price = 0;
+// }else{
+//     $policy->price = $policyDraft->price/  $PassengerCount ;
 
-            $policy = new Policy();
-            $policy->customer_id = $customer->id;
-            $policy->source = $policyDraft->source;
-            $policy->from_airport = $policyDraft->from_airport;
-            $policy->DepartCountryCode = $policyDraft->DepartCountryCode;
-            $policy->departure_date = $policyDraft->departure_date;
-            $policy->going_to = $policyDraft->going_to;
-            $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
-            $policy->return_date = $policyDraft->return_date;
-            $policy->price = $policyDraft->price / count($passengers);
-            $policy->ProposalState = $apiResponseData['ProposalState'] ?? 'Proposal State';
-            $policy->ItineraryID = $id;
-            $policy->PNR = $apiResponseData['PNR'] ?? '';
-            $policy->PolicyNo = $apiResponseData['PolicyNo'] ?? '';
-            $policy->PolicyPurchasedDateTime = $apiResponseData['PolicyPurchasedDateTime'] ?? date('Y-m-d H:i:s');
-            $policy->PolicyURLLink = $apiResponseData['PolicyURLLink'] ?? '';
-            $policy->status = $apiResponseData['status'] ?? 0;
-            $policy->status_description = $apiResponseData['status_description'] ?? 'Processing';
+// }
+               
+            
+         
+//             $policy->ProposalState = $apiResponseData['ProposalState'] ?? 'Proposal State';
+//             $policy->ItineraryID = $id;
+//             $policy->PNR = $apiResponseData['PNR'] ?? '';
+//             $policy->PolicyNo = $apiResponseData['PolicyNo'] ?? '';
+//             $policy->PolicyPurchasedDateTime = $apiResponseData['PolicyPurchasedDateTime'] ?? date('Y-m-d H:i:s');
+//             $policy->PolicyURLLink = $apiResponseData['PolicyURLLink'] ?? '';
+//             $policy->status = $apiResponseData['status'] ?? 0;
+//             $policy->status_description = $apiResponseData['status_description'] ?? 'Processing';
 
-            if ($policy->save()) {
+//             if ($policy->save()) {
 
-                $policies[] = $policy;
-            } else {
-                var_dump($policy->errors);
-                die();
-            }
-        }
+//                 $policies[] = $policy;
+//             } else {
+//                 var_dump($policy->errors);
+//                 die();
+//             }
+//         }
+
+
+
+$PassengerCount = count($passengers);
+$policies = []; 
+
+foreach ($passengers as $passenger) {
+    $dob = new DateTime($passenger->dob);
+    $now = new DateTime();
+    $age = $now->diff($dob)->y;
+
+    if ($age < 2) {
+        $PassengerCount--;
+    }
+}
+
+
+foreach ($passengers as $passenger) {
+    $dob = new DateTime($passenger->dob);
+    $now = new DateTime();
+    $age = $now->diff($dob)->y;
+
+    $policy = new Policy();
+    $policy->customer_id = $customer->id;
+    $policy->source = $policyDraft->source;
+    $policy->from_airport = $policyDraft->from_airport;
+    $policy->DepartCountryCode = $policyDraft->DepartCountryCode;
+    $policy->departure_date = $policyDraft->departure_date;
+    $policy->going_to = $policyDraft->going_to;
+    $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
+    $policy->return_date = $policyDraft->return_date;
+
+    if ($age < 2) {
+        $policy->price = 0;
+    } else {
+
+        $policy->price = $PassengerCount > 0 ? $policyDraft->price / $PassengerCount : 0;
+    }
+
+    $policy->ProposalState = $apiResponseData['ProposalState'] ?? 'Proposal State';
+    $policy->ItineraryID = $id;
+    $policy->PNR = $apiResponseData['PNR'] ?? '';
+    $policy->PolicyNo = $apiResponseData['PolicyNo'] ?? '';
+    $policy->PolicyPurchasedDateTime = $apiResponseData['PolicyPurchasedDateTime'] ?? date('Y-m-d H:i:s');
+    $policy->PolicyURLLink = $apiResponseData['PolicyURLLink'] ?? '';
+    $policy->status = $apiResponseData['status'] ?? 0;
+    $policy->status_description = $apiResponseData['status_description'] ?? 'Processing';
+
+    if ($policy->save()) {
+        $policies[] = $policy;
+    } else {
+        var_dump($policy->errors);
+        die();
+    }
+}
+
 
         // dd(   $policies);
         $policyIds = array_map(fn($policy) => base64_encode($policy->id), $policies);

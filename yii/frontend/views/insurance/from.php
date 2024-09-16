@@ -233,6 +233,8 @@ $insuranceId->id ?>">
                 <?php
    
     $countries = Countries::find()->orderBy('name_en')->all();
+
+   
     $allCountries = [];
     
 
@@ -252,7 +254,7 @@ $insuranceId->id ?>">
         }
     }
 
-    // Generate the HTML for the dropdown
+  
     ?>
     <select name="from_country" id="fromCountry" class="form-control" required>
         <option value="" disabled <?= !isset($sourceCountryCode) ? 'selected' : '' ?>>
