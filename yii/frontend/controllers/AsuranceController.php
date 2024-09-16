@@ -2181,10 +2181,10 @@ class AsuranceController extends BaseController
 
         $mobile = Yii::$app->session->get('mobile');
         $customer = Customers::findOne(['mobile' => $mobile]);
-        // dd(  $mobile ,  $customer);
+      
         if ($customer) {
 
-            $policies = Policy::find()->where(['customer_id' => $customer->id])->all();
+            $policies = Policy::find()->where(['customer_id' => $customer->id])->orderBy(['created_at' => SORT_DESC])->all();
         } else {
             $policies = [];
         }
@@ -2195,7 +2195,7 @@ class AsuranceController extends BaseController
 
 
         if (is_array($decodedPolicyIds) && !empty($decodedPolicyIds) && array_filter($decodedPolicyIds)) {
-            $policies = Policy::find()->where(['id' => $decodedPolicyIds])->all();
+            $policies = Policy::find()->where(['id' => $decodedPolicyIds])->orderBy(['created_at' => SORT_DESC])->all();
             return $this->render('/insurance/display-policy', [
                 'policies' => $policies,
                 'policyDraft' => $policyDraft,

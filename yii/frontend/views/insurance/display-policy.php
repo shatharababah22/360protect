@@ -224,7 +224,7 @@ $this->title = 'Your Policy';
         <tr>
             <th scope="col" class="table-column-pe-0">
                 <div class="form-check">
-                    <!-- Checkbox or selection feature can be added here -->
+                 
                 </div>
             </th>
             <th class="font-weight-bold"><?= Yii::t('app', 'Your name') ?></th>
@@ -243,7 +243,7 @@ $this->title = 'Your Policy';
                 <tr>
                     <td class="table-column-pe-0">
                         <div class="form-check">
-                            <!-- Checkbox or selection feature can be added here -->
+                       
                         </div>
                     </td>
                     <td><?= Html::encode($policy->customer ? ucwords(strtolower($policy->customer->name)) : 'N/A') ?></td>
