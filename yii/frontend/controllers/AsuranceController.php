@@ -2835,6 +2835,9 @@ foreach ($passengers as $passenger) {
         $policyIds = array_filter(array_map(fn($policy) => $policy->id ? base64_encode($policy->id) : null, $policies));
 
         // dd($policyIds ); 
+
+
+
         return $this->redirect(['display-policy', 'policyIds' => implode(',', $policyIds), 'id' => base64_encode($id)]);
 
         //         // return $this->redirect(['display-policy', 'policyId' => base64_encode($policy->id), 'id' => base64_encode($id)]);
@@ -2881,19 +2884,28 @@ foreach ($passengers as $passenger) {
         //     return $this->redirect(['display-policy', 'policyId' => base64_encode($policy->id), 'id' => base64_encode($id)]);
         // }
     }
-    // Controller action
     public function actionUpdatePolicyStatus()
     {
         $policyId = Yii::$app->request->post('policyId');
         $policy = Policy::findOne($policyId);
-        $customer = Customers::findOne(['id' => $policy->customer_id]);
-
-        if ($customer && $customer->credit > 0) {
-            Yii::$app->session->setFlash('info', 'You have ' . $customer->credit . ' $ credits saved within your wallet. You can use it to purchase another policy.');
+    
+        if ($policy) {
+            $customer = Customers::findOne(['id' => $policy->customer_id]);
+            if ($customer && $customer->credit > 0) {
+                Yii::$app->session->setFlash('info', 'You have ' . $customer->credit . ' $ credits saved within your wallet. You can use it to purchase another policy.');
+            }
         }
-
+    
         return $this->asJson(['status' => 'success']);
     }
+    
+
+
+
+
+
+
+
 
 
 

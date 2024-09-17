@@ -315,46 +315,46 @@ $this->title = 'Your Policy';
                <?php endif; ?>
                 </td> -->
               </tr>
-
-              
-<?php if (Yii::$app->session->get('refresh') === "shatha"): ?>
+              <?php if (Yii::$app->session->get('refresh') === "shatha"): ?>
   <script>
     $(document).ready(function() {
       var policyId = <?= json_encode($policy->id) ?>;
       var reloadTriggered = false;
-
       var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
+    
       function updatePolicyStatus(policyId) {
-        return $.ajax({
-          url: '<?= \yii\helpers\Url::to(['update-policy-status']) ?>',
-          type: 'POST',
-          headers: {
-            'X-CSRF-Token': csrfToken
-          },
-          data: {
-            policyId: policyId
-          },
-          success: function(response) {
-            if (response.status === 'success' && !reloadTriggered) {
-              reloadTriggered = true;
+     
+        setTimeout(function() {
+          $.ajax({
+            url: '<?= \yii\helpers\Url::to(['update-policy-status']) ?>',
+            type: 'POST',
+            headers: {
+              'X-CSRF-Token': csrfToken
+            },
+            data: {
+              policyId: policyId
+            },
+            success: function(response) {
+              if (response.status === 'success' && !reloadTriggered) {
+                reloadTriggered = true;
 
-              $.post('<?= \yii\helpers\Url::to(['remove-refresh-session']) ?>', {
-                _csrf: csrfToken
-              }).done(function() {
-                setTimeout(function() {
+           
+                $.post('<?= \yii\helpers\Url::to(['remove-refresh-session']) ?>', {
+                  _csrf: csrfToken
+                }).done(function() {
                   window.location.reload();
-                },40000);
-              });
-            } else if (response.status !== 'success') {
-              console.error('Failed to update policy status. Response status: ' + response.status);
+                });
+              } else if (response.status !== 'success') {
+                console.error('Failed to update policy status. Response status: ' + response.status);
+              }
+            },
+            error: function(xhr, status, error) {
+              console.error('AJAX request failed. Status: ' + status + ', Error: ' + error);
+              console.error('Response text: ' + xhr.responseText);
             }
-          },
-          error: function(xhr, status, error) {
-            console.error('AJAX request failed. Status: ' + status + ', Error: ' + error);
-            console.error('Response text: ' + xhr.responseText);
-          }
-        });
+          });
+        }, 40000); 
       }
 
       updatePolicyStatus(policyId);
