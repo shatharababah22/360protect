@@ -84,6 +84,7 @@ class CountryController extends Controller
         $model = new Countries();
 
         if ($this->request->isPost) {
+            dd($model);
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

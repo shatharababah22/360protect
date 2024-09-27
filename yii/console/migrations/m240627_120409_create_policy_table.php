@@ -23,6 +23,7 @@ class m240627_120409_create_policy_table extends Migration
             'ProposalState' => $this->string(100)->null(),
             'ItineraryID' => $this->string(255)->null(),
             'PNR' => $this->string(200)->null(),
+            'name' => $this->string()->defaultValue(null),
             'PolicyNo' => $this->string(200)->null(),
             'PolicyPurchasedDateTime' =>$this->date()->notNull(),
             'PolicyURLLink' => $this->text()->null(),

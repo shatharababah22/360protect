@@ -55,7 +55,10 @@ class AsuranceController extends BaseController
 
 
 
+    public function actionType(){
 
+        return $this->render('/insurance/insurances');
+}
 
     public function actionTravel()
     {
@@ -2789,7 +2792,7 @@ foreach ($passengers as $passenger) {
     $policy->going_to = $policyDraft->going_to;
     $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
     $policy->return_date = $policyDraft->return_date;
-
+    $policy->name = $passenger->first_name . ' ' . $passenger->last_name;
     if ($age < 2) {
         $policy->price = 0;
     } else {

@@ -52,7 +52,7 @@ $this->title = 'Your Policy';
 
 
 
-              <p class="m-0 fs-4"><?= Html::encode(ucwords(strtolower($policy->customer->name))) ?></p class="m-0">
+              <p class="m-0 fs-4"><?= Html::encode(ucwords(strtolower($policy->name))) ?></p class="m-0">
             </li>
             <li class="list-group-item border-0  d-flex justify-content-start m-auto">
 
@@ -246,7 +246,7 @@ $this->title = 'Your Policy';
                        
                         </div>
                     </td>
-                    <td><?= Html::encode($policy->customer ? ucwords(strtolower($policy->customer->name)) : 'N/A') ?></td>
+                    <td><?= Html::encode($policy->customer ? ucwords(strtolower($policy->name)) : 'N/A') ?></td>
 
                     <td>
                         <img src="/assets/flags/<?= strtolower($policy->DepartCountryCode) ?>.png"

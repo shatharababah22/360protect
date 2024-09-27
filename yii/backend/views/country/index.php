@@ -38,10 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <!-- End Col -->
 
-    <div class="col-sm-auto">
-      <!-- <a class="btn btn-primary" href="./ecommerce-add-product.html">Add product</a> -->
-      <?= Html::a('New Country', ['create'], ['class' => 'btn btn-primary']) ?>
-    </div>
+
     <!-- End Col -->
   </div>
   <!-- End Row -->

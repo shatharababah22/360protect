@@ -53,9 +53,9 @@ class Policy extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customer_id', 'from_airport', 'departure_date', 'going_to', 'return_date', 'status'], 'required'],
+            [['customer_id', 'from_airport', 'departure_date', 'going_to', 'return_date', 'status','name'], 'required'],
             [['customer_id',  'status', 'created_at', 'updated_at'], 'integer'],
-            [['PolicyURLLink', 'status_description'], 'string'],
+            [['PolicyURLLink', 'status_description','name'], 'string'],
             [['price'], 'number'],
             [['from_airport', 'going_to', 'ProposalState'], 'string', 'max' => 100],
             [['DepartCountryCode', 'ArrivalCountryCode'], 'string', 'max' => 11],
@@ -95,6 +95,7 @@ class Policy extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
             'source' => Yii::t('app', 'Source'),
             'price' => Yii::t('app', 'Price'),
+            'name' => Yii::t('app', 'name'),
         ];
     }
 

@@ -41,7 +41,7 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
                 $policy->status = $response['status'] ?? 0;
                 $policy->status_description = 'Completed';
                 if ($policy->save()) {
-                    $send = $this->sendMessage($policy->customer->mobile, $policy->PolicyURLLink);
+                    $send = $this->sendMessage($policy->customer->mobile, $policy->PolicyURLLink,$policy->name);
 
                     if ($send['status'] == 201) {
                         PolicyDraft::deleteAll();
@@ -96,9 +96,9 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
         return $response;
     }
 
-    private function sendMessage($mobile, $policyURLLink)
+    private function sendMessage($mobile, $policyURLLink,$name)
     {
-        $messageContent = "Dear Customer, \n\n" .
+        $messageContent = "Dear $name, \n\n" .
             "We would like to inform you that you can review the details of your policy by visiting the following link: $policyURLLink.\n\n";
 
         $curl = curl_init();
