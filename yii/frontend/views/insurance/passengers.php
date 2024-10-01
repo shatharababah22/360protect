@@ -16,7 +16,8 @@ $this->title = 'Trip Details Submission';
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12 col-12">
-                <h1 class="mb-3 text-white-stable"><span class="text-warning"><?= Yii::t('app', 'Trip') ?></span> <?= Yii::t('app', 'Information - New Insurance') ?></h1>
+                <h1 class="mb-3 text-white-stable"><span class="text-warning"><?= Yii::t('app', 'Passenger') ?></span> <?= Yii::t('app', '
+Details') ?></h1>
             </div>
         </div>
     </div>

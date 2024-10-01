@@ -27,8 +27,9 @@ $this->title = 'Plan Details';
                         <div class="mb-4">
                             <h3 class="text-white-50"></h3>
                             <h1 class="mb-3 mb-md-5">
-                                <span class="text-warning"><?= Yii::t('app', 'New') ?></span>
+                            
                                 <span class="text-white "><?= ucwords(strtolower($language === 'ar' ? $insuranceTitleAr : $insuranceTitle)) ?></span>
+                                    <span class="text-warning"><?= Yii::t('app', 'Insurance') ?></span>
                             </h1>
                             <p class="mb-0 text-white">
                                 <span class="text-white-50"><?= Yii::t('app', 'From') ?></span> <?= $language === 'ar' ?  $fromCountryName['name_ar'] : $fromCountryName['name_en'] ?>
@@ -101,8 +102,10 @@ $this->title = 'Plan Details';
                             <div class="offer-box shadow-lg elevate p4 multiple-options">
                                 <div class="accordion">
                                     <div class="head">
-                                        <h4><?= Yii::t('app', 'Choose a plan') ?></h4>
-                                        <p><?= Yii::t('app', 'Select a plan that suits you and your options') ?></p>
+
+
+                                        <h4><?= Yii::t('app', 'Choose your plan') ?></h4>
+                                        <p><?= Yii::t('app', 'Select one plan that suits options') ?></p>
                                     </div>
                                     <div class="options">
                                         <?= $form->field($model, 'plan')->radioList($options, [
@@ -202,8 +205,8 @@ $this->title = 'Plan Details';
         <div class="row">
             <div class="col-lg-12 col-md-12 col-12">
                 <div class="text-center mb-7">
-                    <h2><?= Yii::t('app', 'Schedule of Benefits') ?></h2>
-                    <p class="mb-0"><?= Yii::t('app', 'Travel with peace of mind with Tune Protect Travel Assurance. Available across the region, enjoy comprehensive benefits.') ?></p>
+                    <h2><?= Yii::t('app', 'Schedule of Benefits & Coverage') ?></h2>
+                    <p class="mb-0"><?= Yii::t('app', 'Travel with peace of mind and enjoy comprehensive benefits.') ?></p>
 
                 </div>
             </div>

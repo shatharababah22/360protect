@@ -27,9 +27,8 @@ paylib.inlineForm({
     if (response.error) {             
       paylib.handleError(document.getElementById('paymentErrors'), response);
     } else {
-      // Assign the token to a hidden field
       document.getElementById('payment-token').value = response.token;
-      // Submit the form
+ 
       myform.submit();
     }
   }
@@ -183,8 +182,6 @@ $this->registerJs($js);
 
         .form-control {
             color: #A9A9A7;
-            /* background-color: #223C60; */
-            /* border: 2px solid #223C60; */
             height: 50px;
             padding-left: 10px;
             vertical-align: middle;

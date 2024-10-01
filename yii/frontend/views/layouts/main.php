@@ -84,14 +84,14 @@ AppAsset::register($this);
     <header>
     <nav class="navbar navbar-expand-lg transparent navbar-transparent navbar-dark">
     <div class="container px-3">
-        <a class="navbar-brand" href="/"><img class="img-fluid" width="70" src="/images/logo/logo-dark.webp" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
+        <a class="navbar-brand" href="/"><img class="img-fluid" width="90"  height="100" src="/images/logo/logo-dark.webp" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
         <button class="navbar-toggler offcanvas-nav-btn" type="button" aria-label="<?= Yii::t('app', 'Toggle navigation') ?>">
             <i class="bi bi-list"></i>
         </button>
 
         <div class="offcanvas offcanvas-start offcanvas-nav" style="width: 20rem">
             <div class="offcanvas-header" >
-                <a href="/" class="text-inverse"><img class="img-fluid" width="70" src="/images/logo/logo-dark.webp" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
+                <a href="/" class="text-inverse"><img class="img-fluid" width="90"  height="100" src="/images/logo/logo-dark.webp" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
             <div dir="ltr"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="<?= Yii::t('app', 'Close') ?>"></button>
             </div></div>   
             <div class="offcanvas-body pt-0 align-items-center">
@@ -150,7 +150,7 @@ AppAsset::register($this);
 </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Assurances') ?></a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Typs of Insurances') ?></a>
                         <ul class="dropdown-menu">
                             <?php foreach (\common\models\Insurances::find()->all() as $insurance) : ?>
                                 <li>
@@ -174,6 +174,11 @@ AppAsset::register($this);
 
                     <li class="nav-item">
                         <?= Html::a(Yii::t('app', 'Check Policy'), ['/asurance/check'], ['class' => 'nav-link', 'data-cue' => 'fadeUp']) ?>
+                    </li>
+
+
+                    <li class="nav-item">
+                    <?= Html::a(Yii::t('app', 'Claim'), 'https://claims.tune2protect.com/default.aspx?langid=en', ['class' => 'nav-link', 'data-cue' => 'fadeUp']) ?>
                     </li>
 
                 </ul>
@@ -350,7 +355,9 @@ AppAsset::register($this);
                                 <img class="img-fluid" width="70" height="auto" src="/images/logo/logo-dark.webp" alt="360Protect" loading="eager">
                             </a>
                         </div>
-                        <p class="mb-5 mt-2"><?= Yii::t('app', 'Secure your future with our comprehensive assurance plans. Whether it\'s health, life, auto, or home insurance, we provide the coverage you need to protect what matters most.') ?></p>
+                        <p class="mb-5 mt-2"><?= Yii::t('app', 'Safeguard your travels through our insurance companies partners. Whether you\'re
+embarking on a new Adventure, Shopping, Study, or simply seeking peace of mind, our
+goal is to offer tailored coverage that meets your unique needs.') ?></p>
                         <div class="text-md-end d-flex align-items-center justify-content-md-start">
                             <div class=" d-flex gap-2">
                                 <a href="#!" class="text-reset btn btn-instagram btn-icon" aria-label="Follow us on Instagram">

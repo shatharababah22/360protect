@@ -216,12 +216,17 @@ $insuranceId = Insurances::find()
 
 <div class="card shadow-sm">
     <div class="card-body">
-        <form action="/asurance/travel" method="get" class="row needs-validation g-3" novalidate>
+
+    <?php if (isset($insurance->id)): ?>
+    <form action="/asurance/travel" method="get" class="row needs-validation g-3" novalidate>
+<?php else: ?>
+    <form action="/asurance/kinds" method="get" class="row needs-validation g-3" novalidate>
+<?php endif; ?>
+
             <div class="col-lg-12">
                 <div class="mb-3">
                     <h3 class="mb-0 text-center"><?= Yii::t('app', 'Get Covered') ?></h3>
-                    <input type="hidden" name="type" value="<?= $insurance->id??
-$insuranceId->id ?>">
+                    <input type="hidden" name="type" value="<?= $insurance->id??1?>">
 
                 </div>
             </div>
@@ -372,8 +377,10 @@ $insuranceId->id ?>">
                 </div>
             </div>
             <div class="col-12">
-                <p id="adult1-note" class="text-muted small mb-0"><?= Yii::t('app', 'Adult age must be between 19-75 years old') ?></p>
-                <p id="infant-note" class="text-muted small"><?= Yii::t('app', 'Infant age must be between 30 days-2 years old') ?></p>
+   
+            <p id="adult1-note" class="text-muted small mb-0"><?= Yii::t('app', 'Senior Adult 76 to 85 years - Adult 19 to 75 years') ?></p>
+<p id="infant-note" class="text-muted small"><?= Yii::t('app', 'Child 2 to 18 years - Infant 30 days to 2 years') ?></p>
+
             </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-warning"><?= Yii::t('app', 'Next') ?></button>
@@ -381,7 +388,6 @@ $insuranceId->id ?>">
         </form>
     </div>
 </div>
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

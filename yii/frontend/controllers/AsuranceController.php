@@ -53,28 +53,14 @@ class AsuranceController extends BaseController
     // public $enableCsrfValidation = false;
 
 
-
-
-    public function actionType(){
-
-        return $this->render('/insurance/insurances');
-}
-
-    public function actionTravel()
+    public function actionKinds()
     {
-
-
         $model = new InquiryForm();
         $model->setAttributes(\Yii::$app->request->get('InquiryForm'));
-
-
-
-
-
         $data = Yii::$app->request->get();
         if ($data) {
 
-            $model->type = $data['type'];
+            $model->type;
             $model->from_country = $data['from_country'];
             $model->to_country = $data['to_country'];
             $model->date = $data['date'];
@@ -87,89 +73,61 @@ class AsuranceController extends BaseController
             $model->pax_type = $data['pax_type'];
         }
 
-        // dd( $data);
-        // US or CA 
-        // dd($data);
-        // $fromCountryName = $this->getCountryName($model->from_country);
-        // // dd(   $fromCountryName[name_en] );
-        // $toCountryName = $this->getCountryName($model->to_country);
 
-        // if ($model->from_country === $model->to_country) {
+    //  dd($data);
+    
+  
+        return $this->render('/insurance/insurances', [
+        'data'=>$data,
 
-        //     Yii::$app->session->setFlash('errorr', 'Departure and arrival countries cannot be the same.');
-        //     return $this->redirect(Yii::$app->getRequest()->getReferrer());
-        // }
-
-        // $adultPassenger = null;
-        // $childrenPassenger = null;
-
-
-        // if ($model->adult) {
-        //     $adultPassenger = "adult";
-        // }
-        // if ($model->children) {
-        //     $childrenPassenger = "child";
-        // }
+        ]);
+    }
+    
+    
 
 
 
+//     public function actionType(){
+
+//         return $this->render('/insurance/insurances');
+// }
+
+public function actionTravel($id = null)
+{
 
 
-        // // $draft = new PolicyDraft();
-        // $sourceCountries = InsuranceCountries::find()
-        //     ->select(['id', 'source_country'])
-        //     ->asArray()
-        //     ->all();
+    $data = Yii::$app->request->queryParams; 
+   
+ 
+    // dd(  $data);
+        $model = new InquiryForm();
+        $model->setAttributes(\Yii::$app->request->get('InquiryForm'));
+// if($id = null){
+    
+        $data = Yii::$app->request->get();
+        if ($data) {
 
-
-        // $fromCountryName = ucfirst(strtolower($fromCountryName['name_en']));
-
-
-        // $countryLookup = [];
-        // foreach ($sourceCountries as $country) {
-        //     $countryLookup[strtolower($country['source_country'])] = $country;
-        // }
-
-        // $defaultCountry = 'united arab emirates';
-
-        // $id = null;
-        // function findCountryByPartialName($countries, $partialName)
-        // {
-        //     foreach ($countries as $country) {
-        //         if (stripos($country['source_country'], $partialName) !== false) {
-        //             return $country['id'];
-        //         }
-        //     }
-        //     return null;
-        // }
-
-
-
-        // if (isset($countryLookup[strtolower($fromCountryName['name_en'])])) {
-        //     $id = $countryLookup[strtolower($fromCountryName['name_en'])]['id'];
-        //     // dd($countryLookup[strtolower($fromCountryName['name_en'])]['source_country']);
-        //     $model->source = $countryLookup[strtolower($fromCountryName['name_en'])]['source_country'];
-
-        //     // dd(   $id );
-        // } else {
-
-        //     $id = findCountryByPartialName($sourceCountries, 'emirate');
-
-        //     if ($id === null) {
-        //         if (isset($countryLookup[strtolower($defaultCountry)])) {
-        //             $id = $countryLookup[strtolower($defaultCountry)]['id'];
-        //             $model->source = $countryLookup[strtolower($defaultCountry)]['source_country'];
-        //             // $draft->source=$countryLookup[strtolower($fromCountryName)]['source_country'];
-        //             // $draft->save();
-        //         }
-        //     }
-        // }
-
-
+if($id != null){
+    $data['type']=$id;
+}
+            $model->type = $data['type'];
+            $model->from_country = $data['from_country'];
+            $model->to_country = $data['to_country'];
+            $model->date = $data['date'];
+            $model->duration = $data['duration'];
+            $model->adult = $data['adult'];
+            $model->adult_senior = $data['adult_senior'];
+            $model->children = $data['children'];
+            $model->infants = $data['infants'];
+            $model->plan = $data['plan'] ?? null;
+            $model->pax_type = $data['pax_type'];
+        }
+   
+    // }
 
         $fromCountryName = $this->getCountryName($model->from_country);
         $toCountryName = $this->getCountryName($model->to_country);
-
+// dd(  $data,        $toCountryName );
         if ($model->from_country === $model->to_country) {
             Yii::$app->session->setFlash('error', 'Departure and arrival countries cannot be the same.');
             return $this->redirect(Yii::$app->getRequest()->getReferrer());
@@ -187,16 +145,19 @@ class AsuranceController extends BaseController
 
         $countryLookup = [];
         foreach ($sourceCountries as $country) {
-            $countryLookup[strtolower($country['source_country'])] = $country;
-        }
 
+            $countryLookup[strtolower($country['source_country'])] = $country;
+
+        }
+// dd($sourceCountries);
         $defaultCountry = 'united arab emirates';
-        $shatha = 0;
+     
         $id = null;
 
         function findCountryByPartialName($countries, $partialName)
         {
             foreach ($countries as $country) {
+                // dd($country['source_country']);
                 if (stripos($country['source_country'], $partialName) !== false) {
                     return $country['id'];
                 }
@@ -213,7 +174,7 @@ class AsuranceController extends BaseController
         ];
 
         $selectedPaxType = $model->pax_type;
-        // dd(   $paxTypeRanges);
+        // dd(  $model->pax_type);
 
 
         // dd(     $id );
@@ -224,7 +185,7 @@ class AsuranceController extends BaseController
                 ->andWhere(['source_id' => $sourceId])
                 ->andWhere(['between', 'min_age', $minAge, $maxAge])
                 ->andWhere(['between', 'max_age', $minAge, $maxAge]);
-            
+        
             if ($planCodeLike) {
                 $plans->andWhere(['like', 'plan_code', $planCodeLike]);
             }
@@ -232,30 +193,31 @@ class AsuranceController extends BaseController
             if ($planCodeNotLike) {
                 $plans->andWhere(['not like', 'plan_code', $planCodeNotLike]);
             }
-            
+            // dd( $plans);
             return $plans->all();
         }
         
         $plans = []; 
-        
+      
         if (isset($paxTypeRanges[$selectedPaxType])) {
             $range = $paxTypeRanges[$selectedPaxType];
             $minAge = $range['min_age'];
             $maxAge = $range['max_age'];
             $fromCountryNameKey = strtolower($fromCountryNameEn);
             $id = null;
-        
+      
             if (isset($countryLookup[$fromCountryNameKey]) && $countryLookup[$fromCountryNameKey]['source_country'] !== 'United Arab Emirates') {
                 $id = $countryLookup[$fromCountryNameKey]['id'];
                 $model->source = $countryLookup[$fromCountryNameKey]['source_country'];
-
+                // dd($countryLookup[$fromCountryNameKey]['source_country'] );
                 if ($model->to_country === 'US' || $model->to_country === 'CA') {
                
                         $plans = getPlans($model->type, $id, 'USCA',  null, $minAge, $maxAge);
                  
                 } else {
-                    // dd("shatha");
+                    // dd( $id,$model->type,$minAge, $maxAge);
                         $plans = getPlans($model->type, $id, null, 'USCA', $minAge, $maxAge);
+                        // dd( $model->type,  $id, $minAge, $maxAge);
                   
                 }
 
@@ -275,6 +237,7 @@ class AsuranceController extends BaseController
                         } else {
                         //    dd("shatha");
                             $plans = getPlans($model->type, $id,  ['USCA', 'A2A'], null, $minAge, $maxAge);
+                            
                         }
                     } else {
                         if ($model->from_country === 'AE') {
@@ -349,192 +312,10 @@ class AsuranceController extends BaseController
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-        // if (isset($paxTypeRanges[$selectedPaxType])) {
-
-        //     $range = $paxTypeRanges[$selectedPaxType];
-        //     $minAge = $range['min_age'];
-        //     $maxAge = $range['max_age'];
-
-
-
-        //     $fromCountryNameKey = strtolower($fromCountryNameEn);
-        //     if (isset($countryLookup[$fromCountryNameKey]) && $countryLookup[$fromCountryNameKey]['source_country'] !== 'United Arab Emirates') {
-         
-        //         $id = $countryLookup[$fromCountryNameKey]['id'];
-        //         $model->source = $countryLookup[$fromCountryNameKey]['source_country'];
-
-        //         if ($model->to_country === 'US' || $model->to_country === 'CA') {
-        //             $plans = Plans::find()
-        //                 ->where(['insurance_id' => $model->type])
-        //                 ->andWhere(['source_id' => $id])
-        //                 ->andWhere(['like', 'plan_code', 'USCA'])
-        //                 ->andWhere(['between', 'min_age', $minAge, $maxAge])
-        //                 ->andWhere(['between', 'max_age', $minAge, $maxAge])
-        //                 ->all();
-        //         } else {
-                  
-        //             $plans = Plans::find()
-        //                 ->where(['insurance_id' => $model->type])
-        //                 ->andWhere(['source_id' => $id])
-        //                 ->andWhere(['not like', 'plan_code', 'USCA'])
-        //                 ->andWhere(['between', 'min_age', $minAge, $maxAge])
-        //                 ->andWhere(['between', 'max_age', $minAge, $maxAge])
-        //                 ->all();
-                  
-        //         }
-        //     } else {
-        //         $id = findCountryByPartialName($sourceCountries, 'emirates');
-
-        
-        //             if (strpos(strtolower($countryLookup[strtolower($defaultCountry)]['source_country']), 'emirates') !== false) {
-
-                 
-        //             $id = $countryLookup[strtolower($defaultCountry)]['id'];
-        //             $model->source = $countryLookup[strtolower($defaultCountry)]['source_country'];
-
-        //             if (($model->to_country === 'US' || $model->to_country === 'CA') && $model->from_country === 'AE') {
-                           
-        //                 $plans = Plans::find()
-        //                     ->where(['insurance_id' => $model->type])
-        //                     ->andWhere(['source_id' => $id])
-        //                     ->andWhere(['like', 'plan_code', 'USCA'])
-        //                     ->andWhere(['not like', 'plan_code', 'A2A'])
-        //                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
-        //                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
-        //                     ->all();
-                        
-        //             } elseif (($model->to_country != 'US' || $model->to_country != 'CA') && $model->from_country === 'AE') {
-                 
-        //                 $plans = Plans::find()
-        //                     ->where(['insurance_id' => $model->type])
-        //                     ->andWhere(['source_id' => $id])
-        //                     ->andWhere(['not like', 'plan_code', 'USCA'])
-        //                     ->andWhere(['not like', 'plan_code', 'A2A'])
-        //                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
-        //                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
-        //                     ->all();
-                         
-        //             }  elseif ($model->from_country !== 'AE' && ($model->to_country === 'US' || $model->to_country === 'CA')) {
-                 
-        //                 $plans = Plans::find()
-        //                     ->where(['insurance_id' => $model->type])
-        //                     ->andWhere(['source_id' => $id])
-        //                     ->andWhere(['like', 'plan_code', 'A2A'])
-        //                     ->andWhere(['like', 'plan_code', 'USCA'])
-        //                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
-        //                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
-        //                     ->all();
-                        
-        //             } else {
-
-                    
-        //                 $plans = Plans::find()
-        //                     ->where(['insurance_id' => $model->type])
-        //                     ->andWhere(['source_id' => $id])
-        //                     ->andWhere(['like', 'plan_code', 'A2A'])
-        //                     ->andWhere(['not like', 'plan_code', 'USCA'])
-        //                     ->andWhere(['between', 'min_age', $minAge, $maxAge])
-        //                     ->andWhere(['between', 'max_age', $minAge, $maxAge])
-        //                     ->all();
-        //                           dd($plans);
-        //             }
-        //         }
-        //     }
-        // }
-
-        // function getPlans($insuranceId, $sourceId, $planCodeLike, $planCodeNotLike, $minAge, $maxAge) {
-        //    $plans= Plans::find()
-        //         ->where(['insurance_id' => $insuranceId])
-        //         ->andWhere(['source_id' => $sourceId])
-        //         ->andWhere(['between', 'min_age', $minAge, $maxAge])
-        //         ->andWhere(['between', 'max_age', $minAge, $maxAge]);
-        
-        //     if ($planCodeLike) {
-        //            $plans->andWhere(['like', 'plan_code', $planCodeLike]);
-        //     }
-        
-        //     if ($planCodeNotLike) {
-        //            $plans->andWhere(['not like', 'plan_code', $planCodeNotLike]);
-        //     }
-        
-        //     return    $plans->all();
-        // }
-        
-        // if (isset($paxTypeRanges[$selectedPaxType])) {
-        //     $range = $paxTypeRanges[$selectedPaxType];
-        //     $minAge = $range['min_age'];
-        //     $maxAge = $range['max_age'];
-        //     $fromCountryNameKey = strtolower($fromCountryNameEn);
-        //     $id = null;
-        
-        //     if (isset($countryLookup[$fromCountryNameKey]) && $countryLookup[$fromCountryNameKey]['source_country'] !== 'United Arab Emirates') {
-        //         $id = $countryLookup[$fromCountryNameKey]['id'];
-        //         $model->source = $countryLookup[$fromCountryNameKey]['source_country'];
-        //     } else {
-        //         // Assuming findCountryByPartialName is a function that retrieves a country ID based on a partial name match.
-        //         $id = findCountryByPartialName($sourceCountries, 'emirates');
-        //         if ($id && isset($countryLookup[strtolower($defaultCountry)]) && strpos(strtolower($countryLookup[strtolower($defaultCountry)]['source_country']), 'emirates') !== false) {
-        //             $id = $countryLookup[strtolower($defaultCountry)]['id'];
-        //             $model->source = $countryLookup[strtolower($defaultCountry)]['source_country'];
-        //         }
-        //     }
-        
-        //     if ($id !== null) {
-        //         if ($model->to_country === 'US' || $model->to_country === 'CA') {
-        //             if ($model->from_country === 'AE') {
-        //                 $plans = getPlans($model->type, $id, 'USCA', 'A2A', $minAge, $maxAge);
-        //             } else {
-        //                 $plans = getPlans($model->type, $id, 'A2A', null, $minAge, $maxAge);
-        //             }
-        //         } else {
-        //             if ($model->from_country === 'AE') {
-        //                 $plans = getPlans($model->type, $id, null, ['USCA', 'A2A'], $minAge, $maxAge);
-        //             } else {
-        //                 $plans = getPlans($model->type, $id, 'A2A', 'USCA', $minAge, $maxAge);
-        //             }
-        //         }
-        //     }
-        
-        //     dd($plans);
-        // }
-        
-
-
-        // $insuranceCountry = InsuranceCountries::findOne($id);
-
-        // $options = [];
-
-
-        // foreach ($plans as $plan) {
-        //     $insuranceTitle = $plan->insurance->name;
-        //     $insuranceTitleAr = $plan->insurance->name_ar;
-        //     $price = Pricing::find()
-        //         ->where(['plan_id' => $plan->id])
-        //         ->andWhere(['duration' => $model->duration])
-        //         ->one();
-
-        //     $options[$plan->id] = [
-        //         'name' => $plan->name,
-        //         'name_ar' => $plan->name_ar,
-        //         'price' => $price ? $price->price : 0,
-        //         'discount_price' => $price ? $price->discount_price : null,
-        //         'status' => $price ? $price->status : 'Pricing::STATUS_INACTIVE',
-        //     ];
-        // }
-        // dd( $model->source);
-
         
         $insuranceCountry = InsuranceCountries::findOne($id);
+
+        // dd($plans);
         $options = [];
         
         foreach ($plans as $plan) {
@@ -2490,6 +2271,9 @@ class AsuranceController extends BaseController
 
     protected function handleNewCustomerPayment($policyDraft, $passengers)
     {
+
+
+        
         $model = new \yii\base\DynamicModel(['number', 'expmonth', 'expyear', 'cvv', 'price']);
         $model->addRule(['number', 'expmonth', 'expyear', 'cvv', 'price'], 'required')
             ->addRule(['number'], 'string', ['length' => 16])
@@ -2517,6 +2301,8 @@ class AsuranceController extends BaseController
                 Yii::$app->session->setFlash('error', $errorMessage);
             }
         }
+
+
 
         return $this->render('/insurance/payment', [
             'model' => $model,
@@ -2895,10 +2681,10 @@ foreach ($passengers as $passenger) {
         if ($policy) {
             $customer = Customers::findOne(['id' => $policy->customer_id]);
             if ($customer && $customer->credit > 0) {
-                Yii::$app->session->setFlash('info', 'You have ' . $customer->credit . ' $ credits saved within your wallet. You can use it to purchase another policy.');
+                Yii::$app->session->setFlash('info', 'You have ' . $customer->credit . ' $ credits saved within your wallet. You can use it to purchase another policy any time or contact us for full refund.');
             }
         }
-    
+        
         return $this->asJson(['status' => 'success']);
     }
     
