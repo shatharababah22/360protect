@@ -18,6 +18,7 @@ class m240703_083920_create_policy_draft_table extends Migration
             'plan_id' => $this->integer()->notNull(),
             'email' => $this->string(255),
             'name' => $this->string(255),
+            'paymentmethod' => $this->string(255),
             'mobile' => $this->string(255),
             'from_airport' => $this->string(100),
             'DepartCountryCode' => $this->string(11),

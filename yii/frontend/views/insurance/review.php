@@ -21,9 +21,9 @@ $this->title = 'Review Your Insurance Details';
             <div class="col-md-12 col-12">
                 <h1 class="mb-3 text-white-stable">
                     <span class="text-warning"><?= Yii::t('app', 'Purchase') ?></span>
-                    <?= Yii::t('app', 'Summary') ?> 
+                    <?= Yii::t('app', 'Summary') ?>
                 </h1>
-                
+
             </div>
         </div>
     </div>
@@ -45,10 +45,10 @@ $this->title = 'Review Your Insurance Details';
                                     <table class="table table-borderless">
                                         <tr>
                                             <td><?= Yii::t('app', 'Insurance Type') ?></td>
-                                            <td><strong><?=Yii::$app->language == 'ar' ? $policy->insurance->name_ar:$policy->insurance->name?></strong>
+                                            <td><strong><?= Yii::$app->language == 'ar' ? $policy->insurance->name_ar : $policy->insurance->name ?></strong>
                                             </td>
                                             <td><?= Yii::t('app', 'Plan') ?></td>
-                                            <td><strong><?=Yii::$app->language == 'ar' ?  $policy->plan->name_ar:  $policy->plan->name ?></strong>
+                                            <td><strong><?= Yii::$app->language == 'ar' ?  $policy->plan->name_ar :  $policy->plan->name ?></strong>
                                             </td>
                                         </tr>
                                         <tr>
@@ -91,24 +91,24 @@ $this->title = 'Review Your Insurance Details';
                                                     </thead>
                                                     <tbody>
                                                         <?php foreach ($policy->policyDraftPassengers as $index => $passenger): ?>
-                                                        <tr>
-                                                            <td><?= $index + 1 ?></td>
-                                                            <td><?= $passenger->id_number ?></td>
-                                                            <td><?= $passenger->first_name . ' ' . $passenger->last_name ?>
-                                                            </td>
-                                                            <td><?= $passenger->gender ?></td>
-                                                            <td><?= $passenger->nationality ?></td>
-                                                            <td><?= $passenger->dob ?></td>
-                                                            <td><?= $passenger->country ?></td>
-                                                            <td>
-                                                                <a class="text-body" href="javascript:;"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#importProductsModal">
-                                                                    <i class="bi bi-camera fs-5"></i>
-                                                                    <?= Yii::t('app', 'Retake') ?>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td><?= $index + 1 ?></td>
+                                                                <td><?= $passenger->id_number ?></td>
+                                                                <td><?= $passenger->first_name . ' ' . $passenger->last_name ?>
+                                                                </td>
+                                                                <td><?= $passenger->gender ?></td>
+                                                                <td><?= $passenger->nationality ?></td>
+                                                                <td><?= $passenger->dob ?></td>
+                                                                <td><?= $passenger->country ?></td>
+                                                                <td>
+                                                                    <a class="text-body" href="javascript:;"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#importProductsModal">
+                                                                        <i class="bi bi-camera fs-5"></i>
+                                                                        <?= Yii::t('app', 'Retake') ?>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
                                                         <?php endforeach; ?>
                                                     </tbody>
                                                 </table>
@@ -122,45 +122,52 @@ $this->title = 'Review Your Insurance Details';
                                             </td>
 
                                             <?php if ($customer !== null && $customer->credit != 0): ?>
-                                            <td colspan="2" class="text-start">
-                                                <i class="bi bi-wallet-fill"></i> <?= Yii::t('app', 'Your Wallet') ?>:
-                                                <strong class="text-success">USD $<?= $customer->credit ?></strong>
-                                            </td>
+                                                <td colspan="2" class="text-start">
+                                                    <i class="bi bi-wallet-fill"></i> <?= Yii::t('app', 'Your Wallet') ?>:
+                                                    <strong class="text-success">USD $<?= $customer->credit ?></strong>
+                                                </td>
                                             <?php endif; ?>
                                         </tr>
                                     </table>
 
-                                </div> <?php 
-          
-          $price = (float) $policy->price;
-          $credit = (float) $customer->credit;
+                                </div> <?php
+$price = (float) $policy->price; 
+$formattedAmount = number_format($price, 2); 
 
-     
-          $remainingAmount = max(0, $price - $credit);
+if ($customer !== null) {
+    $credit = (float) $customer->credit; 
 
-        
-          $formattedAmount = number_format($remainingAmount, 2);
-          
-      ?>
-                                <?php if ($customer !== null &&  $customer->credit==$price ): ?>
-                                <div class="mt-2">
+    
+    $remainingAmount = max(0, $price - $credit);
+
+    $formattedAmount = number_format($remainingAmount, 2);
+}
+?>
 
 
-                                    <?= Html::a(Yii::t('app', 'Continue') . ' ' .'($'. $formattedAmount.')', ['/asurance/payment', 'id' => base64_encode($policy->id)], ['class' => 'btn btn-warning w-100']) ?>
-                                </div>
-                                <?php else: ?>
-                                <div class="mt-2">
-                                    <?= Html::a(
-    Yii::t('app', 'Pay Now') . ' ' . '($' . $formattedAmount . ')',
-    '#',
-    [
-        'class' => 'btn btn-warning w-100',
-        'data-bs-toggle' => 'modal',
-        'data-bs-target' => '#paymentModal'
-    ]
+<?php if ($customer !== null && $customer->credit == $price): ?>
+    <div class="mt-2">
+    <?= Html::a(
+    Yii::t('app', 'Continue') . ' ' . '($' . $formattedAmount . ')', 
+    ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => ($customer->getPaymentMethod()->one() ? $customer->getPaymentMethod()->one()->method : null)], 
+    ['class' => 'btn btn-warning w-100']
 ) ?>
-                                </div>
-                                <?php endif; ?>
+
+    </div>
+<?php else: ?>
+    <div class="mt-2">
+        <?= Html::a(
+            Yii::t('app', 'Pay Now') . ' ($' . ($formattedAmount ? $formattedAmount : '0') . ')', 
+            '#',
+            [
+                'class' => 'btn btn-warning w-100',
+                'data-bs-toggle' => 'modal',
+                'data-bs-target' => '#paymentModal'
+            ]
+        ) ?>
+    </div>
+<?php endif; ?>
+
 
 
 
@@ -189,16 +196,22 @@ $this->title = 'Review Your Insurance Details';
             </div>
             <div class="modal-body">
                 <p>Please choose a payment method:</p>
+                <?php $form = ActiveForm::begin() ?>
+
                 <div class="d-flex justify-content-start gap-1">
-                  
-                        <?= Html::a(Yii::t('app', 'MEBs Payment'), ['/asurance/payment', 'id' => base64_encode($policy->id)], ['class' => 'btn btn-meps d-flex align-items-start' ,'id'=>'mebsPayment']) ?>
-                   
-             
-            
 
-                    <?= Html::a(Yii::t('app', 'Alawneh Payment'), ['/asurance/payment', 'id' => base64_encode($policy->id)], ['class' => 'btn btn-alwaneh d-flex align-items-start' ,'id'=>'mebsPayment']) ?>
+                <?= Html::a(Yii::t('app', 'MEBs Payment'), ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => 'meps'], [
+    'class' => 'btn btn-meps d-flex align-items-start text-white'
+]) ?>
 
+<?= Html::a(Yii::t('app', 'Alawneh Payment'), ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => 'alawneh'], [
+    'class' => 'btn btn-alwaneh d-flex align-items-start text-white'
+]) ?>
+
+
+                    <?= Html::hiddenInput('paymentmethod', '', ['id' => 'paymentmethod-hidden']) ?>
                 </div>
+                <?php ActiveForm::end() ?>
             </div>
         </div>
     </div>
@@ -260,30 +273,30 @@ $this->title = 'Review Your Insurance Details';
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById('retakePassportForm');
-    const preloader = document.getElementById('preloader');
-    const modal = document.getElementById('importProductsModal');
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById('retakePassportForm');
+        const preloader = document.getElementById('preloader');
+        const modal = document.getElementById('importProductsModal');
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-
-        const bootstrapModal = bootstrap.Modal.getInstance(modal);
-        bootstrapModal.hide();
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
 
 
-        preloader.style.display = 'block';
+            const bootstrapModal = bootstrap.Modal.getInstance(modal);
+            bootstrapModal.hide();
 
 
-        setTimeout(() => {
-            form.submit();
-        }, 500);
+
+            preloader.style.display = 'block';
+
+            setTimeout(() => {
+                form.submit();
+            }, 500);
+        });
+
+        window.addEventListener('load', function() {
+            preloader.style.display = 'none';
+        });
     });
-
-    window.addEventListener('load', function() {
-        preloader.style.display = 'none';
-    });
-});
 </script>
 <!--Contact us end

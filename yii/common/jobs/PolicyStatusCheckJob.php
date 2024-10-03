@@ -71,7 +71,7 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
     private function viewPolicy($id)
     {
 
-        $apiEndpoint = "https://tuneprotectjo.com/api/policies/$id";
+        $apiEndpoint = "https://pannorthjo.com/api/policies/$id";
         $apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjJlMzM3YmM2LWFmMzMtNDFjNS04ZTM2LWQ2NzJjMWRjNDYyNSIsImlhdCI6IjIwMjQtMDctMDQiLCJpc3MiOjE4M30.jdsWqHcU0cL4ZHKr0oZYBvamRrpYwvfCARitiBTVzqU';
 
         $ch = curl_init($apiEndpoint);

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models; // Adjust the namespace according to your application structure
+namespace common\models;
 
 use common\models\Customers;
 use yii\db\ActiveRecord;
@@ -15,7 +15,7 @@ use yii\db\ActiveRecord;
  *
  * @property Customers $customer
  */
-class PaymentMethods extends ActiveRecord
+class PaymentMethod extends ActiveRecord
 {
     /**
      * {@inheritdoc}

@@ -19090,7 +19090,7 @@ strong {
 .text-pattern-line:after {
   background-image: url(../images/pattern/curve.svg);
   background-repeat: no-repeat;
-  bottom: -22px;
+  bottom: -21px;
   content: "";
   height: 20px;
   position: absolute;

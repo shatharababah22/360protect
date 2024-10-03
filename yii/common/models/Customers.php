@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use app\models\PaymentMethods;
+use common\models\PaymentMethod;
 
 use Yii;
 
@@ -60,8 +60,8 @@ class Customers extends \yii\db\ActiveRecord
     }
 
 
-    public function getPaymentMethods()
+    public function getPaymentMethod()
     {
-        return $this->hasMany(PaymentMethods::class, ['customer_id' => 'id']);
+        return $this->hasMany(PaymentMethod::class, ['customer_id' => 'id']);
     }
 }

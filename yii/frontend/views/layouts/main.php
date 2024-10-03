@@ -150,7 +150,7 @@ AppAsset::register($this);
 </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Typs of Insurances') ?></a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Types of Insurances') ?></a>
                         <ul class="dropdown-menu">
                             <?php foreach (\common\models\Insurances::find()->all() as $insurance) : ?>
                                 <li>
@@ -352,7 +352,7 @@ AppAsset::register($this);
                     <div class="mb-7 mb-xl-0">
                         <div class="mb-4">
                             <a href="/">
-                                <img class="img-fluid" width="70" height="auto" src="/images/logo/logo-dark.webp" alt="360Protect" loading="eager">
+                                <img class="img-fluid" width="80" height="auto" src="/images/logo/logo-dark.webp" alt="360Protect" loading="eager">
                             </a>
                         </div>
                         <p class="mb-5 mt-2"><?= Yii::t('app', 'Safeguard your travels through our insurance companies partners. Whether you\'re
@@ -384,7 +384,7 @@ goal is to offer tailored coverage that meets your unique needs.') ?></p>
                         <div class="col-lg-4 col-12">
                             <div class="position-relative">
                                 <div class="mb-3 pb-2 d-flex justify-content-between border-bottom border-bottom-lg-0">
-                                    <h5> <?= Yii::t('app', 'Assurances') ?></h5>
+                                    <h5> <?= Yii::t('app', 'Types of Insurances') ?></h5>
 
 
                                    

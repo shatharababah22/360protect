@@ -337,6 +337,7 @@ Details') ?></h1>
                 <?= Yii::t('app', 'Are you sure you want to delete this file?') ?>
             </div>
             <div class="modal-footer">
+
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= Yii::t('app', 'Cancel') ?></button>
                 <button type="button" class="btn btn-danger" id="confirmDeleteBtn"><?= Yii::t('app', 'Delete') ?></button>
             </div>

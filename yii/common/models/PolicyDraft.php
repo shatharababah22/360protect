@@ -73,7 +73,7 @@ class PolicyDraft extends \yii\db\ActiveRecord
                 [['insurance_id', 'plan_id',  'departure_date', 'return_date', 'adult', 'children', 'infant'], 'required'],
                 [['insurance_id', 'plan_id',  'created_at', 'updated_at',  'adult', 'children', 'infant'], 'integer'],
                 [['price'], 'number'],
-                [['email','name'], 'string', 'max' => 255],
+                [['email','name','paymentmethod'], 'string', 'max' => 255],
         //         [['mobile'], 'required', 'message' => 'Mobile number cannot be blank.'],
         // [['mobile'], PhoneInputValidator::class],
         // [['mobile'], 'string'],
@@ -108,6 +108,7 @@ class PolicyDraft extends \yii\db\ActiveRecord
             'children' => Yii::t('app', 'Children'),
             'infant' => Yii::t('app', 'Infant'),
             'Name' => Yii::t('app', 'name'),
+            'Payment Method' => Yii::t('app', 'paymentmethod'),
         ];
     }
 
@@ -146,7 +147,7 @@ class PolicyDraft extends \yii\db\ActiveRecord
         $scenarios = parent::scenarios();
 
         $scenarios[self::SCENARIO_UPDATE] = ['field1', 'field2'];
-        $scenarios[self::SCENARIO_UPDATE] = ['email', 'mobile', 'from_airport', 'going_to','name']; 
+        $scenarios[self::SCENARIO_UPDATE] = ['email', 'mobile', 'from_airport', 'going_to','name','paymentmethod']; 
         return $scenarios;
     }
 }

@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="text-center text-lg-start mb-lg-4 mb-lg-0 mt-5" data-cues="slideInDown">
                     <div class="mb-4">
                         <h2 class="mb-5 display-6 text-white-stable">
-                            <?= Yii::t('app', 'Claim your travel assurance') ?>
+                            <?= Yii::t('app', 'Claim your insurance online') ?>
                             <span class="text-pattern-line text-warning"> <?= Yii::t('app', 'within minutes') ?></span>
                         </h2>
                         <p class="mb-0 text-white-50">
@@ -788,22 +788,23 @@ alt="Company Logo" -->
                     <small class="text-uppercase ls-md fw-semibold">
                         <span class="text-warning"><?= Yii::t('app', 'Who') ?></span> <?= Yii::t('app', 'we are') ?>
                     </small>
-                    <h2 class="h2 mt-4 mb-3"><?= Yii::t('app', 'We believe in Worry-Free Journeys With Reliable Coverage.') ?></h2>
-                    <p class="mb-3">
-                        <?= Yii::t('app', 'At 360Travelcare, we specialize in providing comprehensive insurance solutions to safeguard your travels our partners insurance companies.') ?>
-                    </p>
-                    <p class="mb-0">
-                        <?= Yii::t('app', 'Whether you\'re embarking on a new Adventure, Shopping, Study, or
-simply seeking peace of mind, our goal is to offer tailored coverage that meets your unique needs.') ?>
-                    </p>
+                    <h2 class="h2 mt-3 mb-3"><?= Yii::t('app', 'We believe in Worry-Free Journeys With Reliable Coverage.') ?></h2>
+                    <p class="mb-2">
+    <?= Yii::t('app', 'At 360Travelcare, we specialize in providing comprehensive insurance solutions to safeguard your travels with our partner insurance companies.') ?>
+</p>
+<p class="mb-2">
+    <?= Yii::t('app', 'Whether you\'re embarking on a new Adventure, Shopping, Study, or simply seeking peace of mind, our goal is to offer tailored coverage that meets your unique needs.With 360Travelcare, you can focus on enjoying your journey while we take care of your protection.') ?>
+</p>
+
+
                 </div>
 
-                <a href="/asurance/about" class="icon-link icon-link-hover" style="color: #00112C;">
+                <!-- <a href="/asurance/about" class="icon-link icon-link-hover" style="color: #00112C;">
                     <?= Yii::t('app', 'More about us') ?>
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="bi bi-arrow-right text-warning" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
-                </a>
+                </a> -->
             </div>
             <div class="col-xl-6 offset-xl-<?= $languageDirection = Yii::$app->language == 'ar' ? 'rtl' : 'ltr' ?>-1 col-lg-6 col-12">
                 <div class="row g-4">

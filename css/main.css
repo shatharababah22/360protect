@@ -816,3 +816,50 @@ color:aliceblue; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman'
 
     background-color: #002D80;
 }
+
+
+
+
+.btn-meps {
+    background-color: #B20938; /* MEBs Payment button */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+.btn-meps:hover {
+    background-color: #9c0e2b; /* Darker shade on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.btn-alwaneh {
+    background-color: #002D80; /* Alawneh Payment button */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+.btn-alwaneh:hover {
+    background-color: #001f5b; /* Darker shade on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.text-white {
+    color: #ffffff; /* Keep text color white */
+}
+
+
+
+/* .card-insurance{
+    height: 70%;
+
+}
+.card-img{
+
+    height: 70%; 
+}
+.card-img-overlay{
+
+    height: 70%;
+}
+
+.card-img-overlay{
+    height: 70% !important;
+
+} */
