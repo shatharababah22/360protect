@@ -1042,8 +1042,7 @@ insurance, we\'ve got you covered with protection against unexpected events and 
             </div>
 
             <div class="col-md-4" data-cue="fadeIn" data-duration="1000">
-                <img width="75" height="75" src="/images/icons8-home-insurance-64 (1).png" class="mb-2" alt="Property Insurance" />
-                <h4 class="text-white-stable"><?= Yii::t('app', 'Student Insurance') ?></h4>
+            <img width="70" height="70" src="/images/education (4).png" class="mb-2" alt="Travel Insurance" />                <h4 class="text-white-stable"><?= Yii::t('app', 'Student Insurance') ?></h4>
 <p class="text-white-50 mb-3"><?= Yii::t('app', 'Student Insurance offers comprehensive protection for students.') ?></p>
 <ul class="text-white-50 d-none d-md-block">
     <li><?= Yii::t('app', 'Coverage for Personal Accidents') ?></li>
