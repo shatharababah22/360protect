@@ -702,7 +702,10 @@ alt="Company Logo" -->
                     </h2>
 
                     <p class="mb-0 text-white-50">
-                        <?= Yii::t('app', 'Discover seamless insurance solutions with tailored coverage and exceptional service.') ?>
+                        <?= Yii::t('app', '
+                        
+                       Discover travel insurance solution with various coverage and exceptional
+service.') ?>
                     </p>
                 </div>
             </div>
@@ -720,21 +723,23 @@ alt="Company Logo" -->
         </div> -->
         <div class="row mb-5 pb-4 g-5  text-lg-left">
             <div class="col-md-4" data-cue="slideInLeft" >
-                <h4 class="text-white-stable"><?= Yii::t('app', 'Flexible Payment Options') ?></h4>
+                <h4 class="text-white-stable"><?= Yii::t('app', 'Affordable Plans') ?></h4>
                 <p class="text-white-50 mb-0">
-                    <?= Yii::t('app', 'Manage your insurance payments easily with flexible plans.') ?>
+                    <?= Yii::t('app', 'Choose from a verity of Silver, Gold and Platinum plans') ?>
                 </p>
             </div>
             <div class="col-md-4" data-cue="slideInLeft">
-                <h4 class="text-white-stable"><?= Yii::t('app', 'Smart Coverage Solutions') ?></h4>
+                <h4 class="text-white-stable"><?= Yii::t('app', 'Benefits & Coverage') ?></h4>
                 <p class="text-white-50 mb-0">
-                    <?= Yii::t('app', 'Intelligent insurance plans adapting to your needs efficiently.') ?>
+                    <?= Yii::t('app', 'Excellent coverage Worldwide and Emergency Assistance
+24/7') ?>
                 </p>
             </div>
             <div class="col-md-4" data-cue="slideInLeft">
-                <h4 class="text-white-stable"><?= Yii::t('app', 'Effortless Administration') ?></h4>
+                <h4 class="text-white-stable"><?= Yii::t('app', 'Claims') ?></h4>
                 <p class="text-white-50 mb-0">
-                    <?= Yii::t('app', 'Simplify policy management and claims processing effortlessly.') ?>
+                    <?= Yii::t('app', 'Claims are processed quickly provided all
+necessary documents are provided.') ?>
                 </p>
             </div>
         </div>
@@ -762,7 +767,7 @@ alt="Company Logo" -->
             </div>
             <div class="col-lg-3 col-6 border-end-0">
                 <div class="p-lg-5">
-                    <h5 class="h1 text-white-stable  mb-0 counter" data-count="<?= Policy::find()->count() ?>">1 </h5>
+                    <h5 class="h1 text-white-stable  mb-0 counter" data-count="<?= Policy::find()->count() ?>">0 </h5>
                     <span class="text-white-50"><?= Yii::t('app', 'Insurance Policies') ?></span>
                 </div>
             </div>
@@ -1039,7 +1044,7 @@ insurance, we\'ve got you covered with protection against unexpected events and 
             <div class="col-md-4" data-cue="fadeIn" data-duration="1000">
                 <img width="75" height="75" src="/images/icons8-home-insurance-64 (1).png" class="mb-2" alt="Property Insurance" />
                 <h4 class="text-white-stable"><?= Yii::t('app', 'Student Insurance') ?></h4>
-<p class="text-white-50 mb-3"><?= Yii::t('app', 'Student Assurance offers comprehensive protection for students.') ?></p>
+<p class="text-white-50 mb-3"><?= Yii::t('app', 'Student Insurance offers comprehensive protection for students.') ?></p>
 <ul class="text-white-50 d-none d-md-block">
     <li><?= Yii::t('app', 'Coverage for Personal Accidents') ?></li>
     <li><?= Yii::t('app', 'Emergency Medical Evacuation & Repatriation.') ?></li>

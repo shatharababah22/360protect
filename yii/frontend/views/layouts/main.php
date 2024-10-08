@@ -163,12 +163,13 @@ AppAsset::register($this);
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Company') ?></a>
 
                         <ul class="dropdown-menu">
-                            <li>
-                                <?= Html::a(Yii::t('app', 'About Us'), ['/asurance/about'], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
-                            </li>
-                            <li>
+                        <li>
                                 <?= Html::a(Yii::t('app', 'Contact Us'), ['/asurance/contact'], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
                             </li>
+                            <li>
+                                <?= Html::a(Yii::t('app', 'Terms & Conditions'), ['/asurance/terms'], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
+                            </li>
+                          
                         </ul>
                     </li>
 
@@ -492,7 +493,8 @@ $countries = $language === 'ar'
                                 <ul class="list-unstyled mb-0 py-3 py-lg-0 px-0">
                                     <li class="mb-2">
 
-                                        <?= Html::a(Yii::t('app', 'About us'), ['/asurance/about'], ['class' => 'text-decoration-none ', 'style' => 'color:#64748B;']) ?>
+                                        <?= Html::a(Yii::t('app', 'Terms &
+Conditions'), ['/asurance/terms'], ['class' => 'text-decoration-none ', 'style' => 'color:#64748B;']) ?>
 
                                     </li>
 

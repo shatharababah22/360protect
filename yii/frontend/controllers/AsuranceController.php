@@ -1916,7 +1916,7 @@ if($id != null){
     }
 
 
-    public function actionAbout()
+    public function actionTerms()
     {
 
 
@@ -2313,10 +2313,6 @@ if($id != null){
     
         $headers = [
             'Authorization: Basic ' . $credentials, 
-        
-
-
-
         ];
     
     
@@ -2414,7 +2410,7 @@ if($id != null){
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $responseData = json_decode($response, true);
        
-        dd( $responseData );
+        // dd( $responseData );
         curl_close($ch);
         
          
