@@ -78,42 +78,42 @@ class AsuranceController extends BaseController
         }
 
 
-    //  dd($data);
-    
-  
+        //  dd($data);
+
+
         return $this->render('/insurance/insurances', [
-        'data'=>$data,
+            'data' => $data,
 
         ]);
     }
-    
-    
 
 
 
-//     public function actionType(){
-
-//         return $this->render('/insurance/insurances');
-// }
-
-public function actionTravel($id = null)
-{
 
 
-    $data = Yii::$app->request->queryParams; 
-   
- 
-    // dd(  $data);
+    //     public function actionType(){
+
+    //         return $this->render('/insurance/insurances');
+    // }
+
+    public function actionTravel($id = null)
+    {
+
+
+        $data = Yii::$app->request->queryParams;
+
+
+        // dd(  $data);
         $model = new InquiryForm();
         $model->setAttributes(\Yii::$app->request->get('InquiryForm'));
-// if($id = null){
-    
+        // if($id = null){
+
         $data = Yii::$app->request->get();
         if ($data) {
 
-if($id != null){
-    $data['type']=$id;
-}
+            if ($id != null) {
+                $data['type'] = $id;
+            }
             $model->type = $data['type'];
             $model->from_country = $data['from_country'];
             $model->to_country = $data['to_country'];
@@ -126,12 +126,12 @@ if($id != null){
             $model->plan = $data['plan'] ?? null;
             $model->pax_type = $data['pax_type'];
         }
-   
-    // }
+
+        // }
 
         $fromCountryName = $this->getCountryName($model->from_country);
         $toCountryName = $this->getCountryName($model->to_country);
-// dd(  $data,        $toCountryName );
+        // dd(  $data,        $toCountryName );
         if ($model->from_country === $model->to_country) {
             Yii::$app->session->setFlash('error', 'Departure and arrival countries cannot be the same.');
             return $this->redirect(Yii::$app->getRequest()->getReferrer());
@@ -151,11 +151,10 @@ if($id != null){
         foreach ($sourceCountries as $country) {
 
             $countryLookup[strtolower($country['source_country'])] = $country;
-
         }
-// dd($sourceCountries);
+        // dd($sourceCountries);
         $defaultCountry = 'united arab emirates';
-     
+
         $id = null;
 
         function findCountryByPartialName($countries, $partialName)
@@ -183,49 +182,47 @@ if($id != null){
 
         // dd(     $id );
         // dd(   $id );
-        function getPlans($insuranceId, $sourceId, $planCodeLike, $planCodeNotLike, $minAge, $maxAge) {
+        function getPlans($insuranceId, $sourceId, $planCodeLike, $planCodeNotLike, $minAge, $maxAge)
+        {
             $plans = Plans::find()
                 ->where(['insurance_id' => $insuranceId])
                 ->andWhere(['source_id' => $sourceId])
                 ->andWhere(['between', 'min_age', $minAge, $maxAge])
                 ->andWhere(['between', 'max_age', $minAge, $maxAge]);
-        
+
             if ($planCodeLike) {
                 $plans->andWhere(['like', 'plan_code', $planCodeLike]);
             }
-            
+
             if ($planCodeNotLike) {
                 $plans->andWhere(['not like', 'plan_code', $planCodeNotLike]);
             }
             // dd( $plans);
             return $plans->all();
         }
-        
-        $plans = []; 
-      
+
+        $plans = [];
+
         if (isset($paxTypeRanges[$selectedPaxType])) {
             $range = $paxTypeRanges[$selectedPaxType];
             $minAge = $range['min_age'];
             $maxAge = $range['max_age'];
             $fromCountryNameKey = strtolower($fromCountryNameEn);
             $id = null;
-      
+
             if (isset($countryLookup[$fromCountryNameKey]) && $countryLookup[$fromCountryNameKey]['source_country'] !== 'United Arab Emirates') {
                 $id = $countryLookup[$fromCountryNameKey]['id'];
                 $model->source = $countryLookup[$fromCountryNameKey]['source_country'];
                 // dd($countryLookup[$fromCountryNameKey]['source_country'] );
                 if ($model->to_country === 'US' || $model->to_country === 'CA') {
-               
-                        $plans = getPlans($model->type, $id, 'USCA',  null, $minAge, $maxAge);
-                 
+
+                    $plans = getPlans($model->type, $id, 'USCA',  null, $minAge, $maxAge);
                 } else {
                     // dd( $id,$model->type,$minAge, $maxAge);
-                        $plans = getPlans($model->type, $id, null, 'USCA', $minAge, $maxAge);
-                        // dd( $model->type,  $id, $minAge, $maxAge);
-                  
+                    $plans = getPlans($model->type, $id, null, 'USCA', $minAge, $maxAge);
+                    // dd( $model->type,  $id, $minAge, $maxAge);
+
                 }
-
-
             } else {
                 $id = findCountryByPartialName($sourceCountries, 'emirates');
                 if ($id && isset($countryLookup[strtolower($defaultCountry)]) && strpos(strtolower($countryLookup[strtolower($defaultCountry)]['source_country']), 'emirates') !== false) {
@@ -236,33 +233,30 @@ if($id != null){
                 if ($id !== null) {
                     if ($model->to_country === 'US' || $model->to_country === 'CA') {
                         if ($model->from_country === 'AE') {
-                     
+
                             $plans = getPlans($model->type, $id, 'USCA', 'A2A', $minAge, $maxAge);
                         } else {
-                        //    dd("shatha");
+                            //    dd("shatha");
                             $plans = getPlans($model->type, $id,  ['USCA', 'A2A'], null, $minAge, $maxAge);
-                            
                         }
                     } else {
                         if ($model->from_country === 'AE') {
-                          
+
                             $plans = getPlans($model->type, $id, null, ['USCA', 'A2A'], $minAge, $maxAge);
                         } else {
-                         
+
                             $plans = getPlans($model->type, $id, 'A2A', 'USCA', $minAge, $maxAge);
                         }
                     }
                 }
-
-
             }
-        
-           
-        
-         
+
+
+
+
             // dd( $model->source);
         }
-     
+
         if ($model->load(Yii::$app->request->post())) {
             // dd($model->type);
             $passengers = $model->adult + $model->children + $model->adult_senior;
@@ -270,7 +264,7 @@ if($id != null){
                 ->where(['plan_id' => $model->plan])
                 ->andWhere(['duration' => $model->duration])
                 ->one();
-     
+
             $price = $pricing->discount_price  && $pricing->status == 1  ? $pricing->discount_price : $pricing->price;
 
 
@@ -316,12 +310,12 @@ if($id != null){
             }
         }
 
-        
+
         $insuranceCountry = InsuranceCountries::findOne($id);
 
         // dd($plans);
         $options = [];
-        
+
         foreach ($plans as $plan) {
             $insuranceTitle = $plan->insurance->name;
             $insuranceTitleAr = $plan->insurance->name_ar;
@@ -329,7 +323,7 @@ if($id != null){
                 ->where(['plan_id' => $plan->id])
                 ->andWhere(['duration' => $model->duration])
                 ->one();
-        
+
             $options[$plan->id] = [
                 'name' => $plan->name,
                 'name_ar' => $plan->name_ar,
@@ -338,7 +332,7 @@ if($id != null){
                 'status' => $price ? $price->status : 'Pricing::STATUS_INACTIVE',
             ];
         }
-        
+
         if (empty($options)) {
             Yii::$app->session->setFlash('errorr', 'No plans are available for the selected options.');
             return $this->redirect(Yii::$app->getRequest()->getReferrer());
@@ -951,7 +945,7 @@ if($id != null){
             ->all();
         $fromCountryName = $this->getCountryName($policy->DepartCountryCode);
         $toCountryName = $this->getCountryName($policy->ArrivalCountryCode);
-// dd($policy);
+        // dd($policy);
         return $this->render('/insurance/passengers', [
             'model' => $model,
             'policy' => $policy,
@@ -1507,7 +1501,7 @@ if($id != null){
         $policy = PolicyDraft::findOne($decodedDraft);
         $policy->setScenario('update');
 
-        
+
         $model = new \yii\base\DynamicModel(['file']);
 
         if ($id !== null) {
@@ -1972,7 +1966,7 @@ if($id != null){
 
         $mobile = Yii::$app->session->get('mobile');
         $customer = Customers::findOne(['mobile' => $mobile]);
-      
+
         if ($customer) {
 
             $policies = Policy::find()->where(['customer_id' => $customer->id])->orderBy(['created_at' => SORT_DESC])->all();
@@ -2252,31 +2246,31 @@ if($id != null){
     {
         $id = base64_decode($id);
         $policyDraft = PolicyDraft::findOne($id);
-        
+
         if ($policyDraft !== null) {
-       
+
             $policyDraft->paymentmethod = $method;
-       
+
             $policyDraft->setScenario(PolicyDraft::SCENARIO_UPDATE);
-    
-            if (!$policyDraft->save(false)) { 
+
+            if (!$policyDraft->save(false)) {
                 throw new \Exception('Failed to update policy draft');
             }
         }
-    
+
         $passengers = PolicyDraftPassengers::find()->where(['draft_id' => $id])->all();
-        
+
         if ($policyDraft === null) {
             throw new NotFoundHttpException('The requested policy does not exist.');
         }
-    
+
         $customer = Customers::findOne(['mobile' => $policyDraft->mobile]);
-    
+
         if ($customer === null) {
-       
+
             if ($policyDraft->paymentmethod === "alawneh") {
-             
-                
+
+
                 return $this->handleNewCustomerPaymentAlawneh($policyDraft, $passengers);
             } else {
                 return $this->handleNewCustomerPayment($policyDraft, $passengers);
@@ -2286,13 +2280,13 @@ if($id != null){
             return $this->handleExistingCustomerPayment($policyDraft, $passengers, $customer);
         }
     }
-    
+
 
 
 
     protected function handleNewCustomerPaymentAlawneh($policyDraft, $passengers)
     {
-        $response = $this->processPaymentAlawneh($policyDraft,$passengers);
+        $response = $this->processPaymentAlawneh($policyDraft, $passengers);
         if (isset($response['success']) && !empty($response['success'])) {
             $this->processPurchase($policyDraft, $passengers);
         } else {
@@ -2300,103 +2294,70 @@ if($id != null){
             Yii::$app->session->setFlash('error', $errorMessage);
         }
     }
-    
-    
+
+
     protected function getAlawnehAccessToken()
     {
-        $url = 'https://gateway-test.alawnehpay.com/auth-server/oauth/token'; 
+        $url = 'https://gateway-test.alawnehpay.com/auth-server/oauth/token';
         $client_id = 'testBusiness';
         $client_secret = 'TeSuT19Huyc@jiu';
-    
-      
+
+
         $credentials = base64_encode($client_id . ':' . $client_secret);
-    
+
         $headers = [
-            'Authorization: Basic ' . $credentials, 
+            'Authorization: Basic ' . $credentials,
         ];
-    
-    
+
+
         $postData = http_build_query([
             'grant_type' => 'client_credentials',
         ]);
-    
-   
+
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    
-    
+
+
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-    
- 
+
+
         $data = json_decode($response, true);
-  
+
         if ($httpCode == 200 && isset($data['access_token'])) {
             return $data['access_token'];
         }
-    
+
         throw new \Exception('Failed to retrieve access token: ' . $response);
     }
-    
-    protected function PaymentAlawneh($policyDraft, $passengers)
+
+    protected function processPaymentAlawneh($policyDraft, $passengers)
     {
 
         $accessToken = $this->getAlawnehAccessToken();
-        $url = 'https://gateway-test.alawnehpay.com/businessapi/remittance/accountDeposit';
-
+        $url = 'https://gateway-test.alawnehpay.com/businessapi/payments/singlePayment';
+     
         $payload = [
-            "amount" => $policyDraft->price, 
-            "payoutMethod" => "A", 
-            "us_citizen" => false,
-            "pep" => false,
-            "currency" => "JOD", 
-            "receiverAccount" => "string", 
-            "participantId" => "string", 
-            "remittanceInfo" => [
-                "sender" => [
-                    "name" => [
-                        "firstName" => $policyDraft->name,
-                        "secondName" => $policyDraft->name,
-                        "thirdName" => $policyDraft->name,
-                        "lastName" => $policyDraft->name,
-                    ],
-                    "nationality" => "JOR",
-                    "dateOfBirth" => "1994-12-10",
-                ],
-                "receiver" => [
-                    "name" => [
-                        "firstName" =>  "string",
-                        "secondName" =>  "string",
-                        "thirdName" =>  "string",
-                        "lastName" => "string",
-                    ],
-                    "nationality" => "JOR",
-                    "dateOfBirth" => "1985-05-15",
-                ],
-                "remDetail" => [
-                    "sourceCountry" => "JOR",
-                    "realBeneficiary" => true,
-                    "reasonOfTransfer" => "Insurance Payment",
-                    "relationshipWithRecipient" => "None",
-                    "commission" => 0.0,
-                    "senderDeclarationToConfirmPaymnet" =>false,
-                    "agentNameOutsideJordan" => "Test Agent",
-                ]
-            ],
-            "externalId" => "String ",
-            "purpose" => "Insurance Payment",
+            "amount" => $policyDraft->price,
+            "toAlias" => "0790751376",
+            "purpose" => "TRANSFER_TO_OWN_ACCOUNT",
+            "channel" => "MOBILE_ONLINE",
+            "paymentType" => "MONEY_TRANSFER",
+
+
         ];
-    
+
         $headers = [
-            'Authorization: Bearer ' . $accessToken, 
+            'Authorization: Bearer ' . $accessToken,
             'Content-Type: application/json',
         ];
-    
+
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -2404,30 +2365,53 @@ if($id != null){
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    
-   
+
+
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $responseData = json_decode($response, true);
-       
-        // dd( $responseData );
+
+        dd( $responseData,$httpCode  );
         curl_close($ch);
-        
-         
-            
-        if ($responseData['success'] == true) {
+
+
+        if ($responseData['success'] == true &&$responseData['data'] =! [] ) {
             $responseData = json_decode($response, true);
             return $responseData;
         } else {
-            throw new \Exception('Failed to process payment with Alawneh Pay: ' . $response);
-        }
 
+
+$amount = $policyDraft->price; 
+$url = 'https://gateway.alawnehpay.com/businessapi/qr/' . $amount;
+
+$headers = [
+    'Authorization: Bearer ' . $accessToken,
+    'Content-Type: application/json',
+];
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$responseData = json_decode($response, true);
+
+dd($responseData); 
+curl_close($ch);
+
+$responseData = json_decode($response, true);
+return $responseData;
+            // throw new \Exception('Failed to process payment with Alawneh Pay: ' . $response);
+        }
     }
     protected function handleNewCustomerPayment($policyDraft, $passengers)
     {
 
 
-        
+
         $model = new \yii\base\DynamicModel(['number', 'expmonth', 'expyear', 'cvv', 'price']);
         $model->addRule(['number', 'expmonth', 'expyear', 'cvv', 'price'], 'required')
             ->addRule(['number'], 'string', ['length' => 16])
@@ -2525,7 +2509,7 @@ if($id != null){
     // {
     //     $totalPrice = $policyDraft->price;
     //     $remainingPrice = $totalPrice - $customer->credit;
-    
+
     //     if ($remainingPrice > 0) {
     //         if ($policyDraft->paymentmethod === "alawneh") {
     //             // $response = $this->PaymentAlawneh($policyDraft, $passengers);
@@ -2538,12 +2522,12 @@ if($id != null){
     //                 $errorMessage = isset($response['message']) ? $response['message'] : 'Payment failed. Please try again.';
     //                 Yii::$app->session->setFlash('error', $errorMessage);
     //             }
-    
-      
+
+
     //             return;
     //         }
-    
-          
+
+
     //         if ($policyDraft->paymentmethod === "meps") {
     //                 //  dd("shatha");
     //             $model = new \yii\base\DynamicModel(['number', 'expmonth', 'expyear', 'cvv', 'price']);
@@ -2551,9 +2535,9 @@ if($id != null){
     //                 ->addRule(['number'], 'string', ['length' => 16])
     //                 ->addRule(['cvv'], 'string', ['length' => [3, 4]])
     //                 ->addRule(['expmonth', 'expyear'], 'integer');
-    
+
     //             $model->price = $remainingPrice;
-    
+
     //             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
     //                 $paymentData = [
     //                     'number' => $model->number,
@@ -2563,7 +2547,7 @@ if($id != null){
     //                     'price' => $remainingPrice,
     //                     'payment-token' => Yii::$app->request->post('payment-token'),
     //                 ];
-    
+
     //                 $response = $this->processPayment($paymentData);
     // // dd( $response);
     //                 if (isset($response['tran_ref']) && !empty($response['tran_ref'])) {
@@ -2575,18 +2559,18 @@ if($id != null){
     //                     Yii::$app->session->setFlash('error', $errorMessage);
     //                 }
     //             }
-    
-              
-              
- 
-              
-              
+
+
+
+
+
+
     //         }
     // //             return $this->render('/insurance/payment', [
     // //     'model' => $model,
     // //     'policy' => $policyDraft,
     // // ]);  
-           
+
     //     } else {
     //         // dd("shatha");
     //         $customer->credit -= $totalPrice;
@@ -2595,87 +2579,87 @@ if($id != null){
     //     }
 
 
-  
+
     // }
-    
-//     protected function handleExistingCustomerPayment($policyDraft, $passengers, $customer)
-//     {
-//         $totalPrice = $policyDraft->price;
-//         $remainingPrice = $totalPrice - $customer->credit;
 
-//         if ($remainingPrice > 0) {
-//             if ($policyDraft->paymentmethod === "alawneh") {
+    //     protected function handleExistingCustomerPayment($policyDraft, $passengers, $customer)
+    //     {
+    //         $totalPrice = $policyDraft->price;
+    //         $remainingPrice = $totalPrice - $customer->credit;
 
-//                 $response = $this->PaymentAlawneh($policyDraft, $passengers);
+    //         if ($remainingPrice > 0) {
+    //             if ($policyDraft->paymentmethod === "alawneh") {
 
-
-//                 if (isset($response['success']) && !empty($response['success'])) {
-
-//                     $customer->credit = 0;
-//                     $customer->save(false);
-//                     $this->processPurchase($policyDraft, $passengers);
-//                 } else {
-//                     $errorMessage = isset($response['message']) ? $response['message'] : 'Payment failed. Please try again.';
-//                     Yii::$app->session->setFlash('error', $errorMessage);
-//                 }
-
-// }else{
-//             $model = new \yii\base\DynamicModel(['number', 'expmonth', 'expyear', 'cvv', 'price']);
-//             $model->addRule(['number', 'expmonth', 'expyear', 'cvv', 'price'], 'required')
-//                 ->addRule(['number'], 'string', ['length' => 16])
-//                 ->addRule(['cvv'], 'string', ['length' => [3, 4]])
-//                 ->addRule(['expmonth', 'expyear'], 'integer');
-
-//             $model->price = $remainingPrice;
-
-//             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-//                 $paymentData = [
-//                     'number' => $model->number,
-//                     'expmonth' => $model->expmonth,
-//                     'expyear' => $model->expyear,
-//                     'cvv' => $model->cvv,
-//                     'price' => $remainingPrice,
-//                     'payment-token' => Yii::$app->request->post('payment-token'),
-//                 ];
-
-//                 $response = $this->processPayment($paymentData);
-       
-
-//     $response = $this->processPayment($paymentData);
+    //                 $response = $this->PaymentAlawneh($policyDraft, $passengers);
 
 
-//     if (isset($response['tran_ref']) && !empty($response['tran_ref'])) {
+    //                 if (isset($response['success']) && !empty($response['success'])) {
 
-//         $customer->credit = 0;
-//         $customer->save(false);
-//         // dd(    $response );
-//         $this->processPurchase($policyDraft, $passengers);
-//     } else {
-//         $errorMessage = isset($response['message']) ? $response['message'] : 'Payment failed. Please try again.';
-//         Yii::$app->session->setFlash('error', $errorMessage);
-//     }
+    //                     $customer->credit = 0;
+    //                     $customer->save(false);
+    //                     $this->processPurchase($policyDraft, $passengers);
+    //                 } else {
+    //                     $errorMessage = isset($response['message']) ? $response['message'] : 'Payment failed. Please try again.';
+    //                     Yii::$app->session->setFlash('error', $errorMessage);
+    //                 }
 
-//     return $this->render('/insurance/payment', [
-//         'model' => $model,
-//         'policy' => $policyDraft,
-//     ]);
-    
-// }
-               
-//             }
+    // }else{
+    //             $model = new \yii\base\DynamicModel(['number', 'expmonth', 'expyear', 'cvv', 'price']);
+    //             $model->addRule(['number', 'expmonth', 'expyear', 'cvv', 'price'], 'required')
+    //                 ->addRule(['number'], 'string', ['length' => 16])
+    //                 ->addRule(['cvv'], 'string', ['length' => [3, 4]])
+    //                 ->addRule(['expmonth', 'expyear'], 'integer');
+
+    //             $model->price = $remainingPrice;
+
+    //             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+    //                 $paymentData = [
+    //                     'number' => $model->number,
+    //                     'expmonth' => $model->expmonth,
+    //                     'expyear' => $model->expyear,
+    //                     'cvv' => $model->cvv,
+    //                     'price' => $remainingPrice,
+    //                     'payment-token' => Yii::$app->request->post('payment-token'),
+    //                 ];
+
+    //                 $response = $this->processPayment($paymentData);
 
 
-            
-//         } else {
-// //    dd("shatha");
-//             $customer->credit -= $totalPrice;
+    //     $response = $this->processPayment($paymentData);
 
 
-//             $customer->save(false);
+    //     if (isset($response['tran_ref']) && !empty($response['tran_ref'])) {
 
-//             $this->processPurchase($policyDraft, $passengers);
-//         }
-//     }
+    //         $customer->credit = 0;
+    //         $customer->save(false);
+    //         // dd(    $response );
+    //         $this->processPurchase($policyDraft, $passengers);
+    //     } else {
+    //         $errorMessage = isset($response['message']) ? $response['message'] : 'Payment failed. Please try again.';
+    //         Yii::$app->session->setFlash('error', $errorMessage);
+    //     }
+
+    //     return $this->render('/insurance/payment', [
+    //         'model' => $model,
+    //         'policy' => $policyDraft,
+    //     ]);
+
+    // }
+
+    //             }
+
+
+
+    //         } else {
+    // //    dd("shatha");
+    //             $customer->credit -= $totalPrice;
+
+
+    //             $customer->save(false);
+
+    //             $this->processPurchase($policyDraft, $passengers);
+    //         }
+    //     }
 
 
 
@@ -2763,7 +2747,7 @@ if($id != null){
 
         $apiResponse = curl_exec($ch);
 
-// dd()
+        // dd()
         $apiResponseData = json_decode($apiResponse, true);
         // dd(         $apiResponseData);
         $customer = Customers::findOne(['mobile' => $policyDraft->mobile]);
@@ -2777,18 +2761,18 @@ if($id != null){
                 Yii::$app->session->setFlash('error', 'Failed to save the customer.');
                 return $this->redirect(['error-page']);
             }
-        }else{
+        } else {
             $customer->name = $policyDraft->name;
-            $customer->email = $policyDraft->email; 
+            $customer->email = $policyDraft->email;
             $customer->save(false);
         }
 
-      $paymentmethod=new PaymentMethod();
-      $paymentmethod->customer_id=$customer->id;
-      $paymentmethod->method=$policyDraft->paymentmethod;
-      $paymentmethod->response=$apiResponseData['message']??"null";
-      $paymentmethod->save();
-      
+        $paymentmethod = new PaymentMethod();
+        $paymentmethod->customer_id = $customer->id;
+        $paymentmethod->method = $policyDraft->paymentmethod;
+        $paymentmethod->response = $apiResponseData['message'] ?? "null";
+        $paymentmethod->save();
+
         if (isset($apiResponseData['id']) && !empty($apiResponseData['id'])) {
 
             $this->processView($policyDraft,  $passengers, $apiResponseData);
@@ -2804,121 +2788,121 @@ if($id != null){
 
         $id = $apiResponseData['id'];
         // dd($apiResponseData);
- 
+
 
         $customer = Customers::findOne(['mobile' => $policyDraft->mobile]);
-// foreach ($passengers as $passenger) {
-// $PassengerCount=count($passengers);
-//     $dob = new DateTime($passenger->dob);
-//             $now = new DateTime();
-//             $age = $now->diff($dob)->y;
+        // foreach ($passengers as $passenger) {
+        // $PassengerCount=count($passengers);
+        //     $dob = new DateTime($passenger->dob);
+        //             $now = new DateTime();
+        //             $age = $now->diff($dob)->y;
 
-//             if($age < 2){
-//                 $PassengerCount=count($passengers)-1;
+        //             if($age < 2){
+        //                 $PassengerCount=count($passengers)-1;
 
-// }else{
+        // }else{
 
-//     $PassengerCount=count($passengers);
-// }}
-
-        
-//         foreach ($passengers as $passenger) {
-
-        
+        //     $PassengerCount=count($passengers);
+        // }}
 
 
-          
-//             $policy = new Policy();
-//             $policy->customer_id = $customer->id;
-//             $policy->source = $policyDraft->source;
-//             $policy->from_airport = $policyDraft->from_airport;
-//             $policy->DepartCountryCode = $policyDraft->DepartCountryCode;
-//             $policy->departure_date = $policyDraft->departure_date;
-//             $policy->going_to = $policyDraft->going_to;
-//             $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
-//             $policy->return_date = $policyDraft->return_date;
-           
-// if($age <2){
-//     $policy->price = 0;
-// }else{
-//     $policy->price = $policyDraft->price/  $PassengerCount ;
-
-// }
-               
-            
-         
-//             $policy->ProposalState = $apiResponseData['ProposalState'] ?? 'Proposal State';
-//             $policy->ItineraryID = $id;
-//             $policy->PNR = $apiResponseData['PNR'] ?? '';
-//             $policy->PolicyNo = $apiResponseData['PolicyNo'] ?? '';
-//             $policy->PolicyPurchasedDateTime = $apiResponseData['PolicyPurchasedDateTime'] ?? date('Y-m-d H:i:s');
-//             $policy->PolicyURLLink = $apiResponseData['PolicyURLLink'] ?? '';
-//             $policy->status = $apiResponseData['status'] ?? 0;
-//             $policy->status_description = $apiResponseData['status_description'] ?? 'Processing';
-
-//             if ($policy->save()) {
-
-//                 $policies[] = $policy;
-//             } else {
-//                 var_dump($policy->errors);
-//                 die();
-//             }
-//         }
+        //         foreach ($passengers as $passenger) {
 
 
 
-$PassengerCount = count($passengers);
-$policies = []; 
-
-foreach ($passengers as $passenger) {
-    $dob = new DateTime($passenger->dob);
-    $now = new DateTime();
-    $age = $now->diff($dob)->y;
-
-    if ($age < 2) {
-        $PassengerCount--;
-    }
-}
 
 
-foreach ($passengers as $passenger) {
-    $dob = new DateTime($passenger->dob);
-    $now = new DateTime();
-    $age = $now->diff($dob)->y;
+        //             $policy = new Policy();
+        //             $policy->customer_id = $customer->id;
+        //             $policy->source = $policyDraft->source;
+        //             $policy->from_airport = $policyDraft->from_airport;
+        //             $policy->DepartCountryCode = $policyDraft->DepartCountryCode;
+        //             $policy->departure_date = $policyDraft->departure_date;
+        //             $policy->going_to = $policyDraft->going_to;
+        //             $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
+        //             $policy->return_date = $policyDraft->return_date;
 
-    $policy = new Policy();
-    $policy->customer_id = $customer->id;
-    $policy->source = $policyDraft->source;
-    $policy->from_airport = $policyDraft->from_airport;
-    $policy->DepartCountryCode = $policyDraft->DepartCountryCode;
-    $policy->departure_date = $policyDraft->departure_date;
-    $policy->going_to = $policyDraft->going_to;
-    $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
-    $policy->return_date = $policyDraft->return_date;
-    $policy->name = $passenger->first_name . ' ' . $passenger->last_name;
-    if ($age < 2) {
-        $policy->price = 0;
-    } else {
+        // if($age <2){
+        //     $policy->price = 0;
+        // }else{
+        //     $policy->price = $policyDraft->price/  $PassengerCount ;
 
-        $policy->price = $PassengerCount > 0 ? $policyDraft->price / $PassengerCount : 0;
-    }
+        // }
 
-    $policy->ProposalState = $apiResponseData['ProposalState'] ?? 'Proposal State';
-    $policy->ItineraryID = $id;
-    $policy->PNR = $apiResponseData['PNR'] ?? '';
-    $policy->PolicyNo = $apiResponseData['PolicyNo'] ?? '';
-    $policy->PolicyPurchasedDateTime = $apiResponseData['PolicyPurchasedDateTime'] ?? date('Y-m-d H:i:s');
-    $policy->PolicyURLLink = $apiResponseData['PolicyURLLink'] ?? '';
-    $policy->status = $apiResponseData['status'] ?? 0;
-    $policy->status_description = $apiResponseData['status_description'] ?? 'Processing';
 
-    if ($policy->save()) {
-        $policies[] = $policy;
-    } else {
-        var_dump($policy->errors);
-        die();
-    }
-}
+
+        //             $policy->ProposalState = $apiResponseData['ProposalState'] ?? 'Proposal State';
+        //             $policy->ItineraryID = $id;
+        //             $policy->PNR = $apiResponseData['PNR'] ?? '';
+        //             $policy->PolicyNo = $apiResponseData['PolicyNo'] ?? '';
+        //             $policy->PolicyPurchasedDateTime = $apiResponseData['PolicyPurchasedDateTime'] ?? date('Y-m-d H:i:s');
+        //             $policy->PolicyURLLink = $apiResponseData['PolicyURLLink'] ?? '';
+        //             $policy->status = $apiResponseData['status'] ?? 0;
+        //             $policy->status_description = $apiResponseData['status_description'] ?? 'Processing';
+
+        //             if ($policy->save()) {
+
+        //                 $policies[] = $policy;
+        //             } else {
+        //                 var_dump($policy->errors);
+        //                 die();
+        //             }
+        //         }
+
+
+
+        $PassengerCount = count($passengers);
+        $policies = [];
+
+        foreach ($passengers as $passenger) {
+            $dob = new DateTime($passenger->dob);
+            $now = new DateTime();
+            $age = $now->diff($dob)->y;
+
+            if ($age < 2) {
+                $PassengerCount--;
+            }
+        }
+
+
+        foreach ($passengers as $passenger) {
+            $dob = new DateTime($passenger->dob);
+            $now = new DateTime();
+            $age = $now->diff($dob)->y;
+
+            $policy = new Policy();
+            $policy->customer_id = $customer->id;
+            $policy->source = $policyDraft->source;
+            $policy->from_airport = $policyDraft->from_airport;
+            $policy->DepartCountryCode = $policyDraft->DepartCountryCode;
+            $policy->departure_date = $policyDraft->departure_date;
+            $policy->going_to = $policyDraft->going_to;
+            $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
+            $policy->return_date = $policyDraft->return_date;
+            $policy->name = $passenger->first_name . ' ' . $passenger->last_name;
+            if ($age < 2) {
+                $policy->price = 0;
+            } else {
+
+                $policy->price = $PassengerCount > 0 ? $policyDraft->price / $PassengerCount : 0;
+            }
+
+            $policy->ProposalState = $apiResponseData['ProposalState'] ?? 'Proposal State';
+            $policy->ItineraryID = $id;
+            $policy->PNR = $apiResponseData['PNR'] ?? '';
+            $policy->PolicyNo = $apiResponseData['PolicyNo'] ?? '';
+            $policy->PolicyPurchasedDateTime = $apiResponseData['PolicyPurchasedDateTime'] ?? date('Y-m-d H:i:s');
+            $policy->PolicyURLLink = $apiResponseData['PolicyURLLink'] ?? '';
+            $policy->status = $apiResponseData['status'] ?? 0;
+            $policy->status_description = $apiResponseData['status_description'] ?? 'Processing';
+
+            if ($policy->save()) {
+                $policies[] = $policy;
+            } else {
+                var_dump($policy->errors);
+                die();
+            }
+        }
 
 
         // dd(   $policies);
@@ -2994,17 +2978,17 @@ foreach ($passengers as $passenger) {
     {
         $policyId = Yii::$app->request->post('policyId');
         $policy = Policy::findOne($policyId);
-    
+
         if ($policy) {
             $customer = Customers::findOne(['id' => $policy->customer_id]);
             if ($customer && $customer->credit > 0) {
                 Yii::$app->session->setFlash('info', 'You have ' . $customer->credit . ' $ credits saved within your wallet. You can use it to purchase another policy any time or contact us for full refund.');
             }
         }
-        
+
         return $this->asJson(['status' => 'success']);
     }
-    
+
 
 
 
