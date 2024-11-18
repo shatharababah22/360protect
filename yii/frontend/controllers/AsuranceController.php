@@ -2337,76 +2337,174 @@ class AsuranceController extends BaseController
         throw new \Exception('Failed to retrieve access token: ' . $response);
     }
 
-    protected function processPaymentAlawneh($policyDraft, $passengers)
-    {
+//     protected function processPaymentAlawneh($policyDraft, $passengers)
+//     {
 
-        $accessToken = $this->getAlawnehAccessToken();
-        $url = 'https://gateway-test.alawnehpay.com/businessapi/payments/singlePayment';
+//         $accessToken = $this->getAlawnehAccessToken();
+//         $url = 'https://gateway-test.alawnehpay.com/businessapi/payments/singlePayment';
      
-        $payload = [
-            "amount" => $policyDraft->price,
-            "toAlias" => "0790751376",
-            "purpose" => "TRANSFER_TO_OWN_ACCOUNT",
-            "channel" => "MOBILE_ONLINE",
-            "paymentType" => "MONEY_TRANSFER",
+//         $payload = [
+//             "amount" => $policyDraft->price,
+//             "toAlias" => "0790751376",
+//             "purpose" => "TRANSFER_TO_OWN_ACCOUNT",
+//             "channel" => "MOBILE_ONLINE",
+//             "paymentType" => "MONEY_TRANSFER",
 
 
-        ];
+//         ];
 
-        $headers = [
-            'Authorization: Bearer ' . $accessToken,
-            'Content-Type: application/json',
-        ];
-
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+//         $headers = [
+//             'Authorization: Bearer ' . $accessToken,
+//             'Content-Type: application/json',
+//         ];
 
 
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $responseData = json_decode($response, true);
-
-        dd( $responseData,$httpCode  );
-        curl_close($ch);
-
-
-        if ($responseData['success'] == true &&$responseData['data'] =! [] ) {
-            $responseData = json_decode($response, true);
-            return $responseData;
-        } else {
+//         $ch = curl_init();
+//         curl_setopt($ch, CURLOPT_URL, $url);
+//         curl_setopt($ch, CURLOPT_POST, true);
+//         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 
-$amount = $policyDraft->price; 
-$url = 'https://gateway.alawnehpay.com/businessapi/qr/' . $amount;
+//         $response = curl_exec($ch);
+//         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+//         $responseData = json_decode($response, true);
 
-$headers = [
-    'Authorization: Bearer ' . $accessToken,
-    'Content-Type: application/json',
-];
+//         dd( $responseData,$httpCode  );
+//         curl_close($ch);
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-$response = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$responseData = json_decode($response, true);
+//         if ($responseData['success'] == true &&$responseData['data'] =! [] ) {
+//             $responseData = json_decode($response, true);
+//             return $responseData;
+//         } else {
 
-dd($responseData); 
-curl_close($ch);
 
-$responseData = json_decode($response, true);
-return $responseData;
-            // throw new \Exception('Failed to process payment with Alawneh Pay: ' . $response);
-        }
+// $amount = $policyDraft->price; 
+// $url = 'https://gateway.alawnehpay.com/businessapi/qr/' . $amount;
+
+// $headers = [
+//     'Authorization: Bearer ' . $accessToken,
+//     'Content-Type: application/json',
+// ];
+
+// $ch = curl_init();
+// curl_setopt($ch, CURLOPT_URL, $url);
+// curl_setopt($ch, CURLOPT_POST, true);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+// $response = curl_exec($ch);
+// $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+// $responseData = json_decode($response, true);
+
+// dd($responseData); 
+// curl_close($ch);
+
+// $responseData = json_decode($response, true);
+// return $responseData;
+//             // throw new \Exception('Failed to process payment with Alawneh Pay: ' . $response);
+//         }
+//     }
+
+
+
+
+protected function processPaymentAlawneh($policyDraft, $passengers)
+{
+    $accessToken = $this->getAlawnehAccessToken();
+    $url = 'https://gateway-test.alawnehpay.com/businessapi/payments/singlePayment';
+
+    $payload = [
+        "amount" => $policyDraft->price,
+        "toAlias" => "0790751376", 
+        "purpose" => "TRANSFER_TO_OWN_ACCOUNT",
+        "channel" => "MOBILE_ONLINE",
+        "paymentType" => "MONEY_TRANSFER",
+    ];
+
+    $headers = [
+        'Authorization: Bearer ' . $accessToken,
+        'Content-Type: application/json',
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $responseData = json_decode($response, true);
+    curl_close($ch);
+
+    if ($httpCode == 200 && isset($responseData['success']) && $responseData['success'] == true) {
+   
+        return $responseData;
+    } else {
+ 
+        return $this->generateQRCode($policyDraft->price, $policyDraft->externalId, $accessToken);
     }
+}
+
+protected function generateQRCode($amount, $externalId, $accessToken)
+{
+    $url = 'https://gateway.alawnehpay.com/businessapi/qr/generate?amount=' . $amount . '&externalId=' . $externalId;
+
+    $headers = [
+        'Authorization: Bearer ' . $accessToken,
+        'Content-Type: application/json',
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+    $response = curl_exec($ch);
+    $responseData = json_decode($response, true);
+    curl_close($ch);
+
+    if (isset($responseData['success']) && $responseData['success'] == true) {
+
+        return $responseData;
+    } else {
+        throw new \Exception('Failed to generate QR code: ' . json_encode($responseData));
+    }
+}
+
+protected function validateQRCode($externalId, $accessToken)
+{
+    $url = 'https://gateway.alawnehpay.com/businessapi/qr/validate/' . $externalId;
+
+    $headers = [
+        'Authorization: Bearer ' . $accessToken,
+        'Content-Type: application/json',
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+    $response = curl_exec($ch);
+    $responseData = json_decode($response, true);
+    curl_close($ch);
+
+    if (isset($responseData['success']) && $responseData['success'] == true) {
+        // QR Code validated successfully
+        return $responseData;
+    } else {
+        throw new \Exception('Failed to validate QR code: ' . json_encode($responseData));
+    }
+}
+
+
+
     protected function handleNewCustomerPayment($policyDraft, $passengers)
     {
 

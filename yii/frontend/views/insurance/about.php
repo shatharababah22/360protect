@@ -260,7 +260,7 @@ In the event that transaction error has occurred while making the payment , a re
                 <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
                 <ul>
                     <li>By email: <a href="mailto:sales@tuneprotectjo.cm">sales@tuneprotectjo.cm</a></li>
-                    <li>By visiting this page on our website: <a href="https://www.360travelcare.com/contacts">Contact Page</a></li>
+                    <li>By visiting this page on our website: <a href="/asurance/contact">Contact Page</a></li>
                     <li>By phone number: +962 70 5093626</li>
                 </ul>
             </div>
