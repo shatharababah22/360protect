@@ -2251,12 +2251,12 @@ class AsuranceController extends BaseController
         if ($policyDraft !== null) {
 
             $policyDraft->paymentmethod = $method;
+            $policyDraft->save();
+            // $policyDraft->setScenario(PolicyDraft::SCENARIO_UPDATE);
 
-            $policyDraft->setScenario(PolicyDraft::SCENARIO_UPDATE);
-
-            if (!$policyDraft->save(false)) {
-                throw new \Exception('Failed to update policy draft');
-            }
+            // if (!$policyDraft->save(false)) {
+            //     throw new \Exception('Failed to update policy draft');
+            // }
         }
 
         $passengers = PolicyDraftPassengers::find()->where(['draft_id' => $id])->all();
@@ -2266,7 +2266,7 @@ class AsuranceController extends BaseController
         }
 
         $customer = Customers::findOne(['mobile' => $policyDraft->mobile]);
-
+       
         if ($customer === null) {
 
             if ($policyDraft->paymentmethod === "alawneh") {
@@ -2332,8 +2332,7 @@ class AsuranceController extends BaseController
 
 
         $data = json_decode($response, true);
-        dd(
-            $response  );
+        dd(     $data  );
         if ($httpCode == 200 && isset($data['access_token'])) {
             return $data['access_token'];
         }

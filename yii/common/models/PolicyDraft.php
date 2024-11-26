@@ -147,7 +147,7 @@ class PolicyDraft extends \yii\db\ActiveRecord
         $scenarios = parent::scenarios();
 
         $scenarios[self::SCENARIO_UPDATE] = ['field1', 'field2'];
-        $scenarios[self::SCENARIO_UPDATE] = ['email', 'mobile', 'from_airport', 'going_to','name','paymentmethod']; 
+        $scenarios[self::SCENARIO_UPDATE] = ['email', 'mobile', 'from_airport', 'going_to','name']; 
         return $scenarios;
     }
 }

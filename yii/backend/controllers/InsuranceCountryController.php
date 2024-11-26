@@ -179,7 +179,12 @@ class InsuranceCountryController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+ 
+    
+        \Yii::$app->db->createCommand()
+            ->delete('insurance_countries', ['insurance_id' => $id])
+            ->execute();
+        
         return $this->redirect(['index']);
     }
 
