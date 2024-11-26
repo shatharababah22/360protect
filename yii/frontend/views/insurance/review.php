@@ -118,13 +118,13 @@ $this->title = 'Review Your Insurance Details';
                                         <tr>
                                             <td colspan="2" class="text-start">
                                                 <i class="bi bi-cash-stack"></i> <?= Yii::t('app', 'Due Amount') ?>:
-                                                <strong class="text-success">USD $<?= $policy->price ?></strong>
+                                                <strong class="text-success">JOD<?= $policy->price ?></strong>
                                             </td>
 
                                             <?php if ($customer !== null && $customer->credit != 0): ?>
                                                 <td colspan="2" class="text-start">
                                                     <i class="bi bi-wallet-fill"></i> <?= Yii::t('app', 'Your Wallet') ?>:
-                                                    <strong class="text-success">USD $<?= $customer->credit ?></strong>
+                                                    <strong class="text-success">JOD<?= $customer->credit ?></strong>
                                                 </td>
                                             <?php endif; ?>
                                         </tr>

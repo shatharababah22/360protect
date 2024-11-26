@@ -278,7 +278,7 @@ $this->title = '360Protect';
                                     <div class="price-text">
                                         <span class="small">starts from </span>
                                         <div class="price price-show h1 text-warning">
-                                            <span>$</span>
+                                            <span>JOD</span>
                                             <span><?= $insurance->price ?></span>
                                         </div>
                                     </div>

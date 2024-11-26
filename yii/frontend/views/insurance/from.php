@@ -230,7 +230,7 @@ $insuranceId = Insurances::find()
 
                 </div>
             </div>
-            <div class="col-md-6 col-12">
+            <!-- <div class="col-md-6 col-12">
                 <label for="fromCountry" class="form-label">
                     <?= Yii::t('app', 'From') ?>
                     <span class="text-danger">*</span>
@@ -276,12 +276,32 @@ $insuranceId = Insurances::find()
                 <div class="invalid-feedback">
                     <?= Yii::t('app', "The departure country can't be blank.") ?>
                 </div>
-            </div>
+            </div> -->
+
+          <div class="col-md-6 col-12">
+    <label for="fromCountry" class="form-label">
+        <?= Yii::t('app', 'From') ?>
+        <span class="text-danger">*</span>
+    </label>
+
+    <input type="text" name="from_country" id="fromCountry" 
+           class="form-control" value="Jordan" readonly required>
+
+    <div class="invalid-feedback">
+        <?= Yii::t('app', "The departure country can't be blank.") ?>
+    </div>
+</div>
+
+
+
+
             <div class="col-md-6 col-12">
                 <label for="toCountry" class="form-label">
                     <?= Yii::t('app', 'To') ?>
                     <span class="text-danger">*</span>
                 </label>
+
+                
                 <select id="toCountry" name="to_country" class="form-control" required>
                     <option value="" disabled selected><?= Yii::t('app', 'Arrival') ?></option>
                     <?php foreach ($allCountries as $code => $name): ?>

@@ -96,9 +96,9 @@ AppAsset::register($this);
             </div></div>   
             <div class="offcanvas-body pt-0 align-items-center">
                 <ul class="navbar-nav navbar-nav-<?= $languageDirection = Yii::$app->language == 'ar' ? 'rtl' : 'ltr' ?> mx-auto align-items-lg-center">
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Countries') ?></a>
-                        <!-- <ul class="dropdown-menu">
+                      <ul class="dropdown-menu">
                             <?php
                             $countries = \common\models\InsuranceCountries::find()
                                 ->select(['source_country', 'slug'])
@@ -115,7 +115,7 @@ AppAsset::register($this);
                                     ) ?>
                                 </li> <?php endforeach; ?>
 
-                        </ul> -->
+                        </ul>
                         <?php
                             $countries = $language === 'ar' ? \common\models\InsuranceCountries::find()
                                 ->select(['source_country_ar', 'slug'])
@@ -148,7 +148,7 @@ AppAsset::register($this);
         </li>
     <?php endforeach; ?>
 </ul>
-                    </li>
+                    </li> -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Types of Insurances') ?></a>
                         <ul class="dropdown-menu">

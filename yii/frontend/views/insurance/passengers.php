@@ -157,7 +157,7 @@ Details') ?></h1>
                     \yii\helpers\ArrayHelper::map(
                         \common\models\Airports::find()
                             ->leftJoin('countries', 'countries.code = airports.countryCode')
-                            ->where(['countries.code' => $policy->DepartCountryCode])
+                            ->where(['countries.code' => 'JO'])
                             ->all(),
                         'code',
                         'name'
@@ -280,7 +280,7 @@ Details') ?></h1>
                                         <span><?= Yii::t('app', 'Departure:') ?> </span>
                                     </div>
                                     <div class="col-md-6 text-end">
-                                        <span class="fw-bold"><?=  Yii::$app->language == 'ar'? $fromCountryName['name_ar']: $fromCountryName['name_en'] ?></span>
+                                        <span class="fw-bold"><?=  Yii::$app->language == 'ar'? 'الاردن' : 'Jordan' ?></span>
                                     </div>
                                 </div>
                                 <div class="row">

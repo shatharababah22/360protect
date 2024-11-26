@@ -57,8 +57,7 @@ $this->title = 'Your Policy';
             <li class="list-group-item border-0  d-flex justify-content-start m-auto">
 
 
-              <img src="/assets/flags/<?= strtolower($policy->DepartCountryCode) ?>.png"
-                class="rounded-circle me-1" width="24" height="24"
+              <img src="/assets/flags/jo.png" class="rounded-circle me-1" width="24" height="24"
                 alt="<?= Html::encode($policy->DepartCountryCode) ?>" />
               <?= Html::encode($policy->from_airport) ?>
 
@@ -130,7 +129,7 @@ $this->title = 'Your Policy';
 
           
 
-              Price: <span class=" me-4 ms-1 fw-bold" style="color: #00112C; "><?= Html::encode($policy->price) ?> $ </span>
+              Price: <span class=" me-4 ms-1 fw-bold" style="color: #00112C; "><?= Html::encode($policy->price) ?> JOD </span>
 
 
               Status:
@@ -249,7 +248,7 @@ $this->title = 'Your Policy';
                     <td><?= Html::encode($policy->customer ? ucwords(strtolower($policy->name)) : 'N/A') ?></td>
 
                     <td>
-                        <img src="/assets/flags/<?= strtolower($policy->DepartCountryCode) ?>.png"
+                        <img src="/assets/flags/jo.png"
                              class="rounded-circle" width="24" height="24"
                              alt="<?= Html::encode($policy->DepartCountryCode) ?>" />
                         <?= Html::encode($policy->from_airport) ?>
@@ -262,7 +261,7 @@ $this->title = 'Your Policy';
                     </td>
                     <td><?= Yii::$app->formatter->asDate($policy->departure_date) ?></td>
                     <td><?= Yii::$app->formatter->asDate($policy->return_date) ?></td>
-                    <td><?= Html::encode($policy->price) ?> $</td>
+                    <td><?= Html::encode($policy->price) ?> JOD</td>
                     <td>
     <?php
     $statusClass = '';

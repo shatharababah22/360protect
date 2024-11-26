@@ -211,7 +211,7 @@ $language = Yii::$app->language;
                                                     <div class="mt-4">
                                                         <span class="small"><?= Yii::t('app', 'starts from') ?> </span>
                                                         <div class="price price-show  text-warning">
-                                                            <span>$</span>
+                                                            <span>JOD</span>
                                                             <span><?= $insurance->price ?></span>
                                                         </div>
                                                     </div>

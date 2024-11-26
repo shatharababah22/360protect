@@ -32,7 +32,7 @@ $this->title = 'Plan Details';
                                     <span class="text-warning"><?= Yii::t('app', 'Insurance') ?></span>
                             </h1>
                             <p class="mb-0 text-white">
-                                <span class="text-white-50"><?= Yii::t('app', 'From') ?></span> <?= $language === 'ar' ?  $fromCountryName['name_ar'] : $fromCountryName['name_en'] ?>
+                                <span class="text-white-50"><?= Yii::t('app', 'From') ?></span> <?= $language === 'ar' ?  'الاردن' : 'Jordan' ?>
                                 <span class="text-white-50"><?= Yii::t('app', 'To') ?></span> <?= $language === 'ar' ?  $toCountryName['name_ar'] : $toCountryName['name_en'] ?>
                                 <a href="javascript:void(0);" onclick="history.back();" class="btn btn-link text-white-50 px-0 me-1 mx-1">
                                     <i class="bi bi-pencil-square"></i>
@@ -125,12 +125,12 @@ $this->title = 'Plan Details';
 
                                                 if ($label['discount_price'] && $label['status']) {
                                                     $return .= '<div class="price has_subscript">';
-                                                    $return .= '<h5><span style="font-size:15px;">$' . $label['discount_price'] . '</span><br><strike style="font-size:13px">$' . $label['price'] . '</strike></h5>';
+                                                    $return .= '<h5><span style="font-size:15px;">JOD' . $label['discount_price'] . '</span><br><strike style="font-size:13px">JOD' . $label['price'] . '</strike></h5>';
                                                     $return .= '<div class="subscript">' . Yii::t('app', 'per person') . '</div>';
                                                     $return .= '</div>';
                                                 } else {
                                                     $return .= '<div class="price has_subscript">';
-                                                    $return .= '<h5>$' . $label['price'] . '</h5>';
+                                                    $return .= '<h5>JOD' . $label['price'] . '</h5>';
                                                     $return .= '<div class="subscript">' . Yii::t('app', 'per person') . '</div>';
                                                     $return .= '</div>';
                                                 }

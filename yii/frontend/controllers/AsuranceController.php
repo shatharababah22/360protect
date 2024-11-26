@@ -129,9 +129,9 @@ class AsuranceController extends BaseController
 
         // }
 
-        $fromCountryName = $this->getCountryName($model->from_country);
+        $fromCountryName = 'Jordan';
         $toCountryName = $this->getCountryName($model->to_country);
-        // dd(  $data,        $toCountryName );
+ 
         if ($model->from_country === $model->to_country) {
             Yii::$app->session->setFlash('error', 'Departure and arrival countries cannot be the same.');
             return $this->redirect(Yii::$app->getRequest()->getReferrer());
@@ -145,8 +145,8 @@ class AsuranceController extends BaseController
             ->asArray()
             ->all();
 
-        $fromCountryNameEn = ucfirst(strtolower($fromCountryName['name_en']));
-
+        // $fromCountryNameEn = ucfirst(strtolower($fromCountryName['name_en']));
+        $fromCountryNameEn = 'Jordan';
         $countryLookup = [];
         foreach ($sourceCountries as $country) {
 
@@ -213,15 +213,16 @@ class AsuranceController extends BaseController
             if (isset($countryLookup[$fromCountryNameKey]) && $countryLookup[$fromCountryNameKey]['source_country'] !== 'United Arab Emirates') {
                 $id = $countryLookup[$fromCountryNameKey]['id'];
                 $model->source = $countryLookup[$fromCountryNameKey]['source_country'];
-                // dd($countryLookup[$fromCountryNameKey]['source_country'] );
+           
                 if ($model->to_country === 'US' || $model->to_country === 'CA') {
 
                     $plans = getPlans($model->type, $id, 'USCA',  null, $minAge, $maxAge);
+                    // dd($plans);
                 } else {
                     // dd( $id,$model->type,$minAge, $maxAge);
                     $plans = getPlans($model->type, $id, null, 'USCA', $minAge, $maxAge);
                     // dd( $model->type,  $id, $minAge, $maxAge);
-
+                    // dd($plans);
                 }
             } else {
                 $id = findCountryByPartialName($sourceCountries, 'emirates');
@@ -2287,6 +2288,7 @@ class AsuranceController extends BaseController
     protected function handleNewCustomerPaymentAlawneh($policyDraft, $passengers)
     {
         $response = $this->processPaymentAlawneh($policyDraft, $passengers);
+       
         if (isset($response['success']) && !empty($response['success'])) {
             $this->processPurchase($policyDraft, $passengers);
         } else {
@@ -2307,6 +2309,7 @@ class AsuranceController extends BaseController
 
         $headers = [
             'Authorization: Basic ' . $credentials,
+            'Content-Type: application/x-www-form-urlencoded',
         ];
 
 
@@ -2329,7 +2332,8 @@ class AsuranceController extends BaseController
 
 
         $data = json_decode($response, true);
-
+        dd(
+            $response  );
         if ($httpCode == 200 && isset($data['access_token'])) {
             return $data['access_token'];
         }
@@ -2816,7 +2820,7 @@ protected function validateQRCode($externalId, $accessToken)
 
         $apiPayload = [
             "source" => $policyDraft->source,
-            "from_country" =>  $fromCountryName['name_en'],
+            "from_country" =>  'Jordan',
             "from_airport" => $policyDraft->from_airport,
             "to_country" =>     $toCountryName['name_en'],
             "to_airport" => $policyDraft->going_to,
