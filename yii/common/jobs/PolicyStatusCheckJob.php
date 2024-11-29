@@ -20,7 +20,7 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
     public function execute($queue)
     {
         $responses = $this->viewPolicy($this->id);
-        // var_dump($responses);
+        var_dump($responses);
 
         if ($responses === null) {
             Yii::error("Failed to retrieve policy data for ID: {$this->id}", __METHOD__);

@@ -62191,3 +62191,141 @@ $_SERVER = [
     'REQUEST_TIME_FLOAT' => 1732918514.2366
     'REQUEST_TIME' => 1732918514
 ]
+2024-11-29 23:50:23 [::1][-][ovp5jc28b0sq0mlr5siodrbrc0][error][yii\base\ErrorException:2] yii\base\ErrorException: Trying to access array offset on value of type null in C:\xampp\htdocs\360protect\yii\frontend\controllers\AsuranceController.php:809
+Stack trace:
+#0 C:\xampp\htdocs\360protect\yii\frontend\controllers\AsuranceController.php(809): yii\base\ErrorHandler->handleError(2, 'Trying to acces...', 'C:\\xampp\\htdocs...', 809)
+#1 [internal function]: frontend\controllers\AsuranceController->actionPassengers('MTI2', NULL)
+#2 C:\xampp\htdocs\360protect\yii\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\360protect\yii\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\360protect\yii\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('passengers', Array)
+#5 C:\xampp\htdocs\360protect\yii\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('asurance/passen...', Array)
+#6 C:\xampp\htdocs\360protect\yii\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#7 C:\xampp\htdocs\360protect\index.php(18): yii\base\Application->run()
+#8 {main}
+2024-11-29 23:49:19 [::1][-][ovp5jc28b0sq0mlr5siodrbrc0][info][application] $_GET = [
+    'asurance/passengers' => ''
+    'draft' => 'MTI2'
+]
+
+$_POST = [
+    '_csrf-frontend' => 'DllAQjojlJlDiIwyBI9HdmhVVuGwIwVLUu_QjjVtUk9PFgh2Vg7B9AW__V9mtgAHDTEGzO9OVRkCu6jMXiERCA=='
+    'PolicyDraft' => [
+        'from_airport' => 'AMM'
+        'going_to' => 'BEY'
+        'name' => 'shatha'
+        'email' => 'shatha.rababah22@gmail.com'
+        'mobile' => '+962790751376'
+    ]
+    'DynamicModel' => [
+        'Adult1' => ''
+        'Infant1' => ''
+    ]
+    'login-button' => ''
+]
+
+$_FILES = [
+    'DynamicModel' => [
+        'name' => [
+            'Adult1' => '150740353-1721302673.jpg'
+            'Infant1' => 'Sample Passport INF.jpeg'
+        ]
+        'full_path' => [
+            'Adult1' => '150740353-1721302673.jpg'
+            'Infant1' => 'Sample Passport INF.jpeg'
+        ]
+        'type' => [
+            'Adult1' => 'image/jpeg'
+            'Infant1' => 'image/jpeg'
+        ]
+        'tmp_name' => [
+            'Adult1' => 'C:\\xampp\\tmp\\php1E2F.tmp'
+            'Infant1' => 'C:\\xampp\\tmp\\php1E3F.tmp'
+        ]
+        'error' => [
+            'Adult1' => 0
+            'Infant1' => 0
+        ]
+        'size' => [
+            'Adult1' => 362496
+            'Infant1' => 165334
+        ]
+    ]
+]
+
+$_COOKIE = [
+    '_language' => '33fa8de5493b2215726b8a4a375f2210943e106a2c96e59b5a76f8c2037e930fa:2:{i:0;s:9:\"_language\";i:1;s:2:\"en\";}'
+    '_identity-backend' => '7b0d79a1e1d6064dc72c71bb1fbbdf22b6207603600054b2911d5388bd27cf6ea:2:{i:0;s:17:\"_identity-backend\";i:1;s:47:\"[30,\"kgC4zAVdkk5FMU5X-4faQhs7gBifUP9T\",2592000]\";}'
+    'advanced-frontend' => 'ovp5jc28b0sq0mlr5siodrbrc0'
+    '_csrf-frontend' => '9c055ee3b40fbb9f7f39068c542a225cc976602e178946487b9cf0bbdb63b134a:2:{i:0;s:14:\"_csrf-frontend\";i:1;s:32:\"AOH4l-UmF7qmb9GqedP-_mPRPTxBkLCG\";}'
+    '_csrf-backend' => '156559c12a44f8bf6f4b2d9ca9649f1532b91a3fdf51f45a4ea2cf4a08e896c0a:2:{i:0;s:13:\"_csrf-backend\";i:1;s:32:\"gbkPMoEmstYpP4E-fRMH2xX6D0lkh-ks\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'C:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'C:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'C:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'C:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '529304'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_ORIGIN' => 'http://localhost'
+    'CONTENT_TYPE' => 'multipart/form-data; boundary=----WebKitFormBoundaryn61GKd1YAPADYejZ'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'http://localhost/asurance/passengers?draft=MTI2'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br, zstd'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.9,ar;q=0.8'
+    'HTTP_COOKIE' => '_language=33fa8de5493b2215726b8a4a375f2210943e106a2c96e59b5a76f8c2037e930fa%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_language%22%3Bi%3A1%3Bs%3A2%3A%22en%22%3B%7D; _identity-backend=7b0d79a1e1d6064dc72c71bb1fbbdf22b6207603600054b2911d5388bd27cf6ea%3A2%3A%7Bi%3A0%3Bs%3A17%3A%22_identity-backend%22%3Bi%3A1%3Bs%3A47%3A%22%5B30%2C%22kgC4zAVdkk5FMU5X-4faQhs7gBifUP9T%22%2C2592000%5D%22%3B%7D; advanced-frontend=ovp5jc28b0sq0mlr5siodrbrc0; _csrf-frontend=9c055ee3b40fbb9f7f39068c542a225cc976602e178946487b9cf0bbdb63b134a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22AOH4l-UmF7qmb9GqedP-_mPRPTxBkLCG%22%3B%7D; _csrf-backend=156559c12a44f8bf6f4b2d9ca9649f1532b91a3fdf51f45a4ea2cf4a08e896c0a%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_csrf-backend%22%3Bi%3A1%3Bs%3A32%3A%22gbkPMoEmstYpP4E-fRMH2xX6D0lkh-ks%22%3B%7D'
+    'PATH' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\xampp\\php;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files\\dotnet\\;C:\\xampp\\mysql\\bin;C:\\Users\\shath\\AppData\\Local\\Microsoft\\WindowsApps;;C:\\Users\\shath\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\shath\\AppData\\Roaming\\npm;C:\\Users\\shath\\.dotnet\\tools;C:\\Users\\shath\\AppData\\Local\\Programs\\Microsoft VS Code\\bin'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => 'C:/xampp/htdocs/360protect'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/xampp/htdocs/360protect'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'C:/xampp/htdocs/360protect/index.php'
+    'REMOTE_PORT' => '61232'
+    'REDIRECT_URL' => '/asurance/passengers'
+    'REDIRECT_QUERY_STRING' => 'asurance/passengers&draft=MTI2'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'asurance/passengers&draft=MTI2'
+    'REQUEST_URI' => '/asurance/passengers?draft=MTI2'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1732920559.3659
+    'REQUEST_TIME' => 1732920559
+]

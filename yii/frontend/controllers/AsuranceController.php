@@ -2841,9 +2841,9 @@ class AsuranceController extends BaseController
 
         $apiPayload = [
             "source" => $policyDraft->source,
-            "from_country" =>  'Jordan',
+            "from_country" => 'Jordan',
             "from_airport" => $policyDraft->from_airport,
-            "to_country" =>     $toCountryName['name_en'],
+            "to_country" =>$toCountryName['name_en'],
             "to_airport" => $policyDraft->going_to,
             "departure_date" => $policyDraft->departure_date,
             "days" => $days,
@@ -2870,9 +2870,9 @@ class AsuranceController extends BaseController
 
         $apiResponse = curl_exec($ch);
 
-        // dd()
+        // dd(  $apiPayload);
         $apiResponseData = json_decode($apiResponse, true);
-        // dd(         $apiResponseData);
+    
         $customer = Customers::findOne(['mobile' => $policyDraft->mobile]);
         if (!$customer) {
             $customer = new Customers();
@@ -2997,7 +2997,7 @@ class AsuranceController extends BaseController
             $policy->customer_id = $customer->id;
             $policy->source = $policyDraft->source;
             $policy->from_airport = $policyDraft->from_airport;
-            $policy->DepartCountryCode = $policyDraft->DepartCountryCode;
+            $policy->DepartCountryCode ='JO';
             $policy->departure_date = $policyDraft->departure_date;
             $policy->going_to = $policyDraft->going_to;
             $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
