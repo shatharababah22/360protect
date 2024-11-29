@@ -162,11 +162,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="text-center text-lg-start mb-lg-4 mb-lg-0 mt-5" data-cues="slideInDown">
                     <div class="mb-4">
                         <h2 class="mb-5 display-6 text-white-stable">
-                            <?= Yii::t('app', 'Claim your insurance online') ?>
+                            <?= Yii::t('app', 'Claim your assurance online') ?>
                             <span class="text-pattern-line text-warning"> <?= Yii::t('app', 'within minutes') ?></span>
                         </h2>
                         <p class="mb-0 text-white-50">
-                            <?= Yii::t('app', 'Worldwide coverage including Schengen – All our insurance covers COVID-19 100%.Accepted by all Embassies.') ?>
+                            <?= Yii::t('app', 'Worldwide coverage including Schengen – All our assurance covers COVID-19 100%.Accepted by all Embassies.') ?>
                         </p>
                     </div>
                     <?php if ($country !== null) : ?>
@@ -453,8 +453,8 @@ alt="Company Logo" -->
         <div class="row">
             <div class="col-md-12" data-cue="fadeIn">
                 <div class="mb-xl-7 mb-4 text-center">
-                    <h2 class="mb-2"><?= Yii::t('app', 'Type of Insurances') ?></h2>
-                    <p class="mb-0"><?= Yii::t('app', 'Explore various related insurance options that might suit your needs.') ?></p>
+                    <h2 class="mb-2"><?= Yii::t('app', 'Type of Assurances') ?></h2>
+                    <p class="mb-0"><?= Yii::t('app', 'Explore various related assurance options that might suit your needs.') ?></p>
                 </div>
             </div>
         </div>
@@ -681,7 +681,7 @@ alt="Company Logo" -->
             <div class="col-xl-8 offset-xl-2 col-12" dir="<?= Yii::$app->language == 'ar' ? 'rtl' : 'ltr' ?>">
                 <div class="text-center mb-xl-7 mb-5" >
                     <h2 class="text-white-stable header mb-3" >
-                        <?= Yii::t('app', 'Why Our Insurance Platform Leads:') ?>
+                        <?= Yii::t('app', 'Why Our Assurance Platform Leads:') ?>
                         <span class="text-warning"><?= Yii::t('app', 'Statistics that Speak') ?></span>
                     </h2>
 
@@ -697,14 +697,14 @@ alt="Company Logo" -->
             <div class="col-md-12" data-cue="fadeIn">
                 <div class="mb-xl-7 mb-4 text-center">
                     <h2 class="text-white-stable text-center header mb-3">
-                        <?= Yii::t('app', 'Why Our Insurance Platform Leads:') ?>
+                        <?= Yii::t('app', 'Why Our Assurance Platform Leads:') ?>
                         <span class="text-warning"><?= Yii::t('app', 'Statistics that Speak') ?></span>
                     </h2>
 
                     <p class="mb-0 text-white-50">
                         <?= Yii::t('app', '
                         
-                       Discover travel insurance solution with various coverage and exceptional
+                       Discover travel assurance solution with various coverage and exceptional
 service.') ?>
                     </p>
                 </div>
@@ -763,13 +763,13 @@ necessary documents are provided.') ?>
             <div class="col-lg-3 col-6 border-end-lg border-md-0 border-lg-primary">
                 <div class="p-lg-5">
                     <h5 class="h1 text-white-stable mb-0 counter" data-count="<?= Insurances::find()->count() ?>">0 </h5>
-                    <span class="text-white-50"><?= Yii::t('app', 'Types of Insurance') ?></span>
+                    <span class="text-white-50"><?= Yii::t('app', 'Types of Assurance') ?></span>
                 </div>
             </div>
             <div class="col-lg-3 col-6 border-end-0">
                 <div class="p-lg-5">
                     <h5 class="h1 text-white-stable  mb-0 counter" data-count="<?= Policy::find()->count() ?>">0 </h5>
-                    <span class="text-white-50"><?= Yii::t('app', 'Insurance Policies') ?></span>
+                    <span class="text-white-50"><?= Yii::t('app', 'Assurance Policies') ?></span>
                 </div>
             </div>
         </div>
@@ -797,7 +797,7 @@ necessary documents are provided.') ?>
                     </small>
                     <h2 class="h2 mt-3 mb-3"><?= Yii::t('app', 'We believe in Worry-Free Journeys With Reliable Coverage.') ?></h2>
                     <p class="mb-2">
-                        <?= Yii::t('app', 'At 360Travelcare, we specialize in providing comprehensive insurance solutions to safeguard your travels with our partner insurance companies.') ?>
+                        <?= Yii::t('app', 'At 360Travelcare, we specialize in providing comprehensive assurance solutions to safeguard your travels with our partner assurance companies.') ?>
                     </p>
                     <p class="mb-2">
                         <?= Yii::t('app', 'Whether you\'re embarking on a new Adventure, Shopping, Study, or simply seeking peace of mind, our goal is to offer tailored coverage that meets your unique needs.With 360Travelcare, you can focus on enjoying your journey while we take care of your protection.') ?>
@@ -1003,11 +1003,11 @@ necessary documents are provided.') ?>
             <div class="col-md-12" data-cue="fadeIn">
                 <div class="text-center mb-xl-7 mb-5">
                     <h2 class="text-white-stable mb-3">
-                        <?= Yii::t('app', 'Protect with Confidence: <span class="text-warning">Travel Insurance</span>') ?>
+                        <?= Yii::t('app', 'Protect with Confidence: <span class="text-warning">Travel Assurance</span>') ?>
                     </h2>
                     <p class="mb-0 text-white-50">
-                        <?= Yii::t('app', 'Ensure worry-free living with our comprehensive insurance plans. Whether you need health, life, auto, or home
-insurance, we\'ve got you covered with protection against unexpected events and emergencies.') ?>
+                        <?= Yii::t('app', 'Ensure worry-free living with our comprehensive assurance plans. Whether you need health, life, auto, or home
+assurance, we\'ve got you covered with protection against unexpected events and emergencies.') ?>
                     </p>
                 </div>
             </div>
@@ -1028,8 +1028,8 @@ insurance, we\'ve got you covered with protection against unexpected events and 
         <div class="row mb-7 pb-4 g-5 text-center text-lg-start">
 
             <div class="col-md-4" data-cue="fadeIn" data-duration="1000">
-                <img width="80" height="80" src="/images/icons8-travel-insurance-64 (1).png" class="mb-2" alt="Travel Insurance" />
-                <h4 class="text-white-stable"><?= Yii::t('app', 'Travel Insurance') ?></h4>
+                <img width="80" height="80" src="/images/icons8-travel-insurance-64 (1).png" class="mb-2" alt="Travel Assurance" />
+                <h4 class="text-white-stable"><?= Yii::t('app', 'Travel Assurance') ?></h4>
                 <p class="text-white-50 mb-3"><?= Yii::t('app', 'Stay protected against unforeseen medical emergencies.') ?></p>
                 <ul class="text-white-50 d-none d-md-block">
                     <li><?= Yii::t('app', 'Accidental & Sickness Medical Reimbursement.') ?></li>
@@ -1044,9 +1044,9 @@ insurance, we\'ve got you covered with protection against unexpected events and 
             </div>
 
             <div class="col-md-4" data-cue="fadeIn" data-duration="1000">
-                <img width="70" height="70" src="/images/education (4).png" class="mb-2" alt="Travel Insurance" />
-                <h4 class="text-white-stable"><?= Yii::t('app', 'Student Insurance') ?></h4>
-                <p class="text-white-50 mb-3"><?= Yii::t('app', 'Student Insurance offers comprehensive protection for students.') ?></p>
+                <img width="70" height="70" src="/images/education (4).png" class="mb-2" alt="Travel Assurance" />
+                <h4 class="text-white-stable"><?= Yii::t('app', 'Student Assurance') ?></h4>
+                <p class="text-white-50 mb-3"><?= Yii::t('app', 'Student Assurance offers comprehensive protection for students.') ?></p>
                 <ul class="text-white-50 d-none d-md-block">
                     <li><?= Yii::t('app', 'Coverage for Personal Accidents') ?></li>
                     <li><?= Yii::t('app', 'Emergency Medical Evacuation & Repatriation.') ?></li>
@@ -1060,9 +1060,9 @@ insurance, we\'ve got you covered with protection against unexpected events and 
                 </span>
             </div>
             <div class="col-md-4" data-cue="fadeIn" data-duration="1000">
-                <img width="80" height="80" src="/images/icons8-health-insurance-64 (1).png" class="mb-2" alt="Health Insurance" />
-                <h4 class="text-white-stable"><?= Yii::t('app', 'Cancellation Insurance') ?></h4>
-                <p class="text-white-50 mb-3"><?= Yii::t('app', 'Cancellation Insurance covers non-refundable travel expenses in case of trip changes.') ?></p>
+                <img width="80" height="80" src="/images/icons8-health-insurance-64 (1).png" class="mb-2" alt="Health Assurance" />
+                <h4 class="text-white-stable"><?= Yii::t('app', 'Cancellation Assurance') ?></h4>
+                <p class="text-white-50 mb-3"><?= Yii::t('app', 'Cancellation Assurance covers non-refundable travel expenses in case of trip changes.') ?></p>
                 <ul class="text-white-50 d-none d-md-block">
                     <li><?= Yii::t('app', 'Recover Non-Refundable Flight Tickets.') ?></li>
                     <li><?= Yii::t('app', 'Reimbursement for Accommodation.') ?></li>
@@ -1103,7 +1103,7 @@ insurance, we\'ve got you covered with protection against unexpected events and 
         <div class="row"> -->
 
 
-<section class="my-xl-9 my-5">
+<!-- <section class="my-xl-9 my-5">
     <div class="container" data-cue="fadeIn">
         <div class="row">
             <div class="col-md-12" data-cue="fadeIn">
@@ -1129,7 +1129,7 @@ insurance, we\'ve got you covered with protection against unexpected events and 
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 
 
@@ -1144,7 +1144,7 @@ insurance, we\'ve got you covered with protection against unexpected events and 
             <div class="col-md-12" data-cue="fadeIn">
                 <div class="mb-xl-7 mb-5 text-center">
                     <h2 class="mb-3">
-                        <?= Yii::t('app', 'How to Obtain Insurance in 3 Easy Steps') ?>
+                        <?= Yii::t('app', 'How to Obtain Assurance in 3 Easy Steps') ?>
                     </h2>
                     <p class="mb-0"><?= Yii::t('app', 'Secure your trip in three easy steps: compare plans, choose coverage, and buy') ?></p>
                 </div>
@@ -1177,7 +1177,7 @@ insurance, we\'ve got you covered with protection against unexpected events and 
                             </span>
                         </div>
                         <h3 class="h4"><?= Yii::t('app', 'Choose Coverage') ?></h3>
-                        <p class="mb-0"><?= Yii::t('app', 'Select the type of insurance you need, such as Travel, Student, Adventure, Shop, Cancellation insurance, and more.') ?></p>
+                        <p class="mb-0"><?= Yii::t('app', 'Select the type of assurance you need, such as Travel, Student, Adventure, Shop, Cancellation insurance, and more.') ?></p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-12" data-cue="slideInLeft">
@@ -1185,8 +1185,8 @@ insurance, we\'ve got you covered with protection against unexpected events and 
                         <div class="d-flex align-items-center justify-content-between mb-5">
                             <div class="icon-xl icon-shape rounded-circle bg-warning border border-warning-subtle border-4 text-dark fw-semibold fs-3">3</div>
                         </div>
-                        <h3 class="h4"><?= Yii::t('app', 'Purchase Insurance') ?></h3>
-                        <p class="mb-0"><?= Yii::t('app', 'Finalize your insurance purchase online to ensure comprehensive protection.') ?></p>
+                        <h3 class="h4"><?= Yii::t('app', 'Purchase Assurance') ?></h3>
+                        <p class="mb-0"><?= Yii::t('app', 'Finalize your Assurance purchase online to ensure comprehensive protection.') ?></p>
                     </div>
                 </div>
             </div>
@@ -1278,9 +1278,9 @@ insurance, we\'ve got you covered with protection against unexpected events and 
             <div class="row">
                 <div class="col-md-12" data-cue="fadeIn">
                     <div class="mb-xl-7 mb-4 text-center">
-                        <h2 class="text-white-stable mb-3"><?= Yii::t('app', 'Get your insurance online now') ?></h2>
+                        <h2 class="text-white-stable mb-3"><?= Yii::t('app', 'Get your assurance online now') ?></h2>
                         <p class="mb-0 text-white-50">
-                            <?= Yii::t('app', 'Ready to secure your future with peace of mind? Get your insurance online now and enjoy worry-free protection for all your needs!') ?>
+                            <?= Yii::t('app', 'Ready to secure your future with peace of mind? Get your assurance online now and enjoy worry-free protection for all your needs!') ?>
                         </p>
                     </div>
                 </div>

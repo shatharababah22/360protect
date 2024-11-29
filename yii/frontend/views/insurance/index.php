@@ -29,7 +29,7 @@ $this->title = 'Plan Details';
                             <h1 class="mb-3 mb-md-5">
                             
                                 <span class="text-white "><?= ucwords(strtolower($language === 'ar' ? $insuranceTitleAr : $insuranceTitle)) ?></span>
-                                    <span class="text-warning"><?= Yii::t('app', 'Insurance') ?></span>
+                                    <span class="text-warning"><?= Yii::t('app', 'Assurance') ?></span>
                             </h1>
                             <p class="mb-0 text-white">
                                 <span class="text-white-50"><?= Yii::t('app', 'From') ?></span> <?= $language === 'ar' ?  'الاردن' : 'Jordan' ?>
@@ -215,9 +215,9 @@ $this->title = 'Plan Details';
             <div class="col-lg-12 col-md-12 col-12">
                 <!-- Striped rows -->
                 <div class="table-responsive">
-                    <table class="table table-striped text-nowrap table-lg table-borderless">
-                        <thead> <?php if (!empty($options)) : ?>
-                                <tr>
+                    <table class="table table-hover table-striped text-nowrap table-md table-borderless">
+                        <thead > <?php if (!empty($options)) : ?>
+                                <tr >
                                     <th scope="col">
                                         <div class="fs-5 text-dark fw-semibold"><?= Yii::t('app', 'Plans') ?></div>
                                     </th>
@@ -233,10 +233,10 @@ $this->title = 'Plan Details';
 
                                 </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
                             <?php foreach (\common\models\PlansItems::find()->where(['insurance_id' => $model->type])->all() as $planitem) : ?>
                                 <tr class="clickable-row">
-                                    <td>
+                                    <td class="p-2">
 
 
 
@@ -256,9 +256,9 @@ $this->title = 'Plan Details';
                                             $secondLine = '';
                                         }
                                         ?>
-                                        <span class="ms-2">
-                                            <?= htmlspecialchars($firstLine) ?><br>
-                                            <span class="ms-5"><?= htmlspecialchars($secondLine) ?></span>
+                                        <span class="ms-2 text-wrap ">
+                                            <?= $title ?>
+                                          
                                         </span>
 
 
@@ -280,7 +280,7 @@ $this->title = 'Plan Details';
                                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                                                             </svg>
                                                         </span>
-                                                        <span class="ms-2">
+                                                        <span class="ms-2 text-wrap">
 
 
                                                             <?= $planCoverage->description ?>

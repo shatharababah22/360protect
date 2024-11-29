@@ -121,9 +121,11 @@ $this->title = 'Contact us';
                         <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" width="11%" alt="image" class="img-fluid">
                     </figure>
                     <h4><?= Yii::t('app', 'Our Location') ?></h4>
-                    <p class="text-size-16">Swaifieh, Amman, Jordan</p>
+                
+
+                    <p class="text-size-16">Shmeisani, Amman, Jordan</p>
                     <div class="clearfix"></div>
-                    <a href="https://www.google.com/maps/place/121+King+St,+Melbourne+VIC+3000,+Australia/@-37.8172467,144.9532001,17z/data=!3m1!4b1!4m6!3m5!1s0x6ad65d4dd5a05d97:0x3e64f855a564844d!8m2!3d-37.817251!4d144.955775!16s%2Fg%2F11g0g8c54h?entry=ttu"
+                    <a href="https://www.google.com/maps/dir/31.955792,35.8607108/%D8%B4%D8%A7%D8%B1%D8%B9+%D8%B9%D8%A8%D8%AF+%D8%A7%D9%84%D8%AD%D9%85%D9%8A%D8%AF+%D8%B4%D9%88%D9%85%D8%A7%D9%86+7%D8%8C+%D8%B9%D9%85%D9%91%D8%A7%D9%86%E2%80%AD%E2%80%AD/@31.960672,35.9158506,13z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x151ca0696eaca589:0xb0247c769fd2af8c!2m2!1d35.8971571!2d31.9677841?entry=ttu&g_ep=EgoyMDI0MTEyNC4xIKXMDSoASAFQAw%3D%3D"
                         class="text-decoration-none button"><?= Yii::t('app', 'Get Directions') ?><i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -134,9 +136,9 @@ $this->title = 'Contact us';
                         <img src="https://cdn-icons-png.flaticon.com/512/3247/3247310.png" width="11%" alt="image" class="img-fluid">
                     </figure>
                     <h4><?= Yii::t('app', 'Phone Number') ?></h4>
-                    <p class="text-size-16"><?= Yii::t('app', '+962790751376') ?></p>
+                    <p class="text-size-16"><?= Yii::t('app', '+962795093626') ?></p>
                     <div class="clearfix"></div>
-                    <a href="tel:+962790751376" class="text-decoration-none button"><?= Yii::t('app', 'Call us Now') ?>
+                    <a href="tel:+962795093626" class="text-decoration-none button"><?= Yii::t('app', 'Call us Now') ?>
                     <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
@@ -146,9 +148,9 @@ $this->title = 'Contact us';
                         <img src="https://cdn-icons-png.flaticon.com/512/15047/15047587.png" alt="image" class="img-fluid" width="11%">
                     </figure>
                     <h4><?= Yii::t('app', 'Our Email') ?></h4>
-                    <p class="text-size-16"><?= Yii::t('app', 'ahmad@relenas.com') ?></p>
+                    <p class="text-size-16"><?= Yii::t('app', 'sales@pannorthjo.com') ?></p>
                     <div class="clearfix"></div>
-                    <a href="mailto:ahmad@relenas.com" class="text-decoration-none button"><?= Yii::t('app', 'Email us') ?>
+                    <a href="mailto:sales@pannorthjo.com" class="text-decoration-none button"><?= Yii::t('app', 'Email us') ?>
                     
                     
                     <i class="fa-solid fa-arrow-right"></i></a>

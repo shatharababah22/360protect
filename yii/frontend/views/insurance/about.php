@@ -14,10 +14,9 @@ use common\models\Policy;
 use common\widgets\Alert;
 
 
-$this->title = 'Terms and Conditions
-';
+$this->title = 'Terms and Conditions';
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
 <!-- <div class="pattern-square"></div> -->
 <section class="pt-10 pb-10 bg-dark text-center">
@@ -111,7 +110,7 @@ $this->title = 'Terms and Conditions
                 <!-- <h2 class="text-center">Terms and Conditions</h2>
                 <p>Please read these terms and conditions carefully before using Our Service.</p> -->
 
-                <h4>Interpretation and Definitions</h4>
+                <!-- <h4>Interpretation and Definitions</h4>
                 <h5>Interpretation</h5>
                 <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in the plural.</p>
 
@@ -133,7 +132,6 @@ $this->title = 'Terms and Conditions
                 <p>We are committed to protecting your privacy. Authorized employees within the company on a need to know basis only use any information collected from individual customers. We constantly review our systems and data to ensure the best possible service to our customers.
 All credit/debit cards details and personally identifiable information will NOT be stored, sold, shared, rented or leased to any third parties.
 </p>
-                <!-- Continue adding the rest of the content similarly -->
 <ul>
 <li>The Website Policies and Terms & Conditions may be changed or updated occasionally to meet the requirements and standards. Therefore the Customers’ are encouraged to frequently visit these sections in order to be updated about the changes on the website. Modifications will be effective on the day they are posted.</li>
 
@@ -141,12 +139,53 @@ All credit/debit cards details and personally identifiable information will NOT 
 </li>
 
 
+</ul> -->
+
+<h4>Interpretation and Definitions</h4>
+<h5>Interpretation</h5>
+<p>
+    The words of which the initial letter is capitalized have meanings defined under the following conditions.
+    The following definitions shall have the same meaning regardless of whether they appear in singular or in the plural.
+</p>
+
+<h5>Definitions</h5>
+<p>For the purposes of these Terms and Conditions:</p>
+<ul>
+    <li><strong>Affiliate</strong> means an entity that controls, is controlled by, or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest, or other securities entitled to vote for election of directors or other managing authority.</li>
+    <li><strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to Pan North Insurance Agency, Amman, Jordan.</li>
+    <li><strong>Country</strong> refers to: Jordan</li>
+    <li><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone, or a digital tablet.</li>
+    <li><strong>Service</strong> refers to the Website.</li>
+    <li><strong>Terms and Conditions</strong> (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service.</li>
+    <li><strong>Third-party Social Media Service</strong> means any services or content (including data, information, products, or services) provided by a third-party that may be displayed, included, or made available by the Service.</li>
+    <li><strong>Website</strong> refers to Pan North Travel Insurance Agency, accessible from <a class="text-dark" href="https://www.360travelcare.com">https://www.360travelcare.com</a></li>
+    <li><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
+</ul>
+
+<h4>Privacy Statement</h4>
+<p>
+    We are committed to protecting your privacy. Authorized employees within the company on a need-to-know basis only use any information collected from individual customers. 
+    We constantly review our systems and data to ensure the best possible service to our customers. 
+    All credit/debit card details and personally identifiable information will NOT be stored, sold, shared, rented, or leased to any third parties.
+</p>
+<ul>
+    <li>
+        The Website Policies and Terms & Conditions may be changed or updated occasionally to meet the requirements and standards. 
+        Therefore, Customers are encouraged to frequently visit these sections in order to be updated about the changes on the website. 
+        Modifications will be effective on the day they are posted.
+    </li>
+    <li>
+        Some of the advertisements you see on the Site are selected and delivered by third parties, such as ad networks, advertising agencies, advertisers, and audience segment providers. 
+        These third parties may collect information about you and your online activities, either on the Site or on other websites, through cookies, web beacons, and other technologies 
+        in an effort to understand your interests and deliver to you advertisements that are tailored to your interests. 
+        Please remember that we do not have access to, or control over, the information these third parties may collect. 
+        The information practices of these third parties are not covered by this privacy policy.
+    </li>
 </ul>
 
 
 
-
-                <h4>Confidentiality</h4>
+                <!-- <h4>Confidentiality</h4>
                 <p>Client records are regarded as confidential and therefore will not be divulged to any third party, other than [our manufacturer/supplier(s) and] if legally required to do so to the appropriate authorities. Clients have the right to request sight of, and copies of any and all Client Records we keep, on the proviso that we are given reasonable notice of such a request. Clients are requested to retain copies of any literature issued in relation to the provision of our services. Where appropriate, we shall issue Client’s with appropriate written information, handouts or copies of records as part of an agreed contract, for the benefit of both parties. We will not sell, share, or rent your personal information to any third party or use your e-mail address for unsolicited mail. Any emails sent by this Company will only be in connection with the provision of agreed services and products.</p>
                 <h4>Disclaimer Exclusions and Limitations</h4>
                 <p>The information on this web site is provided on an "as is" basis. To the fullest extent permitted by law, this Company:
@@ -173,9 +212,63 @@ Information for aggregate use. IP addresses are not linked to personally identif
 
 
 
+ -->
 
 
 
+ <h4>Confidentiality</h4>
+<p>
+    Client records are regarded as confidential and therefore will not be divulged to any third party, other than [our manufacturer/supplier(s) and] if legally required to do so to the appropriate authorities. 
+    Clients have the right to request sight of, and copies of any and all Client Records we keep, on the proviso that we are given reasonable notice of such a request. 
+    Clients are requested to retain copies of any literature issued in relation to the provision of our services. Where appropriate, we shall issue Client’s with appropriate written information, handouts, or copies of records as part of an agreed contract, for the benefit of both parties. 
+    We will not sell, share, or rent your personal information to any third party or use your e-mail address for unsolicited mail. Any emails sent by this Company will only be in connection with the provision of agreed services and products.
+</p>
+
+<h4>Disclaimer Exclusions and Limitations</h4>
+<p>
+    The information on this website is provided on an "as is" basis. To the fullest extent permitted by law, this Company:
+</p>
+<ul>
+    <li>
+        Excludes all representations and warranties relating to this website and its contents or which is or may be provided by any affiliates or any other third party, including in relation to any inaccuracies or omissions in this website and/or the Company’s literature.
+    </li>
+    <li>
+        Excludes all liability for damages arising out of or in connection with your use of this website. This includes, without limitation, direct loss, loss of business or profits (whether or not the loss of such profits was foreseeable, arose in the normal course of things, or you have advised this Company of the possibility of such potential loss), damage caused to your computer, computer software, systems and programs, and the data thereon or any other direct or indirect, consequential, and incidental damages.
+    </li>
+</ul>
+<p>
+    This Company does not, however, exclude liability for death or personal injury caused by its negligence. The above exclusions and limitations apply only to the extent permitted by law. None of your statutory rights as a consumer are affected.
+</p>
+
+<h4>Cancellation Policy</h4>
+<p>
+    Notification, for instance, in person, via email, mobile phone text message, and/or fax, or any other means will be accepted and non-refundable.
+</p>
+
+<h4>Termination of Agreements and Refunds Policy</h4>
+<p>
+    Both the Client and we have the right to terminate any Services Agreement for any reason, including the ending of services that are already underway. 
+    No refunds shall be offered, where a Service is deemed to have begun and is, for all intents and purposes, underway. Any monies that have been paid to us which constitute payment in respect of the provision of unused Services shall NOT be refunded.
+</p>
+
+<h4>Availability</h4>
+<p>
+    Unless otherwise stated, the services featured on this website are only available within Jordan. All advertising is intended solely for the Jordanian market. 
+    You are solely responsible for evaluating the fitness for a particular purpose of any downloads, programs, and text available through this site. 
+    Redistribution or republication of any part of this site or its content is prohibited, including such by framing or other similar means, without the express written consent of the Company. 
+    The Company does not warrant that the service from this site will be uninterrupted, timely, or error-free, although it is provided to the best ability. 
+    By using this service, you thereby indemnify this Company, its employees, agents, and affiliates against any loss or damage, in whatever manner, howsoever caused.
+</p>
+
+<h4>Log Files</h4>
+<p>
+    We use IP addresses to analyze trends, administer the site, track user’s movement, and gather broad demographic information for aggregate use. 
+    IP addresses are not linked to personally identifiable information. Additionally, for systems administration, detecting usage patterns, and troubleshooting purposes, 
+    our web servers automatically log standard access information including browser type, access times, URL requested, and referral URL. 
+    This information is not shared with third parties and is used only within this Company on a need-to-know basis. 
+    Any individually identifiable information related to this data will never be used in any way different to that stated above without your explicit permission.
+</p>
+<!-- 
 <h4>Cookies</h4>
 <p>Like most interactive web sites this Company’s website [or ISP] uses cookies to enable us to retrieve user details for each visit. Cookies are used in some areas of our site to enable the functionality of this area and ease of use for those people visiting. Some of our affiliate partners may also use cookies.</p>
 
@@ -248,9 +341,44 @@ In the event that transaction error has occurred while making the payment , a re
 <li>https://www.360travelcare.com will NOT deal or provide any services or products to any of OFAC (Office of Foreign Assets Control) sanctions Any dispute or claim arising out of or in connection with this website shall be governed and construed in accordance with the laws of Jordan. 
 </li>
                 </ul>
+ -->
 
+ <h4>Cookies</h4>
+<p>Like most interactive websites, this Company’s website [or ISP] uses cookies to enable us to retrieve user details for each visit. Cookies are used in some areas of our site to enable the functionality of this area and ease of use for those visiting. Some of our affiliate partners may also use cookies.</p>
 
+<h4>Links to this Website</h4>
+<p>You may not create a link to any page of this website without our prior written consent. If you do create a link to a page of this website, you do so at your own risk, and the exclusions and limitations set out above will apply to your use of this website by linking to it.</p>
 
+<h4>Links from this Website</h4>
+<p>We do not monitor or review the content of other party’s websites linked to from this website. Opinions expressed or material appearing on such websites are not necessarily shared or endorsed by us and should not be regarded as the publisher of such opinions or material. Please be aware that we are not responsible for the privacy practices or content of these sites. We encourage our users to be aware when they leave our site and to read the privacy statements of these sites. You should evaluate the security and trustworthiness of any other site connected to or accessed through this site yourself before disclosing any personal information to them. This Company will not accept any responsibility for any loss or damage, in whatever manner, howsoever caused, resulting from your disclosure of personal information to third parties.</p>
+
+<h4>Communication</h4>
+<p>We have several different email addresses for different queries. These, and other contact information, can be found at: <a href="mailto:sales@pannorthjo.com">sales@pannorthjo.com</a></p>
+
+<h4>Waiver</h4>
+<p>Except as provided herein, the failure to exercise a right or to require performance of an obligation under these Terms shall not affect a party's ability to exercise such a right or require such performance at any time thereafter. Nor shall the waiver of a breach constitute a waiver of any subsequent breach.</p>
+
+<h4>Translation Interpretation</h4>
+<p>These Terms and Conditions may have been translated if we have made them available to you on our service. You agree that the original English text shall prevail in the case of a dispute.</p>
+
+<h4>Changes to These Terms and Conditions</h4>
+<p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will make reasonable efforts to provide at least 30 days' notice before any new terms take effect. What constitutes a material change will be determined at our sole discretion.</p>
+<p>By continuing to access or use our service after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, in whole or in part, please stop using the website and the service.</p>
+
+<h4>Force Majeure</h4>
+<p>Neither party shall be liable to the other for any failure to perform any obligation under any agreement due to an event beyond the control of such a party, including but not limited to any Act of God, terrorism, war, political insurgence, insurrection, riot, civil unrest, act of civil or military authority, uprising, earthquake, flood, or any other natural or manmade eventuality outside our control, which causes the termination of an agreement or contract.</p>
+
+<p>Jordan is our country of domicile.</p>
+<ul>
+    <li>Minors under the age of 18 are prohibited from registering as users of this website and are not allowed to transact or use the website.</li>
+    <li>If you make a payment for our products or services on our website, the details you submit will be provided directly to our payment provider via a secured connection.</li>
+    <li>The cardholder must retain a copy of transaction records and Merchant policies and rules.</li>
+    <li>We accept payments online using Visa and MasterCard credit/debit cards in Jordanian Dinars.</li>
+    <li>Any refunds will be done only through the original mode of payment.</li>
+    <li>In the event of a transaction error while making a payment, a refund will, in most cases, be issued to the same credit card used for the original purchase.</li>
+    <li><a class="text-dark" href="https://www.360travelcare.com">360travelcare.com</a> will NOT deal or provide any services or products to any OFAC (Office of Foreign Assets Control) sanctions. Any dispute or claim arising out of or in connection with this website shall be governed and construed in accordance with the laws of Jordan.</li>
+</ul>
+<!-- 
 <h4>Contact Us</h4>
 
 
@@ -262,7 +390,15 @@ In the event that transaction error has occurred while making the payment , a re
                     <li>By email: <a href="mailto:sales@tuneprotectjo.cm">sales@tuneprotectjo.cm</a></li>
                     <li>By visiting this page on our website: <a href="/asurance/contact">Contact Page</a></li>
                     <li>By phone number: +962 70 5093626</li>
-                </ul>
+                </ul> -->
+                <h4>Contact Us</h4>
+<p>If you have any questions about these Terms and Conditions, you can contact us:</p>
+<ul>
+    <li>By email: <a href="mailto:sales@pannorthjo.com" class="text-dark">sales@pannorthjo.com</a></li>
+    <li>By visiting this page on our website: <a href="/asurance/contact" class="text-dark">Contact Page</a></li>
+    <li>By phone number: +962 79 509 3626</li>
+</ul>
+
             </div>
         </div>
     </div>

@@ -150,7 +150,7 @@ AppAsset::register($this);
 </ul>
                     </li> -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Types of Insurances') ?></a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Types of Assurances') ?></a>
                         <ul class="dropdown-menu">
                             <?php foreach (\common\models\Insurances::find()->all() as $insurance) : ?>
                                 <li>
@@ -177,13 +177,17 @@ AppAsset::register($this);
                         <?= Html::a(Yii::t('app', 'Check Policy'), ['/asurance/check'], ['class' => 'nav-link', 'data-cue' => 'fadeUp']) ?>
                     </li>
 
-
+                        
                     <li class="nav-item">
-                    <?= Html::a(Yii::t('app', 'Claim'), 'https://claims.tune2protect.com/default.aspx?langid=en', ['class' => 'nav-link', 'data-cue' => 'fadeUp']) ?>
-                    </li>
+    <?= Html::a(Yii::t('app', 'Claim'), '#', [
+        'class' => 'nav-link',
+        'data-bs-toggle' => 'modal',
+        'data-bs-target' => "#exampleModal",
+        'data-cue' => 'fadeUp',
+    ]) ?>
+</li>                  
 
                 </ul>
-
 
                 <div class="mt-3 mt-lg-0 d-flex align-items-center">
                     <div class="dropdown">
@@ -223,7 +227,8 @@ AppAsset::register($this);
 
 
                     </div>   
-                    <a href="/" class="btn btn-light mx-2"><?= Yii::t('app', 'Get Started') ?></a>
+                    <a href="/" class="me-2"><img src="<?= Yii::$app->request->baseUrl ?>/images/jordan.png" alt="<?= Yii::t('app', 'Company Logo') ?>" class="bg-white rounded" width="120">
+                    </a>
               
                 </div>
          
@@ -253,6 +258,65 @@ AppAsset::register($this);
 </nav>
 
     </header>
+
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content">
+            <div class="modal-header m-2 mb-3">
+                <h4 class="modal-title " id="claim-modal-label"><b><?= Yii::t('app', 'Claim Process') ?></b></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body m-2">
+            <p>Please download <?= Html::a('the Claim Form', ['images/Claim form JOFICO.pdf'], [
+    'class' => 'text-dark',
+    'download' => true,
+]) ?> and attach a good scan copy of the following documents:</p>
+
+                <ol class="text-start" >
+                    <li>Copy of flight itinerary</li>
+                    <li>Certificate of assurance</li>
+                    <li>Original medical reports from the treating doctor</li>
+                    <li>Original bills/receipts issued by the clinic or hospital</li>
+                </ol>
+                <p><b>Medical report must show the following information:</b></p>
+                <ul class="text-start" >
+                    <li>Symptoms presented with</li>
+                    <li>Past medical history (if any)</li>
+                    <li>Vital signs at the time of examination</li>
+                    <li>Investigation/laboratory reports with X-ray/CT/MRI (if performed)</li>
+                    <li>Medications given</li>
+                    <li>Diagnosis</li>
+                </ul>
+                <p>Please note we may require other documents, which we will advise upon evaluating your case.</p>
+                <p>
+                    Kindly send an email with the subject as the Policy number, briefly request reimbursement, 
+                    and attach the Claim Form and other required documents to the following email address:
+                </p>
+                <span class="mb-3"><i class="bi bi-envelope-at me-1 text-warning fs-4"></i><a class="text-dark" href="mailto:mena-claims@amaglobalassistance.com">mena-claims@amaglobalassistance.com</a></span>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal HTML -->
+
+
     <!-- 
     <style>
 
@@ -356,7 +420,7 @@ AppAsset::register($this);
                                 <img class="img-fluid" width="80" height="auto" src="/images/logo/logo-dark.webp" alt="360Protect" loading="eager">
                             </a>
                         </div>
-                        <p class="mb-5 mt-2"><?= Yii::t('app', 'Safeguard your travels through our insurance companies partners. Whether you\'re
+                        <p class="mb-5 mt-2"><?= Yii::t('app', 'Safeguard your travels through our assurance companies partners. Whether you\'re
 embarking on a new Adventure, Shopping, Study, or simply seeking peace of mind, our
 goal is to offer tailored coverage that meets your unique needs.') ?></p>
                         <div class="text-md-end d-flex align-items-center justify-content-md-start">
@@ -385,7 +449,7 @@ goal is to offer tailored coverage that meets your unique needs.') ?></p>
                         <div class="col-lg-4 col-12">
                             <div class="position-relative">
                                 <div class="mb-3 pb-2 d-flex justify-content-between border-bottom border-bottom-lg-0">
-                                    <h5> <?= Yii::t('app', 'Types of Insurances') ?></h5>
+                                    <h5> <?= Yii::t('app', 'Types of Assurances') ?></h5>
 
 
                                    

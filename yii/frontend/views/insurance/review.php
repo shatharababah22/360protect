@@ -131,42 +131,41 @@ $this->title = 'Review Your Insurance Details';
                                     </table>
 
                                 </div> <?php
-$price = (float) $policy->price; 
-$formattedAmount = number_format($price, 2); 
+                                        $price = (float) $policy->price;
+                                        $formattedAmount = number_format($price, 2);
 
-if ($customer !== null) {
-    $credit = (float) $customer->credit; 
-
-    
-    $remainingAmount = max(0, $price - $credit);
-
-    $formattedAmount = number_format($remainingAmount, 2);
-}
-?>
+                                        if ($customer !== null) {
+                                            $credit = (float) $customer->credit;
 
 
-<?php if ($customer !== null && $customer->credit == $price): ?>
-    <div class="mt-2">
-    <?= Html::a(
-    Yii::t('app', 'Continue') . ' ' . '($' . $formattedAmount . ')', 
-    ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => ($customer->getPaymentMethod()->one() ? $customer->getPaymentMethod()->one()->method : null)], 
-    ['class' => 'btn btn-warning w-100']
-) ?>
+                                            $remainingAmount = max(0, $price - $credit);
 
-    </div>
-<?php else: ?>
-    <div class="mt-2">
-        <?= Html::a(
-            Yii::t('app', 'Pay Now') . ' ($' . ($formattedAmount ? $formattedAmount : '0') . ')', 
-            '#',
-            [
-                'class' => 'btn btn-warning w-100',
-                'data-bs-toggle' => 'modal',
-                'data-bs-target' => '#paymentModal'
-            ]
-        ) ?>
-    </div>
-<?php endif; ?>
+                                            $formattedAmount = number_format($remainingAmount, 2);
+                                        }
+                                        ?>
+
+
+                                <?php if ($customer !== null && $customer->credit == $price): ?>
+                                    <div class="mt-2">
+                                        <?= Html::a(
+                                            Yii::t('app', 'Continue') . ' ' . '($' . $formattedAmount . ')',
+                                            ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => ($customer->getPaymentMethod()->one() ? $customer->getPaymentMethod()->one()->method : null)],
+                                            ['class' => 'btn btn-warning w-100']
+                                        ) ?>
+
+                                    </div>
+                                <?php else: ?>
+                                    <div class="mt-2">
+                                        <?= Html::a(
+                                            Yii::t('app', 'Pay Now') . ' ($' . ($formattedAmount ? $formattedAmount : '0') . ')',
+                                            ['/asurance/payment-method', 'id' => base64_encode($policy->id)],
+                                            [
+                                                'class' => 'btn btn-warning w-100',
+
+                                            ]
+                                        ) ?>
+                                    </div>
+                                <?php endif; ?>
 
 
 
@@ -186,7 +185,7 @@ if ($customer !== null) {
     <div id="loader" class="<?= $languageDirection = Yii::$app->language == 'ar' ? 'rtl' : 'ltr' ?>-loader"></div>
 </div>
 
-<!-- Payment Modal -->
+<!-- 
 <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -201,8 +200,8 @@ if ($customer !== null) {
                 <div class="d-flex justify-content-start gap-1">
 
                 <?= Html::a(Yii::t('app', 'MEBs Payment'), ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => 'meps'], [
-    'class' => 'btn btn-meps d-flex align-items-start text-white'
-]) ?>
+                    'class' => 'btn btn-meps d-flex align-items-start text-white'
+                ]) ?>
 
 <?= Html::a(Yii::t('app', 'Alawneh Payment'), ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => 'alawneh'], [
     'class' => 'btn btn-alwaneh d-flex align-items-start text-white'
@@ -215,7 +214,7 @@ if ($customer !== null) {
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- retake -->
 <div class="modal fade" id="importProductsModal" tabindex="-1" aria-labelledby="importProductsModalLabel"
