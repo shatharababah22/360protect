@@ -14,6 +14,22 @@ use yii\helpers\Url;
 $this->title = 'Review Your Insurance Details';
 ?>
 <div class="pattern-square"></div>
+<script>
+  
+    const agreementCheckbox = document.getElementById('agreement-checkbox');
+    const continueButton = document.getElementById('continue-btn');
+    const payNowButton = document.getElementById('pay-now-btn');
+
+    agreementCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+            continueButton.disabled = false;
+            payNowButton.disabled = false; 
+        } else {
+            continueButton.disabled = true;
+            payNowButton.disabled = true;
+        }
+    });
+</script>
 <!--Pageheader start-->
 <section class="pt-10 pb-10 bg-dark text-center">
     <div class="container mt-5">
@@ -28,6 +44,7 @@ $this->title = 'Review Your Insurance Details';
         </div>
     </div>
 </section>
+
 <!--Pageheader end-->
 <!--Contact us start-->
 <section class="mb-xl-9 my-5">
@@ -298,20 +315,5 @@ $this->title = 'Review Your Insurance Details';
         });
     });
 </script>
-<script>
-  
-    const agreementCheckbox = document.getElementById('agreement-checkbox');
-    const continueButton = document.getElementById('continue-btn');
-    const payNowButton = document.getElementById('pay-now-btn');
 
-    agreementCheckbox.addEventListener('change', function () {
-        if (this.checked) {
-            continueButton.disabled = false;
-            payNowButton.disabled = false; 
-        } else {
-            continueButton.disabled = true;
-            payNowButton.disabled = true;
-        }
-    });
-</script>
 <!--Contact us end
