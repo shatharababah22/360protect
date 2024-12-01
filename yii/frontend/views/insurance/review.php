@@ -128,13 +128,13 @@ $this->title = 'Review Your Insurance Details';
                                                 </td>
                                             <?php endif; ?>
                                         </tr>
-                                    </table>
-                                    <div class="mt-3">
-    <label class="form-check-label text-danger">
+                                        <tr>
+                                        <td colspan="8">   <label class="form-check-label">
         <input type="checkbox" id="agreement-checkbox" class="form-check-input">
         <?= Yii::t('app', 'I have read and agree that Travel Insurance once purchased cannot be cancelled or refunded.') ?>
-    </label>
-</div>
+    </label></td></tr>
+                                    </table>
+                               
                                 </div> <?php
                                         $price = (float) $policy->price;
                                         $formattedAmount = number_format($price, 2);
@@ -150,28 +150,23 @@ $this->title = 'Review Your Insurance Details';
                                         ?>
 
 
-                                <?php if ($customer !== null && $customer->credit == $price): ?>
-                                    <div class="mt-2">
-                                        <?= Html::a(
-                                            Yii::t('app', 'Continue') . ' ' . '($' . $formattedAmount . ')',
-                                            ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => ($customer->getPaymentMethod()->one() ? $customer->getPaymentMethod()->one()->method : null)],
-                                            ['class' => 'btn btn-warning w-100']
-                                        ) ?>
-
-                                    </div>
-                                <?php else: ?>
-                                    <div class="mt-2">
-                                        <?= Html::a(
-                                            Yii::t('app', 'Pay Now') . ' ($' . ($formattedAmount ? $formattedAmount : '0') . ')',
-                                            ['/asurance/payment-method', 'id' => base64_encode($policy->id)],
-                                            [
-                                                'class' => 'btn btn-warning w-100',
-
-                                            ]
-                                        ) ?>
-                                    </div>
-                                <?php endif; ?>
-
+<?php if ($customer !== null && $customer->credit == $price): ?>
+    <div class="mt-2">
+        <?= Html::a(
+            Yii::t('app', 'Continue') . ' ' . '($' . $formattedAmount . ')',
+            ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => ($customer->getPaymentMethod()->one() ? $customer->getPaymentMethod()->one()->method : null)],
+            ['class' => 'btn btn-warning w-100', 'id' => 'continue-btn', 'disabled' => true]
+        ) ?>
+    </div>
+<?php else: ?>
+    <div class="mt-2">
+        <?= Html::a(
+            Yii::t('app', 'Pay Now') . ' ($' . ($formattedAmount ? $formattedAmount : '0') . ')',
+            ['/asurance/payment-method', 'id' => base64_encode($policy->id)],
+            ['class' => 'btn btn-warning w-100', 'id' => 'pay-now-btn', 'disabled' => true]
+        ) ?>
+    </div>
+<?php endif; ?>
 
 
 
@@ -304,18 +299,18 @@ $this->title = 'Review Your Insurance Details';
     });
 </script>
 <script>
-    // Enable the button when checkbox is checked
+  
     const agreementCheckbox = document.getElementById('agreement-checkbox');
     const continueButton = document.getElementById('continue-btn');
     const payNowButton = document.getElementById('pay-now-btn');
 
     agreementCheckbox.addEventListener('change', function () {
         if (this.checked) {
-            continueButton.disabled = false; // Enable Continue button
-            payNowButton.disabled = false; // Enable Pay Now button
+            continueButton.disabled = false;
+            payNowButton.disabled = false; 
         } else {
-            continueButton.disabled = true; // Disable Continue button
-            payNowButton.disabled = true; // Disable Pay Now button
+            continueButton.disabled = true;
+            payNowButton.disabled = true;
         }
     });
 </script>
