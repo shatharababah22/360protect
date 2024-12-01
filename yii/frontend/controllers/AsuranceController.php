@@ -1993,7 +1993,8 @@ class AsuranceController extends BaseController
         return $this->render('/insurance/display-policy', [
             'policies' => $policies,
             'policyDraft' => $policyDraft,
-            'id' => $id
+            'id' => $id,
+            'customer'=>$customer
         ]);
     }
 
