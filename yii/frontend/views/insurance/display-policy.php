@@ -308,13 +308,40 @@ $this->title = 'Your Policy';
                 <!-- <td class="text-success text-center">
 
 
-               <?php if (Html::encode($policy->customer->credit) > 0): ?> $
-                
-
-               <?php endif; ?>
+               
                 </td> -->
               </tr>
-              <?php if (Yii::$app->session->get('refresh') === "shatha"): ?>
+              <?php if (Html::encode($policy->customer->credit) > 0): ?>
+    <?php 
+        Yii::$app->session->setFlash(
+            'info', 
+            'You have ' . Html::encode($policy->customer->credit) . ' $ credits saved within your wallet. You can use it to purchase another policy any time or contact us for a full refund.'
+        );
+    ?>
+<?php endif; ?>
+
+
+
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertBox = document.querySelector('.alert');
+        if (alertBox) {
+            alertBox.style.display = 'none';
+            setTimeout(() => {
+                alertBox.style.display = 'block'; 
+            }, 10000); 
+        }else{
+          setTimeout(() => {
+    console.log("hay");
+            }, 10000); 
+        }
+    });
+</script>
+
+
+
+              <!-- <?php if (Yii::$app->session->get('refresh') === "shatha"): ?>
   <script>
     $(document).ready(function() {
       var policyId = <?= json_encode($policy->id) ?>;
@@ -359,7 +386,7 @@ $this->title = 'Your Policy';
       updatePolicyStatus(policyId);
     });
   </script>
-<?php endif; ?>
+<?php endif; ?> -->
 
             <?php endforeach; ?>
           <?php else: ?>

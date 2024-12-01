@@ -1846,7 +1846,7 @@ class AsuranceController extends BaseController
                     if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $this->getUniqueId()) {
                         Yii::$app->session->remove('session_data');
                     } 
-                    Yii::$app->session->set('refresh', "shatha");
+                    // Yii::$app->session->set('refresh', "shatha");
                     return $this->redirect(['display-policy', 'policyIds' => null, 'id' => null]);
                 } else {
                     Yii::$app->session->setFlash('error', 'Failed to verify OTP.');
@@ -3017,7 +3017,7 @@ class AsuranceController extends BaseController
 
         ]));
 
-        Yii::$app->session->set('refresh', "shatha");
+        // Yii::$app->session->set('refresh', "shatha");
         Yii::$app->session->remove('passenger');
 
 

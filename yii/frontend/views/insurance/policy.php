@@ -31,29 +31,6 @@ $this->title = 'Check Policy';
 <script src="https://www.google.com/recaptcha/api.js"></script>
 
 
-<script>
-    let attemptCount = 0;
-    const maxAttempts = 3;
-
-    function onSubmit(token) {
-        if (attemptCount >= maxAttempts) {
-            alert("You have exceeded the maximum number of attempts. Please try again later.");
-            window.location.href = "<?= Yii::$app->urlManager->createUrl(['site/index']); ?>"; 
-        }
-
-        attemptCount++;
-        document.getElementById("demo-form").submit();
-    }
-
-    document.getElementById('send-otp-btn').addEventListener('click', function (e) {
-        if (attemptCount >= maxAttempts) {
-            e.preventDefault();
-            alert("You have exceeded the maximum number of attempts. Please try again later.");
-            window.location.href = "<?= Yii::$app->urlManager->createUrl(['site/index']); ?>";
-        }
-    });
-</script>
-
 <div class="pattern-square"></div>
 <!--Pageheader start--><section class="pt-10 pb-10 bg-dark text-center">
     <div class="container mt-5">
@@ -70,59 +47,69 @@ $this->title = 'Check Policy';
         <div class="row justify-content-center w-100 w-lg-75">
 
             <div class="col-lg-8 col-md-10 col-12 w-100 w-lg-75">
-            <?= Alert::widget() ?>
-<div class="card shadow-sm">
-    <div class="card-body">
-        <div class="policy-form">
-            <?php $form = ActiveForm::begin(['id' => 'demo-form']); ?>
+                <?= Alert::widget() ?>
+                <div class="card shadow-sm">
+                    <div class="card-body">
 
-            <div class="col-sm-6 mx-auto text-center">
-                <label for="price" class="form-label text-black mb-2" style="font-size: 15px; color: #0F172A;">
-                    <?= Yii::t('app', 'Enter your mobile') ?>
-                </label>
-            </div>
+                        <div class="policy-form">
+                            <?php $form = ActiveForm::begin(['id' => 'demo-form']); ?>
+                            <!-- <p class="text-bold text-black"><?= Yii::t('app', 'Review your policy details to ensure all insurance specifics are accurate and meet your needs:') ?></p> -->
 
-            <div class="row">
-                <div class="col-sm-6 mt-2 mx-auto " dir="ltr">
-                    <?= $form->field($model, 'mobile')->widget(PhoneInput::class, [
-                        'jsOptions' => [
-                            'preferredCountries' => ['jo'],
-                            'class' => '',
-                            'nationalMode' => false,
-                            'style' => 'padding-right:90px;'
-                        ]
-                    ])->label(false); ?>
+                            <div class="col-sm-6 mx-auto text-center">
+                                <label for="price" class="form-label text-black mb-2" style="font-size: 15px; color: #0F172A;">
+                                    <?= Yii::t('app', 'Enter your mobile') ?>
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 mt-2 mx-auto " dir="ltr">
+                                    <?= $form->field($model, 'mobile')->widget(PhoneInput::class, [
+                                        'jsOptions' => [
+                                            'preferredCountries' => ['jo'],
+                                            'class' => '',
+                                            'nationalMode' => false
+                                            ,
+                                            'style' => 'padding-right:90px;'
+                                        ]
+                                    ])->label(false); ?>
+                                </div>
+                            </div>
+
+                            <div class="d-flex mt-2 justify-content-center">
+                                <div>
+                                    <?= Html::submitButton(
+                                        Yii::t('app', 'Send OTP'),
+                                        [
+                                            'class' => 'btn btn-primary p-2 g-recaptcha',
+                                            'style' => 'width: 150px',
+                                            'data-sitekey' => '6LfQb0QqAAAAAMJY2zbsTnjoxEzTmlkG7CW7WbE6',
+                                            'data-callback' => 'onSubmit',
+                                            'data-action' => 'submit',
+                                        ]
+                                    ) ?>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-10">
+                                <?= $form->field($model, 'reCaptcha')->widget(
+                                    \himiklab\yii2\recaptcha\ReCaptcha3::class,
+                                    ['siteKey' => '6LfQb0QqAAAAAMJY2zbsTnjoxEzTmlkG7CW7WbE6']
+                                )->label(false) ?>
+                            </div>
+
+                            <?php ActiveForm::end(); ?>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-
-            <div class="d-flex mt-2 justify-content-center">
-                <div>
-                    <?= Html::submitButton(
-                        Yii::t('app', 'Send OTP'),
-                        [
-                            'class' => 'btn btn-primary p-2 g-recaptcha',
-                            'style' => 'width: 150px',
-                            'id' => 'send-otp-btn',
-                            'data-sitekey' => '6LfQb0QqAAAAAMJY2zbsTnjoxEzTmlkG7CW7WbE6',
-                            'data-callback' => 'onSubmit',
-                            'data-action' => 'submit',
-                        ]
-                    ) ?>
-                </div>
-            </div>
-
-            <div class="col-sm-10">
-                <?= $form->field($model, 'reCaptcha')->widget(
-                    \himiklab\yii2\recaptcha\ReCaptcha3::class,
-                    ['siteKey' => '6LfQb0QqAAAAAMJY2zbsTnjoxEzTmlkG7CW7WbE6']
-                )->label(false) ?>
-            </div>
-
-            <?php ActiveForm::end(); ?>
         </div>
     </div>
-</div>
-</div>
-</div>
-</div>
 </section>
+
+<script>
+    function onSubmit(token) {
+        // console.log(token);
+        document.getElementById("demo-form").submit();
+    }
+</script>
