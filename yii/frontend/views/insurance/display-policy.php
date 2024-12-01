@@ -320,21 +320,25 @@ $this->title = 'Your Policy';
     ?>
 <?php endif; ?>
 
-
-
 <script>
-    
     document.addEventListener('DOMContentLoaded', function () {
+    
         const alertBox = document.querySelector('.alert');
+
+ 
         if (alertBox) {
             alertBox.style.display = 'none';
+
+           
             setTimeout(() => {
-                alertBox.style.display = 'block'; 
-            }, 10000); 
-        }else{
-          setTimeout(() => {
-    console.log("hay");
-            }, 10000); 
+                alertBox.style.display = 'block';  
+                location.reload();  
+            }, 10000);  
+        } else {
+           
+            setTimeout(() => {
+                location.reload();
+            }, 10000);
         }
     });
 </script>
