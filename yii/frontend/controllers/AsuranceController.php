@@ -1846,7 +1846,7 @@ class AsuranceController extends BaseController
                         Yii::$app->session->remove('session_data');
                     } 
                     // Yii::$app->session->set('refresh', "shatha");
-                    return $this->redirect(['display-policy', 'policyIds' => null, 'id' => null]);
+                    return $this->redirect(['display-policy', 'policyIds' => null, 'id' => null,'mobile'=>$mobile]);
                 } else {
                     Yii::$app->session->setFlash('error', 'Failed to verify OTP.');
                 }
@@ -3026,7 +3026,7 @@ class AsuranceController extends BaseController
 
 
 
-        return $this->redirect(['display-policy', 'policyIds' => implode(',', $policyIds), 'id' => base64_encode($id)]);
+        return $this->redirect(['display-policy', 'policyIds' => implode(',', $policyIds), 'id' => base64_encode($id),'mobile' => $policyDraft->mobile]);
 
         //         // return $this->redirect(['display-policy', 'policyId' => base64_encode($policy->id), 'id' => base64_encode($id)]);
         //     } else {
