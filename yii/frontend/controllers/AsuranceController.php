@@ -56,6 +56,31 @@ class AsuranceController extends BaseController
 
     // public $enableCsrfValidation = false;
 
+    private $uniqueId;
+
+    public function init()
+    {
+        parent::init();
+        
+     
+        $sessionData = Yii::$app->session->get('session_data', []);
+        $sessionData = Yii::$app->session->get('session_data', []);
+
+        if (!isset($sessionData['customer_id'])) {
+            $this->uniqueId = Yii::$app->security->generateRandomString();
+            $sessionData['customer_id'] = $this->uniqueId;
+            Yii::$app->session->set('session_data', $sessionData);
+        } else {
+            $this->uniqueId = $sessionData['customer_id'];
+        }
+    }
+
+    public function getUniqueId()
+    {
+        return $this->uniqueId;
+    }
+
+
 
     public function actionKinds()
     {
@@ -1636,16 +1661,9 @@ class AsuranceController extends BaseController
 
                     $lastResendTimestamp = 5 * 60;
                     $sessionData = Yii::$app->session->get('session_data', []);
-                    $uniqueId = $sessionData['customer_id'] ?? null;
-                   
-                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $uniqueId) {
+                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $this->getUniqueId()) {
                         Yii::$app->session->remove('session_data');
-                    } else {
-                        Yii::$app->session->setFlash('error', 'Session data mismatch. Operation aborted.');
-                        return $this->redirect(['verify-otp', 'mobile' => $mobile]);
-                    }
-
-        
+                    } 
                     return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
          
                 } else {
@@ -1673,14 +1691,12 @@ class AsuranceController extends BaseController
         }
 
 
-        $uniqueId =Yii::$app->security->generateRandomString();
-        $sessionData = [
-            'last_resend_timestamp' => $currentTimestamp,
-            'mobile_resend' => $mobile,
-            'customer_id' => $uniqueId,
-        ];
-       Yii::$app->session->set('session_data', $sessionData);
-     
+      
+        $sessionData['mobile_resend']=$mobile;
+        $sessionData['last_resend_timestamp']=$currentTimestamp;
+        $sessionData['customer_id']=$this->getUniqueId();
+
+        Yii::$app->session->set('session_data', $sessionData);
         $response = $this->actionSend($mobile);
         $responseData = json_decode($response, true);
 
@@ -1792,15 +1808,8 @@ class AsuranceController extends BaseController
 
     public function actionVerifyOtp($mobile)
     {
-
-
-
-
-
         $model = new \yii\base\DynamicModel(['otp']);
         $model->addRule(['otp'], 'required');
-        // $mobile = Yii::$app->session->get('mobile');
-
         if ($model->load(Yii::$app->request->post())) {
             $otpArray = Yii::$app->request->post('DynamicModel')['otp'];
             $model->otp = implode('', $otpArray);
@@ -1833,7 +1842,10 @@ class AsuranceController extends BaseController
                     // $sessionData['last_resend_timestamp'] = time() + (5 * 60) + 10;
                     // Yii::$app->session->set('session_data', $sessionData);
                     // dd(    $sessionData );
-                    Yii::$app->session->remove('session_data');
+                    $sessionData = Yii::$app->session->get('session_data', []);
+                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $this->getUniqueId()) {
+                        Yii::$app->session->remove('session_data');
+                    } 
                     Yii::$app->session->set('refresh', "shatha");
                     return $this->redirect(['display-policy', 'policyIds' => null, 'id' => null]);
                 } else {
@@ -1860,10 +1872,6 @@ class AsuranceController extends BaseController
     public function actionContact()
     {
 
-
-
-
-
         $model = new \yii\base\DynamicModel(['name', 'email', 'message', 'mobile']);
         $model->addRule(['name', 'email', 'message', 'mobile'], 'required')
             ->addRule('email', 'email');
@@ -1880,11 +1888,7 @@ class AsuranceController extends BaseController
                 ->setSubject('Contact Form Submission')
                 ->setHtmlBody('<b>Hay</b>' . $name . '</br>' . $message . '<br>' . $mobile)
                 ->send();
-            // Yii::$app->session->setFlash('Thank you for contacting us. We will respond to you as soon as possible.');
             Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-
-            // Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-
             return $this->refresh();
         }
 
@@ -1896,11 +1900,6 @@ class AsuranceController extends BaseController
 
     public function actionTerms()
     {
-
-
-
-
-
         return $this->render('/insurance/about');
     }
 
@@ -1908,19 +1907,13 @@ class AsuranceController extends BaseController
     public function actionPaymentMethod($id)
     {
 
-     
         $id = base64_decode($id);
         $policy = PolicyDraft::findOne($id);
         $model = new \yii\base\DynamicModel(['mobile']);
         $model->addRule(['mobile'], 'required');
-
         if ($model->load(Yii::$app->request->post())) {
-
-     
             return $this->redirect(['payment', 'id' => base64_encode($policy->id),'method'=>'alawneh']);
         }
-
-
         return $this->render('/insurance/paymentmethod', [
             'model' =>  $model,
             'policy' => $policy
