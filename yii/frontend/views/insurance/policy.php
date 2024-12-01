@@ -31,6 +31,29 @@ $this->title = 'Check Policy';
 <script src="https://www.google.com/recaptcha/api.js"></script>
 
 
+<script>
+    let attemptCount = 0;
+    const maxAttempts = 3;
+
+    function onSubmit(token) {
+        if (attemptCount >= maxAttempts) {
+            alert("You have exceeded the maximum number of attempts. Please try again later.");
+            window.location.href = "<?= Yii::$app->urlManager->createUrl(['site/index']); ?>"; 
+        }
+
+        attemptCount++;
+        document.getElementById("demo-form").submit();
+    }
+
+    document.getElementById('send-otp-btn').addEventListener('click', function (e) {
+        if (attemptCount >= maxAttempts) {
+            e.preventDefault();
+            alert("You have exceeded the maximum number of attempts. Please try again later.");
+            window.location.href = "<?= Yii::$app->urlManager->createUrl(['site/index']); ?>";
+        }
+    });
+</script>
+
 <div class="pattern-square"></div>
 <!--Pageheader start--><section class="pt-10 pb-10 bg-dark text-center">
     <div class="container mt-5">
@@ -103,26 +126,3 @@ $this->title = 'Check Policy';
 </div>
 </div>
 </section>
-
-<script>
-    let attemptCount = 0;
-    const maxAttempts = 3;
-
-    function onSubmit(token) {
-        if (attemptCount >= maxAttempts) {
-            alert("You have exceeded the maximum number of attempts. Please try again later.");
-            window.location.href = "<?= Yii::$app->urlManager->createUrl(['site/index']); ?>"; 
-        }
-
-        attemptCount++;
-        document.getElementById("demo-form").submit();
-    }
-
-    document.getElementById('send-otp-btn').addEventListener('click', function (e) {
-        if (attemptCount >= maxAttempts) {
-            e.preventDefault();
-            alert("You have exceeded the maximum number of attempts. Please try again later.");
-            window.location.href = "<?= Yii::$app->urlManager->createUrl(['site/index']); ?>";
-        }
-    });
-</script>
