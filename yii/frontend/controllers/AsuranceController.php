@@ -56,30 +56,26 @@ class AsuranceController extends BaseController
 
     // public $enableCsrfValidation = false;
 
-    private $uniqueId;
-
-    public function init()
+    // private $uniqueId;
+    public function actionSession()
     {
-        parent::init();
-        
-     
         $sessionData = Yii::$app->session->get('session_data', []);
-        $sessionData = Yii::$app->session->get('session_data', []);
-
+    
         if (!isset($sessionData['customer_id'])) {
-            $this->uniqueId = Yii::$app->security->generateRandomString();
-            $sessionData['customer_id'] = $this->uniqueId;
+            $uniqueId = Yii::$app->security->generateRandomString();
+            $sessionData['customer_id'] = $uniqueId;
             Yii::$app->session->set('session_data', $sessionData);
         } else {
-            $this->uniqueId = $sessionData['customer_id'];
+            $uniqueId = $sessionData['customer_id'];
         }
     }
-
-    public function getUniqueId()
-    {
-        return $this->uniqueId;
-    }
-
+    
+    // private function getUniqueId()
+    // {
+    //     $uniqueId = Yii::$app->session->get('session_data', [])['customer_id']?? null;
+    //     return $uniqueId;
+    // }
+    
 
 
     public function actionKinds()
@@ -1661,7 +1657,8 @@ class AsuranceController extends BaseController
 
                     $lastResendTimestamp = 5 * 60;
                     $sessionData = Yii::$app->session->get('session_data', []);
-                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $this->getUniqueId()) {
+                    $uniqueId = Yii::$app->session->get('session_data', [])['customer_id'];
+                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $uniqueId) {
                         Yii::$app->session->remove('session_data');
                     } 
                     return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
@@ -1690,11 +1687,12 @@ class AsuranceController extends BaseController
             return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
         }
 
+        $this->actionSession();
+        $uniqueId = Yii::$app->session->get('session_data', [])['customer_id'];
 
-      
         $sessionData['mobile_resend']=$mobile;
         $sessionData['last_resend_timestamp']=$currentTimestamp;
-        $sessionData['customer_id']=$this->getUniqueId();
+        $sessionData['customer_id']=$uniqueId;
 
         Yii::$app->session->set('session_data', $sessionData);
         $response = $this->actionSend($mobile);
@@ -1843,7 +1841,8 @@ class AsuranceController extends BaseController
                     // Yii::$app->session->set('session_data', $sessionData);
                     // dd(    $sessionData );
                     $sessionData = Yii::$app->session->get('session_data', []);
-                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $this->getUniqueId()) {
+                    $uniqueId = Yii::$app->session->get('session_data', [])['customer_id'];
+                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $uniqueId) {
                         Yii::$app->session->remove('session_data');
                     } 
                     // Yii::$app->session->set('refresh', "shatha");
