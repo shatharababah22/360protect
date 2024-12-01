@@ -14,13 +14,24 @@ $this->title = 'Your Policy';
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-12 col-12">
-      <h1 class="mb-3 text-white-stable">
-    <span class="text-warning"><?= Yii::t('app', 'Your') ?></span> <?= Yii::t('app', 'Policies') ?>
-</h1>
+        <h1 class="mb-3 text-white-stable">
+          <span class="text-warning"><?= Yii::t('app', 'Your') ?></span> <?= Yii::t('app', 'Policies') ?>
+        </h1>
+
+        <?php if (Html::encode($policy->customer->credit) > 0): ?>
+          <div class="credit-message d-flex justify-content-center align-items-center mt-4">
+            <i class="bi bi-wallet2 text-warning me-2" style="font-size: 30px;"></i> 
+            <span class="text-white" style="font-size: 18px;">
+              <?= Yii::t('app', 'You have') ?> <?= Html::encode($policy->customer->credit) ?> <?= Yii::t('app', '$ credits saved within your wallet. You can use it to purchase another policy or contact us for a full refund.') ?>
+            </span>
+          </div>
+        <?php endif; ?>
+        
       </div>
     </div>
   </div>
 </section>
+
 
 
 
