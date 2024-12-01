@@ -1657,8 +1657,8 @@ class AsuranceController extends BaseController
 
                     $lastResendTimestamp = 5 * 60;
                     $sessionData = Yii::$app->session->get('session_data', []);
-                    $uniqueId = Yii::$app->session->get('session_data', [])['customer_id'];
-                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $uniqueId) {
+                    // $uniqueId = Yii::$app->session->get('session_data', [])['customer_id'];
+                    if (isset($sessionData['customer_id'])) {
                         Yii::$app->session->remove('session_data');
                     } 
                     return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
@@ -1688,11 +1688,11 @@ class AsuranceController extends BaseController
         }
 
         $this->actionSession();
-        $uniqueId = Yii::$app->session->get('session_data', [])['customer_id'];
+        $uniqueId = Yii::$app->session->get('session_data', []);
 
         $sessionData['mobile_resend']=$mobile;
         $sessionData['last_resend_timestamp']=$currentTimestamp;
-        $sessionData['customer_id']=$uniqueId;
+        $sessionData['customer_id']=$uniqueId['customer_id'];
 
         Yii::$app->session->set('session_data', $sessionData);
         $response = $this->actionSend($mobile);
@@ -1841,8 +1841,8 @@ class AsuranceController extends BaseController
                     // Yii::$app->session->set('session_data', $sessionData);
                     // dd(    $sessionData );
                     $sessionData = Yii::$app->session->get('session_data', []);
-                    $uniqueId = Yii::$app->session->get('session_data', [])['customer_id'];
-                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $uniqueId) {
+                    // $uniqueId = Yii::$app->session->get('session_data', [])['customer_id'];
+                    if (isset($sessionData['customer_id'])) {
                         Yii::$app->session->remove('session_data');
                     } 
                     // Yii::$app->session->set('refresh', "shatha");
