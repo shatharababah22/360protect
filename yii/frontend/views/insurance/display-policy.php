@@ -14,15 +14,15 @@ $this->title = 'Your Policy';
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-12 col-12">
-        <h1 class="mb-3 text-white-stable">
+        <h1 class="mb-2 text-white-stable">
           <span class="text-warning"><?= Yii::t('app', 'Your') ?></span> <?= Yii::t('app', 'Policies') ?>
         </h1>
 
         <?php if (Html::encode($customer->credit) > 0): ?>
-          <div class="credit-message d-flex justify-content-center align-items-center mt-4">
-            <i class="bi bi-wallet2 text-warning me-2" style="font-size: 30px;"></i> 
-            <span class="text-white" style="font-size: 18px;">
-              <?= Yii::t('app', 'You have') ?> <?= Html::encode($customer->credit) ?> <?= Yii::t('app', '$ credits saved within your wallet. You can use it to purchase another policy or contact us for a full refund.') ?>
+          <div class="credit-message d-flex justify-content-center align-items-center mt-2">
+            <i class="bi bi-wallet2 d-none d-lg-block text-warning m-2" style="font-size: 20px;"></i> 
+            <span class="text-white text-wrap" >
+              <?= Yii::t('app', 'You have') ?> <?= Html::encode($customer->credit) ?> <?= Yii::t('app', 'JOD credits saved within your wallet. You can use it to purchase another policy or contact us for a full refund.') ?>
             </span>
           </div>
         <?php endif; ?>
@@ -322,14 +322,7 @@ $this->title = 'Your Policy';
                
                 </td> -->
               </tr>
-              <?php if (Html::encode($policy->customer->credit) > 0): ?>
-    <?php 
-        Yii::$app->session->setFlash(
-            'info', 
-            'You have ' . Html::encode($policy->customer->credit) . ' $ credits saved within your wallet. You can use it to purchase another policy any time or contact us for a full refund.'
-        );
-    ?>
-<?php endif; ?>
+   
 
 
 <script>
@@ -349,52 +342,6 @@ $this->title = 'Your Policy';
 
 
 
-              <!-- <?php if (Yii::$app->session->get('refresh') === "shatha"): ?>
-  <script>
-    $(document).ready(function() {
-      var policyId = <?= json_encode($policy->id) ?>;
-      var reloadTriggered = false;
-      var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-    
-      function updatePolicyStatus(policyId) {
-     
-        setTimeout(function() {
-          $.ajax({
-            url: '<?= \yii\helpers\Url::to(['update-policy-status']) ?>',
-            type: 'POST',
-            headers: {
-              'X-CSRF-Token': csrfToken
-            },
-            data: {
-              policyId: policyId
-            },
-            success: function(response) {
-              if (response.status === 'success' && !reloadTriggered) {
-                reloadTriggered = true;
-
-           
-                $.post('<?= \yii\helpers\Url::to(['remove-refresh-session']) ?>', {
-                  _csrf: csrfToken
-                }).done(function() {
-                  window.location.reload();
-                });
-              } else if (response.status !== 'success') {
-                console.error('Failed to update policy status. Response status: ' + response.status);
-              }
-            },
-            error: function(xhr, status, error) {
-              console.error('AJAX request failed. Status: ' + status + ', Error: ' + error);
-              console.error('Response text: ' + xhr.responseText);
-            }
-          });
-        }, 40000); 
-      }
-
-      updatePolicyStatus(policyId);
-    });
-  </script>
-<?php endif; ?> -->
 
             <?php endforeach; ?>
           <?php else: ?>
