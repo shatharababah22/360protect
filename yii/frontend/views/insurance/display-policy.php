@@ -20,13 +20,13 @@ $this->title = 'Your Policy';
 
         <?php if (Html::encode($customer->credit) > 0): ?>
           <div class="credit-message d-flex justify-content-center align-items-center mt-2">
-            <i class="bi bi-wallet2 d-none d-lg-block text-warning m-2" style="font-size: 20px;"></i> 
-            <span class="text-white text-wrap" >
+            <i class="bi bi-wallet2 d-none d-lg-block text-warning m-2" style="font-size: 20px;"></i>
+            <span class="text-white text-wrap">
               <?= Yii::t('app', 'You have') ?> <?= Html::encode($customer->credit) ?> <?= Yii::t('app', 'JOD credits saved within your wallet. You can use it to purchase another policy or contact us for a full refund.') ?>
             </span>
           </div>
         <?php endif; ?>
-        
+
       </div>
     </div>
   </div>
@@ -138,7 +138,7 @@ $this->title = 'Your Policy';
 
             <li class="list-group-item border-0  d-flex justify-content-start m-auto">
 
-          
+
 
               Price: <span class=" me-4 ms-1 fw-bold" style="color: #00112C; "><?= Html::encode($policy->price) ?> JOD </span>
 
@@ -161,18 +161,15 @@ $this->title = 'Your Policy';
 
             <!-- <?php
 
-            if ($policy->status == 0) {
-              echo '  <span class="text-warning  ms-1">Processing</span>';
-            } elseif ($policy->status == 2) {
-              echo '<span class="text-danger ms-1">Failed</span>';
-            } 
-            
-            
-            else {
-              echo '<span class="text-success ms-1">Completed</span>';
-            }
-            ?> -->
-          </li>
+                  if ($policy->status == 0) {
+                    echo '  <span class="text-warning  ms-1">Processing</span>';
+                  } elseif ($policy->status == 2) {
+                    echo '<span class="text-danger ms-1">Failed</span>';
+                  } else {
+                    echo '<span class="text-success ms-1">Completed</span>';
+                  }
+                  ?> -->
+            </li>
             <?php if ($policy->status == 1): ?>
 
 
@@ -223,19 +220,19 @@ $this->title = 'Your Policy';
     <?php endif; ?>
 
 
- 
+
   </div>
   <div class="card d-flex justify-content-center m-auto d-none d-md-block" style="width: 80%;">
     <div class="table-responsive datatable-custom">
 
 
-    <table class="table">
-    <thead class="thead-light">
-        <tr>
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
             <th scope="col" class="table-column-pe-0">
-                <div class="form-check">
-                 
-                </div>
+              <div class="form-check">
+
+              </div>
             </th>
             <th class="font-weight-bold"><?= Yii::t('app', 'Your name') ?></th>
             <th><?= Yii::t('app', 'From Country') ?></th>
@@ -245,56 +242,56 @@ $this->title = 'Your Policy';
             <th><?= Yii::t('app', 'Price') ?></th>
             <th><?= Yii::t('app', 'Status') ?></th>
             <th><?= Yii::t('app', 'Your Policy') ?></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if (!empty($policies)): ?>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if (!empty($policies)): ?>
             <?php foreach ($policies as $policy): ?>
-                <tr>
-                    <td class="table-column-pe-0">
-                        <div class="form-check">
-                       
-                        </div>
-                    </td>
-                    <td><?= Html::encode($policy->customer ? ucwords(strtolower($policy->name)) : 'N/A') ?></td>
+              <tr>
+                <td class="table-column-pe-0">
+                  <div class="form-check">
 
-                    <td>
-                        <img src="/assets/flags/jo.png"
-                             class="rounded-circle" width="24" height="24"
-                             alt="<?= Html::encode($policy->DepartCountryCode) ?>" />
-                        <?= Html::encode($policy->from_airport) ?>
-                    </td>
-                    <td>
-                        <img src="/assets/flags/<?= strtolower($policy->ArrivalCountryCode) ?>.png"
-                             class="rounded-circle" width="24" height="24"
-                             alt="<?= Html::encode($policy->ArrivalCountryCode) ?>" />
-                        <?= Html::encode($policy->going_to) ?>
-                    </td>
-                    <td><?= Yii::$app->formatter->asDate($policy->departure_date) ?></td>
-                    <td><?= Yii::$app->formatter->asDate($policy->return_date) ?></td>
-                    <td><?= Html::encode($policy->price) ?> JOD</td>
-                    <td>
-    <?php
-    $statusClass = '';
-    $statusText = '';
-    switch ($policy->status) {
-        case 0:
-            $statusClass = 'bg-warning';
-            $statusText = Yii::t('app', 'Processing');
-            break;
-        case 2:
-            $statusClass = 'bg-danger';
-            $statusText = Yii::t('app', 'Failed');
-            break;
-        default:
-            $statusClass = 'bg-success';
-            $statusText = Yii::t('app', 'Completed');
-            break;
-    }
-    ?>
-    <span class="legend-indicator <?= $statusClass ?>"></span>
-    <?= $statusText ?>
-</td>
+                  </div>
+                </td>
+                <td><?= Html::encode($policy->customer ? ucwords(strtolower($policy->name)) : 'N/A') ?></td>
+
+                <td>
+                  <img src="/assets/flags/jo.png"
+                    class="rounded-circle" width="24" height="24"
+                    alt="<?= Html::encode($policy->DepartCountryCode) ?>" />
+                  <?= Html::encode($policy->from_airport) ?>
+                </td>
+                <td>
+                  <img src="/assets/flags/<?= strtolower($policy->ArrivalCountryCode) ?>.png"
+                    class="rounded-circle" width="24" height="24"
+                    alt="<?= Html::encode($policy->ArrivalCountryCode) ?>" />
+                  <?= Html::encode($policy->going_to) ?>
+                </td>
+                <td><?= Yii::$app->formatter->asDate($policy->departure_date) ?></td>
+                <td><?= Yii::$app->formatter->asDate($policy->return_date) ?></td>
+                <td><?= Html::encode($policy->price) ?> JOD</td>
+                <td>
+                  <?php
+                  $statusClass = '';
+                  $statusText = '';
+                  switch ($policy->status) {
+                    case 0:
+                      $statusClass = 'bg-warning';
+                      $statusText = Yii::t('app', 'Processing');
+                      break;
+                    case 2:
+                      $statusClass = 'bg-danger';
+                      $statusText = Yii::t('app', 'Failed');
+                      break;
+                    default:
+                      $statusClass = 'bg-success';
+                      $statusText = Yii::t('app', 'Completed');
+                      break;
+                  }
+                  ?>
+                  <span class="legend-indicator <?= $statusClass ?>"></span>
+                  <?= $statusText ?>
+                </td>
 
                 <td>
                   <?php
@@ -322,21 +319,41 @@ $this->title = 'Your Policy';
                
                 </td> -->
               </tr>
-   
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-   
-        const hasReloaded = sessionStorage.getItem('pageReloaded');
-        if (!hasReloaded) {
-            sessionStorage.setItem('pageReloaded', 'true');
-            setTimeout(() => {
-                location.reload();
-            }, 15000);
-        }
-    });
-</script>
+
+              <!-- <script>
+                const hasReloaded = sessionStorage.getItem('pageReloaded');
+                if (!hasReloaded) {
+                  sessionStorage.setItem('pageReloaded', 'true');
+                  setTimeout(() => {
+                    location.reload();
+                  }, 15000);
+                }
+              </script> -->
+
+              <script>
+                const pageLoadTimestamp = sessionStorage.getItem('pageLoadTimestamp');
+
+
+                const currentTimestamp = new Date().getTime();
+
+
+                if (!pageLoadTimestamp || (currentTimestamp - pageLoadTimestamp) > 3600000) {
+
+                  sessionStorage.clear();
+                  sessionStorage.setItem('pageLoadTimestamp', currentTimestamp);
+                }
+                const hasReloaded = sessionStorage.getItem('pageReloaded');
+
+                if (!hasReloaded) {
+                  sessionStorage.setItem('pageReloaded', 'true');
+                  setTimeout(() => {
+                    location.reload();
+                  }, 15000);
+                }
+              </script>
+
 
 
 
@@ -346,7 +363,7 @@ $this->title = 'Your Policy';
             <?php endforeach; ?>
           <?php else: ?>
             <tr>
-                <td colspan="9"><?= Yii::t('app', 'No policies found.') ?></td>
+              <td colspan="9"><?= Yii::t('app', 'No policies found.') ?></td>
             </tr>
           <?php endif; ?>
         </tbody>

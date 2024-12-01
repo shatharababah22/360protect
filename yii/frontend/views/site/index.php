@@ -471,7 +471,7 @@ alt="Company Logo" -->
                                     <div class="price-text">
                                         <span class="small"><?= Yii::t('app', 'starts from') ?> </span>
                                         <div class="price price-show h3 text-warning">
-                                            <span>$</span>
+                                            <span>JOD</span>
                                             <span><?= $insurance->price ?></span>
                                         </div>
                                     </div>
@@ -1177,7 +1177,7 @@ assurance, we\'ve got you covered with protection against unexpected events and 
                             </span>
                         </div>
                         <h3 class="h4"><?= Yii::t('app', 'Choose Coverage') ?></h3>
-                        <p class="mb-0"><?= Yii::t('app', 'Select the type of assurance you need, such as Travel, Student, Adventure, Shop, Cancellation insurance, and more.') ?></p>
+                        <p class="mb-0"><?= Yii::t('app', 'Select the type of assurance you need, such as Travel, Student, Adventure, Shop, Cancellation  assurance, and more.') ?></p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-12" data-cue="slideInLeft">

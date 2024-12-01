@@ -129,7 +129,12 @@ $this->title = 'Review Your Insurance Details';
                                             <?php endif; ?>
                                         </tr>
                                     </table>
-
+                                    <div class="mt-3">
+    <label class="form-check-label text-danger">
+        <input type="checkbox" id="agreement-checkbox" class="form-check-input">
+        <?= Yii::t('app', 'I have read and agree that Travel Insurance once purchased cannot be cancelled or refunded.') ?>
+    </label>
+</div>
                                 </div> <?php
                                         $price = (float) $policy->price;
                                         $formattedAmount = number_format($price, 2);
@@ -296,6 +301,22 @@ $this->title = 'Review Your Insurance Details';
         window.addEventListener('load', function() {
             preloader.style.display = 'none';
         });
+    });
+</script>
+<script>
+    // Enable the button when checkbox is checked
+    const agreementCheckbox = document.getElementById('agreement-checkbox');
+    const continueButton = document.getElementById('continue-btn');
+    const payNowButton = document.getElementById('pay-now-btn');
+
+    agreementCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+            continueButton.disabled = false; // Enable Continue button
+            payNowButton.disabled = false; // Enable Pay Now button
+        } else {
+            continueButton.disabled = true; // Disable Continue button
+            payNowButton.disabled = true; // Disable Pay Now button
+        }
     });
 </script>
 <!--Contact us end
