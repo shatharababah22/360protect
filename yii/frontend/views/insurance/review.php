@@ -14,22 +14,6 @@ use yii\helpers\Url;
 $this->title = 'Review Your Insurance Details';
 ?>
 <div class="pattern-square"></div>
-<script>
-  
-    const agreementCheckbox = document.getElementById('agreement-checkbox');
-    const continueButton = document.getElementById('continue-btn');
-    const payNowButton = document.getElementById('pay-now-btn');
-
-    agreementCheckbox.addEventListener('change', function () {
-        if (this.checked) {
-            continueButton.disabled = false;
-            payNowButton.disabled = false; 
-        } else {
-            continueButton.disabled = true;
-            payNowButton.disabled = true;
-        }
-    });
-</script>
 <!--Pageheader start-->
 <section class="pt-10 pb-10 bg-dark text-center">
     <div class="container mt-5">
@@ -147,8 +131,8 @@ $this->title = 'Review Your Insurance Details';
                                         </tr>
                                         <tr>
                                         <td colspan="8">   <label class="form-check-label">
-        <input type="checkbox" id="agreement-checkbox" class="form-check-input">
-        <?= Yii::t('app', 'I have read and agree that Travel Insurance once purchased cannot be cancelled or refunded.') ?>
+                                        <input type="checkbox" id="agreement-checkbox" class="form-check-input custom-checkbox">
+                                        <?= Yii::t('app', 'I have read and agree that Travel Insurance once purchased cannot be cancelled or refunded.') ?>
     </label></td></tr>
                                     </table>
                                

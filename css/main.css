@@ -863,3 +863,8 @@ color:aliceblue; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman'
     height: 70% !important;
 
 } */
+
+
+.custom-checkbox + label::before {
+  background-color: #29B18A !important;
+}
