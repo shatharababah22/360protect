@@ -1635,14 +1635,19 @@ class AsuranceController extends BaseController
                 if ($responseData && $responseData['status'] == 201) {
 
                     $lastResendTimestamp = 5 * 60;
-                    Yii::$app->session->remove(
-                        'session_data'[0],
-                        'last_resend_timestamp',
-                        'customer_id'
-                    );
+                    $sessionData = Yii::$app->session->get('session_data', []);
+                    $uniqueId = $sessionData['customer_id'] ?? null;
+                   
+                    if (isset($sessionData['customer_id']) && $sessionData['customer_id'] === $uniqueId) {
+                        Yii::$app->session->remove('session_data');
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Session data mismatch. Operation aborted.');
+                        return $this->redirect(['verify-otp', 'mobile' => $mobile]);
+                    }
 
-                    Yii::$app->session->set('mobile', $mobile);
-                    return $this->redirect(['verify-otp']);
+        
+                    return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
+         
                 } else {
                     Yii::$app->session->setFlash('error', 'Failed to send OTP.');
                 }
@@ -1655,12 +1660,6 @@ class AsuranceController extends BaseController
     }
 
 
-
-
-
-
-
-
     public function actionResend($mobile)
     {
         $sessionData = Yii::$app->session->get('session_data', []);
@@ -1670,45 +1669,29 @@ class AsuranceController extends BaseController
 
         if ($lastResendTimestamp && ($currentTimestamp - $lastResendTimestamp < $interval)) {
             Yii::$app->session->setFlash('error', 'You can only resend OTP every 5 minutes.');
-            return $this->redirect(['verify-otp']);
-        }
-
-        $cookie = Yii::$app->request->cookies;
-        if ($cookie->has('customer_id')) {
-            $uniqueId = $cookie->getValue('customer_id');
-        } else {
-            $uniqueId = Yii::$app->security->generateRandomString();
-            Yii::$app->response->cookies->add(new Cookie([
-                'name' => 'customer_id',
-                'value' => $uniqueId,
-                'expire' => time() + 3600 * 24 * 30,
-            ]));
+            return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
         }
 
 
+        $uniqueId =Yii::$app->security->generateRandomString();
         $sessionData = [
             'last_resend_timestamp' => $currentTimestamp,
             'mobile_resend' => $mobile,
             'customer_id' => $uniqueId,
         ];
-        // $sessionData = [
-        //     'last_resend_timestamp' => $currentTimestamp,
-        //     'mobile_resend' => $mobile,
-        // ];
-
-        Yii::$app->session->set('session_data', $sessionData);
-        // dd(     $sessionData);
+       Yii::$app->session->set('session_data', $sessionData);
+     
         $response = $this->actionSend($mobile);
         $responseData = json_decode($response, true);
 
         if ($responseData && $responseData['status'] == 201) {
-            Yii::$app->session->set('mobile', $mobile);
-            return $this->redirect(['verify-otp']);
+            // Yii::$app->session->set('mobile', $mobile);
+            return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
         } else {
             Yii::$app->session->setFlash('error', 'Failed to send OTP.');
         }
 
-        return $this->redirect(['verify-otp']);
+        return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
     }
 
 
@@ -1807,7 +1790,7 @@ class AsuranceController extends BaseController
     //     ]);
     // }
 
-    public function actionVerifyOtp()
+    public function actionVerifyOtp($mobile)
     {
 
 
@@ -1816,7 +1799,7 @@ class AsuranceController extends BaseController
 
         $model = new \yii\base\DynamicModel(['otp']);
         $model->addRule(['otp'], 'required');
-        $mobile = Yii::$app->session->get('mobile');
+        // $mobile = Yii::$app->session->get('mobile');
 
         if ($model->load(Yii::$app->request->post())) {
             $otpArray = Yii::$app->request->post('DynamicModel')['otp'];
