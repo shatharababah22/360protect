@@ -1954,7 +1954,7 @@ class AsuranceController extends BaseController
     //         'id' => $id
     //     ]);
     // }
-    public function actionDisplayPolicy($policyIds = null, $id = null)
+    public function actionDisplayPolicy($policyIds = null, $id = null,$mobile=null)
     {
 
         $decodedPolicyIds = array_map('base64_decode', explode(',', $policyIds));
@@ -1962,7 +1962,7 @@ class AsuranceController extends BaseController
         $request = Yii::$app->request;
         $policyDraft = $request->get('policyDraft');
 
-        $mobile = Yii::$app->session->get('mobile');
+        // $mobile = Yii::$app->session->get('mobile');
         $customer = Customers::findOne(['mobile' => $mobile]);
 
         if ($customer) {
