@@ -320,28 +320,21 @@ $this->title = 'Your Policy';
     ?>
 <?php endif; ?>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    
-        const alertBox = document.querySelector('.alert');
-
- 
-        if (alertBox) {
-            alertBox.style.display = 'none';
-
-           
-            setTimeout(() => {
-                alertBox.style.display = 'block';  
-                location.reload();  
-            }, 10000);  
-        } else {
-           
+   
+        const hasReloaded = sessionStorage.getItem('pageReloaded');
+        if (!hasReloaded) {
+            sessionStorage.setItem('pageReloaded', 'true');
             setTimeout(() => {
                 location.reload();
-            }, 10000);
+            }, 15000);
         }
     });
 </script>
+
+
 
 
 

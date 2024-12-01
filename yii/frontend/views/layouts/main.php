@@ -195,18 +195,6 @@ AppAsset::register($this);
                             <i class="bi bi-translate "></i> <?= Yii::$app->language == 'en-US' ? Yii::t('app', 'English') : Yii::t('app', 'Arabic') ?>
                         </a>
                         <ul class="dropdown-menu">
-    <!-- <li>
-        <a class="dropdown-item <?= Yii::$app->language == 'en-US' ? 'active' : '' ?>" 
-           href="">
-            <?= Yii::t('app', 'English') ?>
-        </a>
-    </li>
-    <li>
-        <a class="dropdown-item <?= Yii::$app->language == 'ar' ? 'active' : '' ?>" 
-           href="">
-            <?= Yii::t('app', 'Arabic') ?>
-        </a>
-    </li> -->
 
 
 
