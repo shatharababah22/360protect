@@ -31,11 +31,11 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <meta name="msapplication-TileColor" content="#8b3dff" />
-    <meta name="msapplication-config" content="/images/logo/logo-dark.webp" />
+    <meta name="msapplication-config" content="/images/logo/logo-dark.png" />
     <meta name="description" content="Protect your adventures with our specialized travel and luggage insurance. Get peace of mind with tailored coverage for your trips, including health, delays, and lost baggage. Explore our options today for a worry-free journey.">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="preload" href="/images/logo/logo-dark.webp" as="image">
+    <link rel="preload" href="/images/logo/logo-dark.png" as="image">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/facts/fact-4/assets/css/fact-4.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -84,7 +84,7 @@ AppAsset::register($this);
     <header>
     <nav class="navbar navbar-expand-lg transparent navbar-transparent navbar-dark">
     <div class="container px-3">
-        <a class="navbar-brand" href="/"><img class="img-fluid" width="110"  height="110" src="/images/logo/logo-dark.png" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
+        <a class="navbar-brand" href="/"><img class="img-fluid" width="90"  height="100" src="/images/logo/logo-dark.png" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
         <button class="navbar-toggler offcanvas-nav-btn" type="button" aria-label="<?= Yii::t('app', 'Toggle navigation') ?>">
             <i class="bi bi-list"></i>
         </button>
@@ -405,7 +405,7 @@ AppAsset::register($this);
                     <div class="mb-7 mb-xl-0">
                         <div class="mb-4">
                             <a href="/">
-                                <img class="img-fluid" width="80" height="auto" src="/images/logo/logo-dark.webp" alt="360Protect" loading="eager">
+                                <img class="img-fluid" width="80" height="auto" src="/images/logo/logo-dark.png" alt="360Protect" loading="eager">
                             </a>
                         </div>
                         <p class="mb-5 mt-2"><?= Yii::t('app', 'Safeguard your travels through our assurance companies partners. Whether you\'re
