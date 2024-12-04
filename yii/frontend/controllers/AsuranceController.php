@@ -2299,13 +2299,13 @@ class AsuranceController extends BaseController
 
     protected function getAlawnehAccessToken()
     {
-        $url = 'https://gateway-test.alawnehpay.com/auth-server/oauth/token';
-        $client_id = 'microFinance';
-        $client_secret = 'jWxLQZab656ZME629';
+        $url = 'https://gateway.alawnehpay.com/auth-server/oauth/token';
+        $client_id = 'tuneprotect';
+        $client_secret = 'TeSuT19Huyc@jiu';
 
 
         $credentials = base64_encode($client_id . ':' . $client_secret);
-
+// dd($credentials);
         $headers = [
             'Authorization: Basic ' . $credentials,
             'Content-Type: application/x-www-form-urlencoded',
@@ -2331,7 +2331,7 @@ class AsuranceController extends BaseController
 
 
         $data = json_decode($response, true);
-        // dd($data);
+        dd($data);
         if ($httpCode == 200 && isset($data['access_token'])) {
             return $data['access_token'];
         }

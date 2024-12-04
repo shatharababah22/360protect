@@ -131,7 +131,7 @@ $this->title = 'Review Your Insurance Details';
                                         </tr>
                                         <tr>
                                         <td colspan="8">   <label class="form-check-label">
-                                        <input type="checkbox" id="agreement-checkbox" class="form-check-input custom-checkbox">
+                                        <input type="checkbox" id="agreement-checkbox" class="form-check-input custom-checkbox" >
                                         <?= Yii::t('app', 'I have read and agree that Travel Insurance once purchased cannot be cancelled or refunded.') ?>
     </label></td></tr>
                                     </table>
