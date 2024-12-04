@@ -2331,7 +2331,8 @@ class AsuranceController extends BaseController
 
 
         $data = json_decode($response, true);
-        dd($data);
+       var_dump( $data );
+       die();
         if ($httpCode == 200 && isset($data['access_token'])) {
             return $data['access_token'];
         }
