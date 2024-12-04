@@ -84,7 +84,7 @@ AppAsset::register($this);
     <header>
     <nav class="navbar navbar-expand-lg transparent navbar-transparent navbar-dark">
     <div class="container px-3">
-        <a class="navbar-brand" href="/"><img class="img-fluid" width="90"  height="100" src="/images/logo/logo-dark.png" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
+        <a class="navbar-brand" href="/"><img class="img-fluid" width="110"  height="110" src="/images/logo/logo-dark.png" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
         <button class="navbar-toggler offcanvas-nav-btn" type="button" aria-label="<?= Yii::t('app', 'Toggle navigation') ?>">
             <i class="bi bi-list"></i>
         </button>
