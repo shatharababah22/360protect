@@ -252,14 +252,14 @@ AppAsset::register($this);
     <div class="modal-dialog modal-lg ">
         <div class="modal-content">
             <div class="modal-header m-2 mb-3">
-                <h4 class="modal-title " id="claim-modal-label"><b><p><?= Yii::t('app', 'Claim Process') ?></p></b></h4>
+                <h4 class="modal-title " id="claim-modal-label"><b><?= Yii::t('app', 'Claim Process') ?></b></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body m-2">
-            <p>Please download <?= Html::a('the Claim Form', ['images/Claim form JOFICO.pdf'], [
+            <p>Please download the <b><?= Html::a('Claim Form', ['images/Claim form JOFICO.pdf'], [
     'class' => 'text-dark',
     'download' => true,
-]) ?> and attach a good scan copy of the following documents:</p>
+]) ?></b> and attach a good scan copy of the following documents:</p>
 
                 <ol class="text-start" >
                     <li>Copy of flight itinerary</li>
