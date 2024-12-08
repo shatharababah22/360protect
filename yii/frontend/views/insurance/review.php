@@ -303,7 +303,7 @@ $this->title = 'Review Your Insurance Details';
     document.getElementById('agreement-checkbox').addEventListener('change', function () {
     const isChecked = this.checked;
     document.getElementById('continue-section').style.display = isChecked ? 'block' : 'none';
-    document.getElementById('pay-now-section').style.display = isChecked ? 'none' : 'block';
+    document.getElementById('pay-now-section').style.display = isChecked ?'block' : 'none';
 });
 
 </script>
