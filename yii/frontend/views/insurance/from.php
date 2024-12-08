@@ -6,7 +6,7 @@
 
 use common\models\Countries;
 use common\models\Insurances;
-
+use common\widgets\Alert;
 
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
@@ -216,7 +216,7 @@ $insuranceId = Insurances::find()
 
 <div class="card shadow-sm">
     <div class="card-body">
-
+    <?= Alert::widget() ?>
     <?php if (isset($insurance->id)): ?>
     <form action="/asurance/travel" method="get" class="row needs-validation g-3" novalidate>
 <?php else: ?>
@@ -402,51 +402,14 @@ $insuranceId = Insurances::find()
 <p id="infant-note" class="text-muted small"><?= Yii::t('app', 'Child 2 to 18 years - Infant 30 days to 2 years') ?></p>
 
             </div>
+
             <div class="d-grid">
                 <button type="submit" class="btn btn-warning"><?= Yii::t('app', 'Next') ?></button>
             </div>
         </form>
     </div>
 </div>
-<!-- Modal HTML -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-<div class="modal row fade border rounded shadow-sm" id="flashMessageModal" tabindex="-1" aria-labelledby="flashMessageModalLabel" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content rounded shadow-sm">
-
-            <div class=" modal-body">
-                <div class="modal-header border-0">
-                 <!-- <h1 class="modal-title fs-5" id="flashMessageModalLabel">Modal title</h1> -->
-                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="text-center">
-                    <div class="d-flex justify-content-center pb-2">
-                        <div class="check-container d-flex justify-content-center align-items-center ">
-                            <img class="iconheight" src='<?= Yii::$app->request->baseUrl ?>/images/nodata.png' alt="No Data" width="23%" height="92%">
-                        </div>
-                    </div>
-                    <h3 class="fw-bold" style="color: #0F172A;">
-                        <?= Yii::t('app', 'No Data Available') ?>
-                    </h3>
-
-                    <small class="fw-bold">
-                        <?= Yii::t('app', 'It seems there are no available options for your current selection. Please try changing the departure and arrival countries to see supported options.') ?>
-                    </small>
-
-
-                </div>
-            </div>
-            <div class="modal-footer border-0 justify-content-center footer-color rounded-0 position-relative">
-                <div class="angle "></div>
-
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var paxTypeDropdown = document.getElementById('pax-type-dropdown');
@@ -524,20 +487,6 @@ console.log( document.getElementById('childern'));
         }
 
         loadSavedPaxType();
-
-        const fromCountry = document.getElementById('fromCountry');
-    const toCountry = document.getElementById('toCountry');
-
-    function checkCountries() {
-        if (toCountry.value === 'Jordan' && fromCountry.value === 'Jordan') {
-        
-            const modal = new bootstrap.Modal(document.getElementById('flashMessageModal'));
-            modal.show();
-        }
-    }
-
- 
-    toCountry.addEventListener("change", checkCountries);
     });
 </script>
 
