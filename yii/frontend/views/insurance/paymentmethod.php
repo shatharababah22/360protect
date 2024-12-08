@@ -68,7 +68,7 @@ $this->title = 'Paymnet Method';
                             
                             <div class="modal-body">
     <p class="text-left fs-6">
-        <?= Yii::t('app', 'Please write your phone number to complete the payment process to purchase the policy.'); ?>
+        <?= Yii::t('app', 'Please enter your Alias or Mobile number to complete the payment process.'); ?>
     </p>
     <div class="form-group">
     <?= $form->field($model, 'mobile')->textInput(['placeholder' => Yii::t('app', 'Recipient alias or phone number')])->label(false) ?>
