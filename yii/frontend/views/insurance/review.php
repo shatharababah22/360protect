@@ -131,7 +131,7 @@ $this->title = 'Review Your Insurance Details';
                                         </tr>
                                         <tr>
                                         <td colspan="8">   <label class="form-check-label">
-                                        <input type="checkbox" id="agreement-checkbox" class="form-check-input custom-checkbox" >
+                                        <input type="checkbox" id="agreement-checkbox" class="form-check-input custom-checkbox">
                                         <?= Yii::t('app', 'I have read and agree that Travel Insurance once purchased cannot be cancelled or refunded.') ?>
     </label></td></tr>
                                     </table>
@@ -150,24 +150,26 @@ $this->title = 'Review Your Insurance Details';
                                         }
                                         ?>
 
-
-<?php if ($customer !== null && $customer->credit == $price): ?>
-    <div class="mt-2">
+<div id="continue-section" class="mt-2" style="display: none;">
+    <?php if ($customer !== null && $customer->credit == $price): ?>
         <?= Html::a(
             Yii::t('app', 'Continue') . ' ' . '($' . $formattedAmount . ')',
             ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => ($customer->getPaymentMethod()->one() ? $customer->getPaymentMethod()->one()->method : null)],
-            ['class' => 'btn btn-warning w-100', 'id' => 'continue-btn', 'disabled' => true]
+            ['class' => 'btn btn-warning w-100', 'id' => 'continue-btn']
         ) ?>
-    </div>
-<?php else: ?>
-    <div class="mt-2">
+    <?php endif; ?>
+</div>
+
+<div id="pay-now-section" class="mt-2" style="display: none;">
+    <?php if (!($customer !== null && $customer->credit == $price)): ?>
         <?= Html::a(
             Yii::t('app', 'Pay Now') . ' ($' . ($formattedAmount ? $formattedAmount : '0') . ')',
             ['/asurance/payment-method', 'id' => base64_encode($policy->id)],
-            ['class' => 'btn btn-warning w-100', 'id' => 'pay-now-btn', 'disabled' => true]
+            ['class' => 'btn btn-warning w-100', 'id' => 'pay-now-btn']
         ) ?>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
+</div>
+
 
 
 
@@ -298,6 +300,12 @@ $this->title = 'Review Your Insurance Details';
             preloader.style.display = 'none';
         });
     });
+    document.getElementById('agreement-checkbox').addEventListener('change', function () {
+    const isChecked = this.checked;
+    document.getElementById('continue-section').style.display = isChecked ? 'block' : 'none';
+    document.getElementById('pay-now-section').style.display = isChecked ? 'none' : 'block';
+});
+
 </script>
 
 <!--Contact us end
