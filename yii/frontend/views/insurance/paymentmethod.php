@@ -73,14 +73,15 @@ $this->title = 'Paymnet Method';
     <div class="form-group">
 
 
-<?= $form->field($model, 'mobile')->widget(PhoneInput::class, [
-                                                        'jsOptions' => [
-                                                            'preferredCountries' => ['jo'],
-                                                            'class' => '',
-                                  
-                                                        ]
-                                                    ])->label(false); ?>
-    </div>
+    <?= $form->field($model, 'mobile')->widget(\yii\widgets\MaskedInput::class, [
+        'mask' => '+999-999-999-999', // Example for a general international phone number
+        'options' => [
+            'class' => 'form-control',
+            'placeholder' => Yii::t('app', 'Enter your phone number'),
+        ],
+    ])->label(false); ?>
+</div>
+
 </div>
 
 
