@@ -77,7 +77,7 @@ $this->title = 'Paymnet Method';
                             </div>
                         
      
-                                <div class="m-3">
+                                <div class="modal-footer">
                                     <?php
                                     echo '<button type="button" class="btn btn-outline-danger me-2" data-bs-dismiss="modal">'.Yii::t('app', 'Cancel').'</button>';
                                     echo Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary me-2']);
