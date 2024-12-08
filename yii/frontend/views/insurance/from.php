@@ -216,7 +216,7 @@ $insuranceId = Insurances::find()
 
 <div class="card shadow-sm">
     <div class="card-body">
-    <?= Alert::widget() ?>
+ 
     <?php if (isset($insurance->id)): ?>
     <form action="/asurance/travel" method="get" class="row needs-validation g-3" novalidate>
 <?php else: ?>
@@ -230,6 +230,7 @@ $insuranceId = Insurances::find()
 
                 </div>
             </div>
+            <?= Alert::widget() ?>
             <!-- <div class="col-md-6 col-12">
                 <label for="fromCountry" class="form-label">
                     <?= Yii::t('app', 'From') ?>
