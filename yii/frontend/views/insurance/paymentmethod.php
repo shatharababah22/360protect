@@ -76,14 +76,14 @@ $this->title = 'Paymnet Method';
                                 </div>
                             </div>
                         
-                            <div class="d-flex align-items-center mt-2">
-                                <div class="ms-auto">
+     
+                                <div class="m-3">
                                     <?php
                                     echo '<button type="button" class="btn btn-outline-danger me-2" data-bs-dismiss="modal">'.Yii::t('app', 'Cancel').'</button>';
                                     echo Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary me-2']);
                                     ?>
                                 </div>
-                            </div>
+                 
                             <?php
 
                             ActiveForm::end();
