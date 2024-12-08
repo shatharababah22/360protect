@@ -15,6 +15,11 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
+<?php  echo $form->field($model, 'name', ['options' => ['class' => 'mt-2']])  ?> 
+<?php  echo $form->field($model, 'email', ['options' => ['class' => 'mt-2']])  ?>
+<?php  echo $form->field($model, 'mobile', ['options' => ['class' => 'mt-2']])  ?>
+
+<!-- 
     <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'email') ?>
@@ -23,14 +28,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'mobile') ?>
 
-    <?= $form->field($model, 'country') ?>
+    <?= $form->field($model, 'country') ?> -->
 
     <?php // echo $form->field($model, 'credit') ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    
+    <div class="offcanvas-footer ">
+      <div class="row ">
+        <div class="col">
+          <div class="d-grid">
+          <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+          </div>
+        </div>
+   
+        <div class="col">
+          <div class="d-grid">
+        <?=Html::a('Reset', ['index'], ['class' => 'btn btn-white'])?>
+        </div>
+        </div>
+    
+      </div>
+      
     </div>
+   
 
     <?php ActiveForm::end(); ?>
 

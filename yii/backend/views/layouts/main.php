@@ -342,7 +342,12 @@ AppAsset::register($this);
             <div id="navbarVerticalMenuPagesMenu">
 
 
-
+            <div class="nav-item">
+                <a class="nav-link " href="<?= Url::to(['/customer/index']) ?>">
+                  <i class="bi bi-person nav-icon"></i>
+                  <span class="nav-link-title">Customers</span>
+                </a>
+              </div>
               <!-- Collapse -->
               <div class="nav-item">
                 <a class="nav-link " href="<?= Url::to(['/insurance/index']) ?>">

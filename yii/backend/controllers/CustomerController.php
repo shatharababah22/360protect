@@ -7,6 +7,13 @@ use common\models\CustomerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use common\models\UploadForm;
+use Exception;
+use yii\web\UploadedFile;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Yii;
 
 /**
  * CustomerController implements the CRUD actions for Customers model.
@@ -36,6 +43,59 @@ class CustomerController extends Controller
      *
      * @return string
      */
+
+     public function actionExport()
+     {
+         $models = Customers::find()->all();
+         if (empty($models)) {
+            Yii::$app->session->setFlash('error', 'No Customers data found.');
+            return $this->redirect(['index']); 
+        }
+    
+ 
+         $spreadsheet = new Spreadsheet();
+         $sheet = $spreadsheet->getActiveSheet();
+ 
+         $sheet->setCellValue('A1', 'Name');
+         $sheet->setCellValue('B1', 'Email');
+         $sheet->setCellValue('C1', 'Mobile Number (+962)');
+         $sheet->setCellValue('D1', 'Credit (JOD)');
+   
+ 
+         $headerStyle = [
+             'fill' => [
+                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                 'startColor' => [
+                     'argb' => 'FF808080',
+                 ],
+                 'font' => [
+                     'color' => [
+                         'argb' => 'FFFFFFFF',
+                     ],
+                 ],
+             ],
+         ];
+
+         $sheet->getStyle('A1:D1')->applyFromArray($headerStyle);
+ 
+         $row = 2;
+         
+         foreach ($models as $model) {
+             $sheet->setCellValue('A' . $row, $model->name);
+             $sheet->setCellValue('B' . $row, $model->email);
+             $sheet->setCellValue('C' . $row, $model->mobile);
+             $sheet->setCellValue('D' . $row, $model->credit);
+             $row++;
+         }
+ 
+         $writer = new Xlsx($spreadsheet);
+         $fileName = 'Customers.xlsx';
+         $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+         $writer->save($temp_file);
+ 
+         return Yii::$app->response->sendFile($temp_file, $fileName);
+     }
+
     public function actionIndex()
     {
         $searchModel = new CustomerSearch();
