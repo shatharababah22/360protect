@@ -405,7 +405,7 @@ AppAsset::register($this);
                     <div class="mb-7 mb-xl-0">
                         <div class="mb-4">
                             <a href="/">
-                                <img class="img-fluid" width="80" height="auto" src="/images/logo/logo-dark.png" alt="360Protect" loading="eager">
+                                <img class="img-fluid" width="80" height="auto" src="<?= Yii::$app->request->baseUrl ?>/images/logo/logo-dark.png" alt="360Protect" loading="eager">
                             </a>
                         </div>
                         <p class="mb-5 mt-2"><?= Yii::t('app', 'Safeguard your travels through our assurance companies partners. Whether you\'re
