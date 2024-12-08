@@ -161,7 +161,7 @@ class AsuranceController extends BaseController
         $fromCountryName = 'Jordan';
         $toCountryName = $this->getCountryName($model->to_country);
 
-        if ($model->from_country === $model->to_country) {
+        if ('JO' === $model->to_country) {
             Yii::$app->session->setFlash('error', 'Departure and arrival countries cannot be the same.');
             return $this->redirect(Yii::$app->getRequest()->getReferrer());
         }
