@@ -2802,7 +2802,6 @@ class AsuranceController extends BaseController
 
             $passengersArray[] = [
                 "IsInfant" =>  $age < 2 ? 1 : 0,
-
                 "FirstName" => 'Test',
                 "LastName" => 'Test',
                 "Gender" => $passenger->gender,
