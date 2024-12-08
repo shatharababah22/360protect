@@ -2802,7 +2802,7 @@ class AsuranceController extends BaseController
             $age = $now->diff($dob)->y;
 
             $passengersArray[] = [
-                "IsInfant" =>  $age < 2 ? 1 : 0,
+                "IsInfant" =>  $age <= 2 ? 1 : 0,
                 "FirstName" => 'Test',
                 "LastName" => 'Test',
                 "Gender" => $passenger->gender,
@@ -2815,6 +2815,8 @@ class AsuranceController extends BaseController
                 "CountryOfResidence" => $passenger->country
             ];
         }
+
+      
 
 
 
@@ -2844,6 +2846,8 @@ class AsuranceController extends BaseController
             ],
             "passengers" => $passengersArray
         ];
+//   dd($passengersArray, $apiPayload);
+
 
         $ch = curl_init($apiEndpoint);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -2968,7 +2972,7 @@ class AsuranceController extends BaseController
             $now = new DateTime();
             $age = $now->diff($dob)->y;
 
-            if ($age < 2) {
+            if ($age <= 2) {
                 $PassengerCount--;
             }
         }
@@ -2989,7 +2993,7 @@ class AsuranceController extends BaseController
             $policy->ArrivalCountryCode = $policyDraft->ArrivalCountryCode;
             $policy->return_date = $policyDraft->return_date;
             $policy->name = $passenger->first_name . ' ' . $passenger->last_name;
-            if ($age < 2) {
+            if ($age <= 2) {
                 $policy->price = 0;
             } else {
 
