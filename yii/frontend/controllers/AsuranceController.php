@@ -83,12 +83,16 @@ class AsuranceController extends BaseController
         $model = new InquiryForm();
         $model->setAttributes(\Yii::$app->request->get('InquiryForm'));
         $data = Yii::$app->request->get();
-        if ($data['from_country'] === $data['to_country']) {
-            Yii::$app->session->setFlash('error', 'Departure and arrival countries cannot be the same.');
-            return $this->redirect(Yii::$app->getRequest()->getReferrer());
-        }
+   
 
         if ($data) {
+
+            if ($data['from_country'] === $data['to_country']) {
+                Yii::$app->session->setFlash('error', 'Departure and arrival countries cannot be the same.');
+                return $this->redirect(Yii::$app->getRequest()->getReferrer());
+            }
+            var_dump($data['from_country'],$data['to_country']);
+            die();
 
             $model->type;
             $model->from_country = $data['from_country'];
