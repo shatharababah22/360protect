@@ -71,16 +71,15 @@ $this->title = 'Paymnet Method';
         <?= Yii::t('app', 'Please write your phone number to complete the payment process to purchase the policy.'); ?>
     </p>
     <div class="form-group">
-
-
     <?= $form->field($model, 'mobile')->widget(\yii\widgets\MaskedInput::class, [
-        'mask' => '+999-999-999-999', // Example for a general international phone number
+        'mask' => '+962-7##-###-###', // Mask for Jordanian phone numbers
         'options' => [
             'class' => 'form-control',
-            'placeholder' => Yii::t('app', 'Enter your phone number'),
+            'placeholder' => Yii::t('app', 'Enter your Jordanian phone number'),
         ],
     ])->label(false); ?>
 </div>
+
 
 </div>
 
