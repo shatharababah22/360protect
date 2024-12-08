@@ -64,16 +64,24 @@ $this->title = 'Paymnet Method';
                             $form = ActiveForm::begin([
                                 'action' => \yii\helpers\Url::to(['/asurance/payment-method', 'id' => base64_encode($policy->id), 'method' => 'alawneh'])
                             ]);
-                            ?>
-                 <div class="row">
-                    <div class="col-md-8 mt-2" >
-                    <?= $form->field($model, 'mobile')->textInput
-                 (['placeholder' => Yii::t('app', '+962-7XX-XXXX-XX')])->label(false); ?>
-  
-                    </div>
-              
-                       
-                                </div>
+                            ?>  
+                            
+                            <div class="modal-body">
+    <p class="mb-3">
+        <?= Yii::t('app', 'Please write your phone number to complete the payment process to purchase the policy.'); ?>
+    </p>
+    <div class="form-group">
+        <?= $form->field($model, 'mobile')
+            ->textInput([
+                'class' => 'form-control', 
+                'placeholder' => Yii::t('app', '+962-7XX-XXXX-XX')
+            ])
+            ->label(false); ?>
+    </div>
+</div>
+
+
+
                             </div>
                         
      
