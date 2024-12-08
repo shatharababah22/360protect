@@ -10,6 +10,7 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use yii\helpers\Url;
+
 $languageDirection = Yii::$app->language == 'ar' ? 'rtl' : 'ltr';
 $language = Yii::$app->language;
 AppAsset::register($this);
@@ -82,21 +83,22 @@ AppAsset::register($this);
 <body>
     <?php $this->beginBody() ?>
     <header>
-    <nav class="navbar navbar-expand-lg transparent navbar-transparent navbar-dark">
-    <div class="container px-3">
-        <a class="navbar-brand" href="/"><img class="img-fluid" width="200"  height="150" src="<?= Yii::$app->request->baseUrl ?>/images/logo/logo-dark(2).png" alt="<?= Yii::t('app', '360TravelCare') ?>" /></a>
-        <button class="navbar-toggler offcanvas-nav-btn" type="button" aria-label="<?= Yii::t('app', 'Toggle navigation') ?>">
-            <i class="bi bi-list"></i>
-        </button>
+        <nav class="navbar navbar-expand-lg transparent navbar-transparent navbar-dark">
+            <div class="container px-3">
+                <a class="navbar-brand" href="/"><img class="img-fluid" width="200" height="150" src="<?= Yii::$app->request->baseUrl ?>/images/logo/logo-dark(2).png" alt="<?= Yii::t('app', '360TravelCare') ?>" /></a>
+                <button class="navbar-toggler offcanvas-nav-btn" type="button" aria-label="<?= Yii::t('app', 'Toggle navigation') ?>">
+                    <i class="bi bi-list"></i>
+                </button>
 
-        <div class="offcanvas offcanvas-start offcanvas-nav" style="width: 20rem">
-            <div class="offcanvas-header" >
-                <a href="/" class="text-inverse"><img class="img-fluid" width="200"  height="150" src="<?= Yii::$app->request->baseUrl ?>/images/logo/logo-dark(2).png" alt="<?= Yii::t('app', '360TravelCare') ?>" /></a>
-            <div dir="ltr"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="<?= Yii::t('app', 'Close') ?>"></button>
-            </div></div>   
-            <div class="offcanvas-body pt-0 align-items-center">
-                <ul class="navbar-nav navbar-nav-<?= $languageDirection = Yii::$app->language == 'ar' ? 'rtl' : 'ltr' ?> mx-auto align-items-lg-center">
-                    <!-- <li class="nav-item dropdown">
+                <div class="offcanvas offcanvas-start offcanvas-nav" style="width: 20rem">
+                    <div class="offcanvas-header">
+                        <a href="/" class="text-inverse"><img class="img-fluid" width="200" height="150" src="<?= Yii::$app->request->baseUrl ?>/images/logo/logo-dark(2).png" alt="<?= Yii::t('app', '360TravelCare') ?>" /></a>
+                        <div dir="ltr"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="<?= Yii::t('app', 'Close') ?>"></button>
+                        </div>
+                    </div>
+                    <div class="offcanvas-body pt-0 align-items-center">
+                        <ul class="navbar-nav navbar-nav-<?= $languageDirection = Yii::$app->language == 'ar' ? 'rtl' : 'ltr' ?> mx-auto align-items-lg-center">
+                            <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Countries') ?></a>
                       <ul class="dropdown-menu">
                             <?php
@@ -117,28 +119,28 @@ AppAsset::register($this);
 
                         </ul>
                         <?php
-                            $countries = $language === 'ar' ? \common\models\InsuranceCountries::find()
-                                ->select(['source_country_ar', 'slug'])
-                                ->distinct()
-                                ->all(): \common\models\InsuranceCountries::find()
-                                ->select(['source_country', 'slug'])
-                                ->distinct()
-                                ->all();
-                            ?>
+                        $countries = $language === 'ar' ? \common\models\InsuranceCountries::find()
+                            ->select(['source_country_ar', 'slug'])
+                            ->distinct()
+                            ->all() : \common\models\InsuranceCountries::find()
+                            ->select(['source_country', 'slug'])
+                            ->distinct()
+                            ->all();
+                        ?>
 
                         <ul class="dropdown-menu">
     <?php foreach ($countries as $country) : ?>
         <li>
             <?php
-           
-          
 
-          
-            $countryName = $language === 'ar' 
-                ? $country->source_country_ar   
-                : $country->source_country;    
 
-           
+
+
+            $countryName = $language === 'ar'
+                ? $country->source_country_ar
+                : $country->source_country;
+
+
             echo Html::a(
                 Yii::t('app', ucwords(strtolower($countryName))),
                 ['/site/index', 'slug' => $country->slug],
@@ -149,79 +151,79 @@ AppAsset::register($this);
     <?php endforeach; ?>
 </ul>
                     </li> -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Types of Assurances') ?></a>
-                        <ul class="dropdown-menu">
-                            <?php foreach (\common\models\Insurances::find()->all() as $insurance) : ?>
-                                <li>
-                                    <?= Html::a(Yii::t('app', ucwords(strtolower( $language === 'ar' ?$insurance->name_ar:$insurance->name))), ['/insurance/programs', 'slug' => $insurance->slug], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Company') ?></a>
-
-                        <ul class="dropdown-menu">
-                        <li>
-                                <?= Html::a(Yii::t('app', 'Contact Us'), ['/asurance/contact'], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Types of Assurances') ?></a>
+                                <ul class="dropdown-menu">
+                                    <?php foreach (\common\models\Insurances::find()->all() as $insurance) : ?>
+                                        <li>
+                                            <?= Html::a(Yii::t('app', ucwords(strtolower($language === 'ar' ? $insurance->name_ar : $insurance->name))), ['/insurance/programs', 'slug' => $insurance->slug], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
                             </li>
-                            <li>
-                                <?= Html::a(Yii::t('app', 'Terms & Conditions'), ['/asurance/terms'], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?= Yii::t('app', 'Company') ?></a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <?= Html::a(Yii::t('app', 'Contact Us'), ['/asurance/contact'], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
+                                    </li>
+                                    <li>
+                                        <?= Html::a(Yii::t('app', 'Terms & Conditions'), ['/asurance/terms'], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
+                                    </li>
+
+                                </ul>
                             </li>
-                          
+
+                            <li class="nav-item">
+                                <?= Html::a(Yii::t('app', 'Check Policy'), ['/asurance/check'], ['class' => 'nav-link', 'data-cue' => 'fadeUp']) ?>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <?= Html::a(Yii::t('app', 'Claim'), '#', [
+                                    'class' => 'nav-link',
+                                    'data-bs-toggle' => 'modal',
+                                    'data-bs-target' => "#exampleModal",
+                                    'data-cue' => 'fadeUp',
+                                ]) ?>
+                            </li>
+
                         </ul>
-                    </li>
 
-                    <li class="nav-item">
-                        <?= Html::a(Yii::t('app', 'Check Policy'), ['/asurance/check'], ['class' => 'nav-link', 'data-cue' => 'fadeUp']) ?>
-                    </li>
-
-                        
-                    <li class="nav-item">
-    <?= Html::a(Yii::t('app', 'Claim'), '#', [
-        'class' => 'nav-link',
-        'data-bs-toggle' => 'modal',
-        'data-bs-target' => "#exampleModal",
-        'data-cue' => 'fadeUp',
-    ]) ?>
-</li>                  
-
-                </ul>
-
-                <div class="mt-3 mt-lg-0 d-flex align-items-center">
-                    <div class="dropdown">
-                        <a href="#" class="btn btn-outline-light lang dropdown-toggle" id="dropdownLanguage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-translate "></i> <?= Yii::$app->language == 'en-US' ? Yii::t('app', 'English') : Yii::t('app', 'Arabic') ?>
-                        </a>
-                        <ul class="dropdown-menu">
+                        <div class="mt-3 mt-lg-0 d-flex align-items-center">
+                            <div class="dropdown">
+                                <a href="#" class="btn btn-outline-light lang dropdown-toggle" id="dropdownLanguage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-translate "></i> <?= Yii::$app->language == 'en-US' ? Yii::t('app', 'English') : Yii::t('app', 'Arabic') ?>
+                                </a>
+                                <ul class="dropdown-menu">
 
 
 
-    <li>
-    <a class="dropdown-item <?= Yii::$app->language == 'en-US' ? 'active' : '' ?>" 
-       href="<?= \yii\helpers\Url::current(['language' => 'en-US']) ?>">
-        <?= Yii::t('app', 'English') ?>
-    </a>
-</li>
-<li>
-    <a class="dropdown-item <?= Yii::$app->language == 'ar' ? 'active' : '' ?>" 
-       href="<?= \yii\helpers\Url::current(['language' => 'ar']) ?>">
-        <?= Yii::t('app', 'Arabic') ?>
-    </a>
-</li>
+                                    <li>
+                                        <a class="dropdown-item <?= Yii::$app->language == 'en-US' ? 'active' : '' ?>"
+                                            href="<?= \yii\helpers\Url::current(['language' => 'en-US']) ?>">
+                                            <?= Yii::t('app', 'English') ?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item <?= Yii::$app->language == 'ar' ? 'active' : '' ?>"
+                                            href="<?= \yii\helpers\Url::current(['language' => 'ar']) ?>">
+                                            <?= Yii::t('app', 'Arabic') ?>
+                                        </a>
+                                    </li>
 
-</ul>
+                                </ul>
 
 
-                    </div>   
-                    <a href="/" class="me-2"><img src="<?= Yii::$app->request->baseUrl ?>/images/jordan.png" alt="<?= Yii::t('app', 'Company Logo') ?>" class="bg-white rounded" width="120">
-                    </a>
-              
-                </div>
-         
+                            </div>
+                            <a href="/" class="me-2"><img src="<?= Yii::$app->request->baseUrl ?>/images/jordan.png" alt="<?= Yii::t('app', 'Company Logo') ?>" class="bg-white rounded" width="120">
+                            </a>
 
-                <!-- <div class="mt-3 mt-lg-0 d-flex align-items-center">
+                        </div>
+
+
+                        <!-- <div class="mt-3 mt-lg-0 d-flex align-items-center">
                     <div class="dropdown">
                         <a href="#" class="btn btn-outline-light dropdown-toggle" id="dropdownLanguage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-translate "></i> <?= Yii::$app->language == 'en-US' ? Yii::t('app', 'English') : Yii::t('app', 'العربية') ?>
@@ -240,53 +242,54 @@ AppAsset::register($this);
                         </ul>
                     </div>
                 </div> -->
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</nav>
+        </nav>
 
     </header>
 
-    
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg ">
-        <div class="modal-content">
-            <div class="modal-header m-2 mb-3">
-                <h4 class="modal-title " id="claim-modal-label"><b><?= Yii::t('app', 'Claim Process') ?></b></h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body m-2">
-            <p>Please download the <b><?= Html::a('Claim Form', ['images/Claim form JOFICO.pdf'], [
-    'class' => 'text-dark',
-    'download' => true,
-]) ?></b> and attach a good scan copy of the following documents:</p>
 
-                <ol class="text-start" >
-                    <li>Copy of flight itinerary</li>
-                    <li>Certificate of assurance</li>
-                    <li>Original medical reports from the treating doctor</li>
-                    <li>Original bills/receipts issued by the clinic or hospital</li>
-                </ol>
-                <p><b>Medical report must show the following information:</b></p>
-                <ul class="text-start" >
-                    <li>Symptoms presented with</li>
-                    <li>Past medical history (if any)</li>
-                    <li>Vital signs at the time of examination</li>
-                    <li>Investigation/laboratory reports with X-ray/CT/MRI (if performed)</li>
-                    <li>Medications given</li>
-                    <li>Diagnosis</li>
-                </ul>
-                <p>Please note we may require other documents, which we will advise upon evaluating your case.</p>
-                <p>
-                    Kindly send an email with the subject as the Policy number, briefly request reimbursement, 
-                    and attach the Claim Form and other required documents to the following email address:
-                </p>
-                <span class="mb-3"><i class="bi bi-envelope-at me-1 text-warning fs-4"></i><a class="text-dark" href="mailto:mena-claims@amaglobalassistance.com">mena-claims@amaglobalassistance.com</a></span>
-                
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg ">
+            <div class="modal-content">
+                <div class="modal-header m-2 mb-3">
+                    <h4 class="modal-title " id="claim-modal-label"><b><?= Yii::t('app', 'Claim Process') ?></b></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body m-2">
+                    <p>Please download the <b><?= Html::a('Claim Form', ['images/Claim form JOFICO.pdf'], [
+                                                    'class' => 'text-dark',
+                                                    'download' => true,
+                                                ]) ?></b> and attach a good scan copy of the following documents:</p>
+
+                    <ol class="text-start">
+                        <li>Copy of flight itinerary</li>
+                        <li>Certificate of assurance</li>
+                        <li>Original medical reports from the treating doctor</li>
+                        <li>Original bills/receipts issued by the clinic or hospital</li>
+                    </ol>
+                    <p><b>Medical report must show the following information:</b></p>
+                    <ul class="text-start">
+                        <li>Symptoms presented with</li>
+                        <li>Past medical history (if any)</li>
+                        <li>Vital signs at the time of examination</li>
+                        <li>Investigation/laboratory reports with X-ray/CT/MRI (if performed)</li>
+                        <li>Medications given</li>
+                        <li>Diagnosis</li>
+                    </ul>
+                    <p>Please note we may require other documents, which we will advise upon evaluating your case.</p>
+                    <p>
+
+                        Kindly send an email with the subject as the Policy number, briefly request reimbursement,
+                        and attach the Claim Form and other required documents to the following email address:
+                    </p>
+                    <span class="mb-3"><i class="bi bi-envelope-at me-1 text-warning fs-4"></i><a class="text-dark" href="mailto:mena-claims@amaglobalassistance.com">mena-claims@amaglobalassistance.com</a></span>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
@@ -302,7 +305,7 @@ AppAsset::register($this);
 
 
 
-<!-- Modal HTML -->
+    <!-- Modal HTML -->
 
 
     <!-- 
@@ -440,18 +443,21 @@ goal is to offer tailored coverage that meets your unique needs.') ?></p>
                                     <h5> <?= Yii::t('app', 'Types of Assurances') ?></h5>
 
 
-                                   
+
                                     <a class="d-block d-lg-none text-inherit" data-bs-toggle="collapse" href="#collapseLanding" role="button" aria-expanded="false" aria-controls="collapseLanding" aria-label="Toggle collapse">
                                         <i class="bi bi-chevron-down"></i>
                                     </a>
 
                                 </div>
                                 <div class="collapse d-lg-block" id="collapseLanding" data-bs-parent="#ft-links">
-                                <ul class="list-unstyled mb-0 py-3 py-lg-0 px-0">
+                                    <ul class="list-unstyled mb-0 py-3 py-lg-0 px-0">
                                         <?php foreach (\common\models\Insurances::find()->limit(6)->all() as $insurance) : ?>
                                             <li class="mb-2">
-                                                <?= Html::a(Yii::t('app',  ucwords(strtolower($language === 'ar' ?$insurance->name_ar:$insurance->name))), ['/insurance/programs', 'slug' => $insurance->slug],
-                                                 ['class' => 'text-decoration-none', 'style' => 'color:#64748B;']) ?>
+                                                <?= Html::a(
+                                                    Yii::t('app',  ucwords(strtolower($language === 'ar' ? $insurance->name_ar : $insurance->name))),
+                                                    ['/insurance/programs', 'slug' => $insurance->slug],
+                                                    ['class' => 'text-decoration-none', 'style' => 'color:#64748B;']
+                                                ) ?>
 
                                             </li>
                                         <?php endforeach; ?>
@@ -469,44 +475,44 @@ goal is to offer tailored coverage that meets your unique needs.') ?></p>
                                 </a>
                             </div>
                             <div class="collapse d-lg-block" id="collapseResources" data-bs-parent="#ft-links">
-                            <?php
+                                <?php
 
-$language = Yii::$app->language;
+                                $language = Yii::$app->language;
 
 
-$countries = $language === 'ar'
-    ? \common\models\InsuranceCountries::find()
-        ->select(['source_country_ar AS source_country', 'slug'])
-        ->distinct()
-        ->limit(5)
-        ->all()
-    : \common\models\InsuranceCountries::find()
-        ->select(['source_country', 'slug'])
-        ->distinct()
-        ->limit(5)
-        ->all();
-?>
- <ul class="list-unstyled mb-0 py-3 py-lg-0 p-0">
-    
- 
- 
- <?php foreach ($countries as $country) : ?>
-    <li class="mb-2">
-            <?php
-         
-            $countryName = $language === 'ar' 
-                ? $country->source_country  
-                : $country->source_country;  
-            
-                 echo Html::a(
-                Yii::t('app', ucwords(strtolower($countryName))),
-                ['/site/index', 'slug' => $country->slug],
-                ['class' => 'text-decoration-none', 'style' => 'color:#64748B;']
-            );
-            ?>
-        </li>
-    <?php endforeach; ?>
-</ul>
+                                $countries = $language === 'ar'
+                                    ? \common\models\InsuranceCountries::find()
+                                    ->select(['source_country_ar AS source_country', 'slug'])
+                                    ->distinct()
+                                    ->limit(5)
+                                    ->all()
+                                    : \common\models\InsuranceCountries::find()
+                                    ->select(['source_country', 'slug'])
+                                    ->distinct()
+                                    ->limit(5)
+                                    ->all();
+                                ?>
+                                <ul class="list-unstyled mb-0 py-3 py-lg-0 p-0">
+
+
+
+                                    <?php foreach ($countries as $country) : ?>
+                                        <li class="mb-2">
+                                            <?php
+
+                                            $countryName = $language === 'ar'
+                                                ? $country->source_country
+                                                : $country->source_country;
+
+                                            echo Html::a(
+                                                Yii::t('app', ucwords(strtolower($countryName))),
+                                                ['/site/index', 'slug' => $country->slug],
+                                                ['class' => 'text-decoration-none', 'style' => 'color:#64748B;']
+                                            );
+                                            ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
                             </div>
                         </div>
 
@@ -519,7 +525,7 @@ $countries = $language === 'ar'
                                 </a>
                             </div>
                             <div class="collapse d-lg-block" id="collapseAccounts" data-bs-parent="#ft-links">
-                            <ul class="list-unstyled mb-0 py-3 py-lg-0 px-0">
+                                <ul class="list-unstyled mb-0 py-3 py-lg-0 px-0">
                                     <li class="mb-2">
 
                                         <?= Html::a(Yii::t('app', 'Check Policy'), ['/asurance/check'], ['class' => 'text-decoration-none ', 'style' => 'color:#64748B;']) ?>
@@ -706,129 +712,126 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // });
 
-        
+
     });
 </script>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var isRtl = '<?= Yii::$app->language ?>' === 'ar';
-            var elements = document.querySelectorAll('.text-lg-start, .text-lg-end');
-            
-            elements.forEach(function(element) {
-                if (isRtl) {
-                    element.classList.remove('text-lg-start');
-                    element.classList.add('text-lg-end');
+    document.addEventListener('DOMContentLoaded', function() {
+        var isRtl = '<?= Yii::$app->language ?>' === 'ar';
+        var elements = document.querySelectorAll('.text-lg-start, .text-lg-end');
 
-                    element.classList.remove('border-end-lg');
-                    // element.classList.add('border-start-lg');
-                } else {
-                    element.classList.remove('text-lg-end');
-                    element.classList.add('text-lg-start');
-                }
-            });
+        elements.forEach(function(element) {
+            if (isRtl) {
+                element.classList.remove('text-lg-start');
+                element.classList.add('text-lg-end');
+
+                element.classList.remove('border-end-lg');
+                // element.classList.add('border-start-lg');
+            } else {
+                element.classList.remove('text-lg-end');
+                element.classList.add('text-lg-start');
+            }
+        });
 
 
 
-            var marginElements = document.querySelectorAll('.ms-2, .me-2');
-    marginElements.forEach(function(element) {
-        if (isRtl) {
-            element.classList.remove('ms-2');
-            element.classList.add('me-2');
-        } else {
-            element.classList.remove('me-2');
-            element.classList.add('ms-2');
-        }
+        var marginElements = document.querySelectorAll('.ms-2, .me-2');
+        marginElements.forEach(function(element) {
+            if (isRtl) {
+                element.classList.remove('ms-2');
+                element.classList.add('me-2');
+            } else {
+                element.classList.remove('me-2');
+                element.classList.add('ms-2');
+            }
+        });
+
+
+
+        var isRtl = '<?= Yii::$app->language ?>' === 'ar';
+        var elements = document.querySelectorAll('.border-end-lg, .border-start-lg');
+        elements.forEach(function(element) {
+            if (isRtl) {
+                element.classList.remove('border-end-lg');
+                element.classList.add('border-start-lg');
+            } else {
+                element.classList.remove('border-start-lg');
+                element.classList.add('border-end-lg');
+            }
+        });
+
+
     });
-    
 
-
-            var isRtl = '<?= Yii::$app->language ?>' === 'ar';
-            var elements = document.querySelectorAll('.border-end-lg, .border-start-lg');
-            elements.forEach(function(element) {
-                if (isRtl) {
-                    element.classList.remove('border-end-lg');
-                    element.classList.add('border-start-lg');
-                } else {
-                    element.classList.remove('border-start-lg');
-                    element.classList.add('border-end-lg');
-                }
-            });
-
-
+    // fa-arrow-right
+    document.addEventListener('DOMContentLoaded', function() {
+        var isRtl = '<?= Yii::$app->language ?>' === 'ar';
+        var arrows = document.querySelectorAll('.bi-arrow-right');
+        arrows.forEach(function(arrow) {
+            if (isRtl) {
+                arrow.style.transform = 'rotate(180deg)';
+                arrow.style.transformOrigin = 'center';
+            } else {
+                arrow.style.transform = 'none';
+            }
         });
-
-        // fa-arrow-right
-            document.addEventListener('DOMContentLoaded', function() {
-            var isRtl = '<?= Yii::$app->language ?>' === 'ar';
-            var arrows = document.querySelectorAll('.bi-arrow-right');
-            arrows.forEach(function(arrow) {
-                if (isRtl) {
-                    arrow.style.transform = 'rotate(180deg)';
-                    arrow.style.transformOrigin = 'center';
-                } else {
-                    arrow.style.transform = 'none';
-                }
-            });
-        });
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var isRtl = '<?= Yii::$app->language ?>' === 'ar';
-            var arrows = document.querySelectorAll('.fa-arrow-right');
-            arrows.forEach(function(arrow) {
-                if (isRtl) {
-                    arrow.style.transform = 'rotate(180deg)';
-                    arrow.style.transformOrigin = 'center';
-                } else {
-                    arrow.style.transform = 'none';
-                }
-            });
-        });
-
-
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     var isRtl = '<?= Yii::$app->language ?>' === 'ar';
-        //     var elements = document.querySelectorAll('.text-lg-start, .text-lg-end');
-        //     elements.forEach(function(element) {
-        //         if (isRtl) {
-        //             element.classList.remove('text-lg-start');
-        //             element.classList.add('text-lg-end');
-
-        //             element.classList.remove('border-end-lg');
-                    
-        //         } else {
-        //             element.classList.remove('text-lg-end');
-        //             element.classList.add('text-lg-start');
-        //         }
-        //     });
-        // });
-
-        
-        document.addEventListener('DOMContentLoaded', function() {
-    var isRtl = '<?= Yii::$app->language ?>' === 'ar';
-    var elements = document.querySelectorAll('.text-start, .text-end'); // Updated selectors to match your HTML
-
-    elements.forEach(function(element) {
-        if (isRtl) {
-            element.classList.remove('text-start');
-            element.classList.add('text-end');
-
-            element.classList.add('border-start-lg'); 
-            element.classList.remove('border-end-lg'); 
-        } else {
-            element.classList.remove('text-end');
-            element.classList.add('text-start');
-
-            element.classList.add('border-end-lg'); 
-            element.classList.remove('border-start-lg'); 
-        }
     });
-});
 
 
-        
-    </script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var isRtl = '<?= Yii::$app->language ?>' === 'ar';
+        var arrows = document.querySelectorAll('.fa-arrow-right');
+        arrows.forEach(function(arrow) {
+            if (isRtl) {
+                arrow.style.transform = 'rotate(180deg)';
+                arrow.style.transformOrigin = 'center';
+            } else {
+                arrow.style.transform = 'none';
+            }
+        });
+    });
+
+
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     var isRtl = '<?= Yii::$app->language ?>' === 'ar';
+    //     var elements = document.querySelectorAll('.text-lg-start, .text-lg-end');
+    //     elements.forEach(function(element) {
+    //         if (isRtl) {
+    //             element.classList.remove('text-lg-start');
+    //             element.classList.add('text-lg-end');
+
+    //             element.classList.remove('border-end-lg');
+
+    //         } else {
+    //             element.classList.remove('text-lg-end');
+    //             element.classList.add('text-lg-start');
+    //         }
+    //     });
+    // });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var isRtl = '<?= Yii::$app->language ?>' === 'ar';
+        var elements = document.querySelectorAll('.text-start, .text-end'); // Updated selectors to match your HTML
+
+        elements.forEach(function(element) {
+            if (isRtl) {
+                element.classList.remove('text-start');
+                element.classList.add('text-end');
+
+                element.classList.add('border-start-lg');
+                element.classList.remove('border-end-lg');
+            } else {
+                element.classList.remove('text-end');
+                element.classList.add('text-start');
+
+                element.classList.add('border-end-lg');
+                element.classList.remove('border-start-lg');
+            }
+        });
+    });
+</script>
 
 
 
