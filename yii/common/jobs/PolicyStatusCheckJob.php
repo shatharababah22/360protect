@@ -112,7 +112,7 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "sender=360Protect&mobile=$mobile&content=" . urlencode($messageContent),
+            CURLOPT_POSTFIELDS => "sender=360TVLCARE&mobile=$mobile&content=" . urlencode($messageContent),
             CURLOPT_HTTPHEADER => array(
                 "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImZiYTFkZGFlLTY4M2UtNGQ3OS1iZjFiLWJlZDRhODM2YTg5MiIsImlhdCI6MTcyMTU2OTQyMSwiaXNzIjoxOTQ3OH0.p_B-G3fAeorMR8WsC3GjUV2fM9PdheiVHLLWaC4WqNE"
             ),
