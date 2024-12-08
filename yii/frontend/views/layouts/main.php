@@ -84,14 +84,14 @@ AppAsset::register($this);
     <header>
     <nav class="navbar navbar-expand-lg transparent navbar-transparent navbar-dark">
     <div class="container px-3">
-        <a class="navbar-brand" href="/"><img class="img-fluid" width="90"  height="100" src="/images/logo/logo-dark.png" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
+        <a class="navbar-brand" href="/"><img class="img-fluid" width="100"  height="120" src="/images/logo/logo-dark.png" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
         <button class="navbar-toggler offcanvas-nav-btn" type="button" aria-label="<?= Yii::t('app', 'Toggle navigation') ?>">
             <i class="bi bi-list"></i>
         </button>
 
         <div class="offcanvas offcanvas-start offcanvas-nav" style="width: 20rem">
             <div class="offcanvas-header" >
-                <a href="/" class="text-inverse"><img class="img-fluid" width="90"  height="100" src="/images/logo/logo-dark.png" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
+                <a href="/" class="text-inverse"><img class="img-fluid" width="100"  height="120" src="/images/logo/logo-dark.png" alt="<?= Yii::t('app', '360Protect') ?>" /></a>
             <div dir="ltr"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="<?= Yii::t('app', 'Close') ?>"></button>
             </div></div>   
             <div class="offcanvas-body pt-0 align-items-center">
