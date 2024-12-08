@@ -125,7 +125,7 @@ $this->title = 'Contact us';
 
                     <p class="text-size-16">Abdul Hamid Shumani 7, Amman</p>
                     <div class="clearfix"></div>
-                    <a href="https://www.google.com/maps/dir/31.955792,35.8607108/%D8%B4%D8%A7%D8%B1%D8%B9+%D8%B9%D8%A8%D8%AF+%D8%A7%D9%84%D8%AD%D9%85%D9%8A%D8%AF+%D8%B4%D9%88%D9%85%D8%A7%D9%86+7%D8%8C+%D8%B9%D9%85%D9%91%D8%A7%D9%86%E2%80%AD%E2%80%AD/@31.960672,35.9158506,13z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x151ca0696eaca589:0xb0247c769fd2af8c!2m2!1d35.8971571!2d31.9677841?entry=ttu&g_ep=EgoyMDI0MTEyNC4xIKXMDSoASAFQAw%3D%3D"
+                    <a href="https://maps.app.goo.gl/ytbSEdN1UzMzgdRG9"
                         class="text-decoration-none button"><?= Yii::t('app', 'Get Directions') ?><i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
