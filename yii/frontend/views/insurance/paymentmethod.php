@@ -45,7 +45,7 @@ $this->title = 'Paymnet Method';
 
                             <div class="d-flex justify-content-center gap-1 m-3">
 
-                                <?= Html::a(Yii::t('app', 'MEBs Payment'), ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => 'meps'], [
+                                <?= Html::a(Yii::t('app', 'VISA/MASTERCARD'), ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => 'meps'], [
                                     'class' => 'btn btn-meps d-flex align-items-start text-white'
                                 ]) ?>
 
@@ -71,13 +71,8 @@ $this->title = 'Paymnet Method';
         <?= Yii::t('app', 'Please write your phone number to complete the payment process to purchase the policy.'); ?>
     </p>
     <div class="form-group">
-    <?= $form->field($model, 'mobile')->widget(\yii\widgets\MaskedInput::class, [
-        'mask' => '+962-7##-###-###', 
-        'options' => [
-            'class' => 'form-control',
-            'placeholder' => Yii::t('app', 'Enter your phone number'),
-        ],
-    ])->label(false); ?>
+    <?= $form->field($model, 'mobile')->textInput(['placeholder' => Yii::t('app', 'Recipient alias or phone number')])->label(false) ?>
+
 </div>
 
 
