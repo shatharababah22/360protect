@@ -71,12 +71,15 @@ $this->title = 'Paymnet Method';
         <?= Yii::t('app', 'Please write your phone number to complete the payment process to purchase the policy.'); ?>
     </p>
     <div class="form-group">
-        <?= $form->field($model, 'mobile')
-            ->textInput([
-                'class' => 'form-control', 
-                'placeholder' => Yii::t('app', '+962-7XX-XXXX-XX')
-            ])
-            ->label(false); ?>
+
+
+<?= $form->field($model, 'mobile')->widget(PhoneInput::class, [
+                                                        'jsOptions' => [
+                                                            'preferredCountries' => ['jo'],
+                                                            'class' => '',
+                                  
+                                                        ]
+                                                    ])->label(false); ?>
     </div>
 </div>
 
