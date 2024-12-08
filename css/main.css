@@ -863,7 +863,13 @@ color:aliceblue; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman'
     height: 70% !important;
 
 } */
+.custom-checkbox {
 
+    background-color: white;
+    border: 1px solid #29B18A;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
 input[type="checkbox"]:checked + .custom-checkbox {
     background-color: #29B18A !important;
   }
