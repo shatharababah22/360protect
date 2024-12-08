@@ -67,7 +67,7 @@ $this->title = 'Paymnet Method';
                             ?>  
                             
                             <div class="modal-body">
-    <p class="mb-3">
+    <p class="text-left fs-6">
         <?= Yii::t('app', 'Please write your phone number to complete the payment process to purchase the policy.'); ?>
     </p>
     <div class="form-group">
