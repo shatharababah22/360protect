@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Customers;
+use yii\bootstrap4\Modal;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
@@ -156,21 +157,23 @@ $this->params['breadcrumbs'][] = $this->title;
               </td>
               <td class="table-column-ps-0">
                 <div class="flex-grow-1 ms-3">
-                  <h5 class="text-inherit mb-0"><?= Html::encode($customer->credit) ?> JOD</h5>
+                  <h5
+                    class="text-inherit mb-0 <?= $customer->credit == 0 ? 'text-danger' : 'text-success' ?>">
+                    <?= Html::encode($customer->credit) ?> JOD
+                  </h5>
                 </div>
+
                 </a>
               </td>
               <td>
+
+
+
                 <!-- Actions -->
+
                 <a class="btn btn-white btn-sm" href="<?= Url::to(['update', 'id' => $customer->id]) ?>">
-                  <i class="bi-pencil-fill me-2" style="font-size: 15px;"></i>Edit
+                  <i class="bi-pencil-fill me-2" style="font-size: 15px;"></i> Edit
                 </a>
-                <!-- <a class="btn btn-white btn-sm" href="<?= Url::to(['delete', 'id' => $customer->id]) ?>" data-method="post" data-confirm="Are you sure you want to delete this item?">
-                  <i class="bi bi-trash" style="font-size: 15px; color:red"></i>
-                </a> -->
-                <!-- <a class="btn btn-white btn-sm" href="<?= Url::to(['view', 'id' => $customer->id]) ?>">
-                  <i class="bi bi-eye-fill" style="font-size: 15px; color: #377DFF;"></i>
-                </a> -->
                 <!-- End Actions -->
               </td>
             </tr>

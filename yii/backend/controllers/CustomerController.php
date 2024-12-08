@@ -58,7 +58,7 @@ class CustomerController extends Controller
  
          $sheet->setCellValue('A1', 'Name');
          $sheet->setCellValue('B1', 'Email');
-         $sheet->setCellValue('C1', 'Mobile Number (+962)');
+         $sheet->setCellValue('C1', 'Mobile Number');
          $sheet->setCellValue('D1', 'Credit (JOD)');
    
  
@@ -152,11 +152,10 @@ class CustomerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            
+            return $this->redirect(['index']);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
