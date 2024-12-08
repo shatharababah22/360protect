@@ -59,7 +59,7 @@ $this->title = 'Paymnet Method';
                                 'id' => 'modal-phone',
                                 'size' => 'modal-md',
                                 'title' => Yii::t('app', 'Phone Number'),
-                                'toggleButton' => ['label' =>  Yii::t('app', 'Alawneh Payment'), 'class'=>'btn btn-alwaneh d-flex align-items-start text-white'],
+                                'toggleButton' => ['label' =>  Yii::t('app', 'Alias/Mobile'), 'class'=>'btn btn-alwaneh d-flex align-items-start text-white'],
                             ]);
                             $form = ActiveForm::begin([
                                 'action' => \yii\helpers\Url::to(['/asurance/payment-method', 'id' => base64_encode($policy->id), 'method' => 'alawneh'])
