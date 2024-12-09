@@ -1737,7 +1737,7 @@ class AsuranceController extends BaseController
             CURLOPT_POSTFIELDS => "sender=$from&mobile=$mobile&content=$message",
             CURLOPT_HTTPHEADER => [
                 "Authorization: Bearer
-                 eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMwMzEzZjgxLTE3Y2QtNGMxMC1iY2Y1LTllYWYyMmQyYzg5ZiIsImlhdCI6MTczMzY2Mzk5NiwiaXNzIjoxOTQ3OH0.JHAzoFErO6Ii8r38Qwt2JkZovNelikVVP7FqzxR6RwM"
+                eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMwMzEzZjgxLTE3Y2QtNGMxMC1iY2Y1LTllYWYyMmQyYzg5ZiIsImlhdCI6MTczMzY2Mzk5NiwiaXNzIjoxOTQ3OH0.JHAzoFErO6Ii8r38Qwt2JkZovNelikVVP7FqzxR6RwM"
             ],
         ]);
 
@@ -2846,7 +2846,7 @@ class AsuranceController extends BaseController
             ],
             "passengers" => $passengersArray
         ];
-//   dd($passengersArray, $apiPayload);
+  dd($passengersArray, $apiPayload);
 
 
         $ch = curl_init($apiEndpoint);
@@ -2862,7 +2862,7 @@ class AsuranceController extends BaseController
 
         // dd(  $apiPayload);
         $apiResponseData = json_decode($apiResponse, true);
-    
+
         $customer = Customers::findOne(['mobile' => $policyDraft->mobile]);
         if (!$customer) {
             $customer = new Customers();

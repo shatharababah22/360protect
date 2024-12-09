@@ -20,7 +20,7 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
     public function execute($queue)
     {
         $responses = $this->viewPolicy($this->id);
-        var_dump($responses);
+ 
 
         if ($responses === null) {
             Yii::error("Failed to retrieve policy data for ID: {$this->id}", __METHOD__);
@@ -82,7 +82,7 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $apiResponse = curl_exec($ch);
-
+        // var_dump( $apiResponse);
         if ($apiResponse === false) {
             $error = curl_error($ch);
             Yii::error('cURL Error: ' . $error, __METHOD__);
