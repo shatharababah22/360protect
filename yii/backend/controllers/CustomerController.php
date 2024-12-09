@@ -84,7 +84,8 @@ class CustomerController extends Controller
              $sheet->setCellValue('A' . $row, $model->name);
              $sheet->setCellValue('B' . $row, $model->email);
             //  $sheet->setCellValue('C' . $row, $model->mobile);
-             $sheet->setCellValue('C' . $row, "" . $model->mobile);
+            $sheet->setCellValueExplicit('C' . $row, $model->mobile, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+
              $sheet->setCellValue('D' . $row, $model->credit);
              $row++;
          }
