@@ -1744,7 +1744,8 @@ class AsuranceController extends BaseController
         $response = curl_exec($curl);
         $error = curl_error($curl);
         curl_close($curl);
-
+var_dump(    $response );
+die();
         if ($error) {
             Yii::$app->session->setFlash('error', 'Curl error: ' . $error);
             return json_encode(['status' => 500, 'message' => 'Curl error']);
