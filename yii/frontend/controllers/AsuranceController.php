@@ -1734,7 +1734,7 @@ class AsuranceController extends BaseController
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "sender=$from&mobile=$mobile&content=$message",
+            CURLOPT_POSTFIELDS => "sender=$from&mobile=+962790751376&content=$message",
             CURLOPT_HTTPHEADER => [
                 "Authorization: Bearer
                 eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMwMzEzZjgxLTE3Y2QtNGMxMC1iY2Y1LTllYWYyMmQyYzg5ZiIsImlhdCI6MTczMzY2Mzk5NiwiaXNzIjoxOTQ3OH0.JHAzoFErO6Ii8r38Qwt2JkZovNelikVVP7FqzxR6RwM"
@@ -1744,8 +1744,7 @@ class AsuranceController extends BaseController
         $response = curl_exec($curl);
         $error = curl_error($curl);
         curl_close($curl);
-var_dump(    $response );
-die();
+
         if ($error) {
             Yii::$app->session->setFlash('error', 'Curl error: ' . $error);
             return json_encode(['status' => 500, 'message' => 'Curl error']);
