@@ -1736,8 +1736,7 @@ class AsuranceController extends BaseController
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => "sender=$from&mobile=$mobile&content=$message",
             CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer
-                eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMwMzEzZjgxLTE3Y2QtNGMxMC1iY2Y1LTllYWYyMmQyYzg5ZiIsImlhdCI6MTczMzY2Mzk5NiwiaXNzIjoxOTQ3OH0.JHAzoFErO6Ii8r38Qwt2JkZovNelikVVP7FqzxR6RwM"
+                "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMwMzEzZjgxLTE3Y2QtNGMxMC1iY2Y1LTllYWYyMmQyYzg5ZiIsImlhdCI6MTczMzY2Mzk5NiwiaXNzIjoxOTQ3OH0.JHAzoFErO6Ii8r38Qwt2JkZovNelikVVP7FqzxR6RwM"
             ],
         ]);
 
