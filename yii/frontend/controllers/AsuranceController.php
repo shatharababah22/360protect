@@ -1672,7 +1672,7 @@ class AsuranceController extends BaseController
                     return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
          
                 } else {
-                    Yii::$app->session->setFlash('error', 'Failed to send OTP.');
+                    Yii::$app->session->setFlash('error',$responseData );
                 }
             } else {
                 Yii::$app->session->setFlash('error', 'Mobile number not found.');
@@ -1746,7 +1746,7 @@ class AsuranceController extends BaseController
         curl_close($curl);
 
         if ($error) {
-            Yii::$app->session->setFlash('error', 'Curl error: ' .  $response);
+            Yii::$app->session->setFlash('error', 'Curl error: ' . $error);
             return json_encode(['status' => 500, 'message' => 'Curl error']);
         }
 
