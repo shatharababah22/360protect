@@ -1672,7 +1672,7 @@ class AsuranceController extends BaseController
                     return $this->redirect(['verify-otp', 'mobile' =>$mobile]);
          
                 } else {
-                    Yii::$app->session->setFlash('error',$responseData );
+                    Yii::$app->session->setFlash('error', 'Failed to send OTP.');
                 }
             } else {
                 Yii::$app->session->setFlash('error', 'Mobile number not found.');
@@ -1737,6 +1737,7 @@ class AsuranceController extends BaseController
             CURLOPT_POSTFIELDS => "sender=$from&mobile=$mobile&content=$message",
             CURLOPT_HTTPHEADER => [
                 "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMwMzEzZjgxLTE3Y2QtNGMxMC1iY2Y1LTllYWYyMmQyYzg5ZiIsImlhdCI6MTczMzY2Mzk5NiwiaXNzIjoxOTQ3OH0.JHAzoFErO6Ii8r38Qwt2JkZovNelikVVP7FqzxR6RwM"
+
             ],
         ]);
 

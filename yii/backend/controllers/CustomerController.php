@@ -83,7 +83,8 @@ class CustomerController extends Controller
          foreach ($models as $model) {
              $sheet->setCellValue('A' . $row, $model->name);
              $sheet->setCellValue('B' . $row, $model->email);
-             $sheet->setCellValue('C' . $row, $model->mobile);
+            //  $sheet->setCellValue('C' . $row, $model->mobile);
+             $sheet->setCellValue('C' . $row, "'" . $model->mobile);
              $sheet->setCellValue('D' . $row, $model->credit);
              $row++;
          }
