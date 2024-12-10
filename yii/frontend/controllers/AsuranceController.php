@@ -2846,7 +2846,7 @@ class AsuranceController extends BaseController
             ],
             "passengers" => $passengersArray
         ];
-  dd($passengersArray, $apiPayload);
+//   dd($passengersArray, $apiPayload);
 
 
         $ch = curl_init($apiEndpoint);
