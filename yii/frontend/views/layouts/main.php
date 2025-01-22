@@ -85,14 +85,14 @@ AppAsset::register($this);
     <header>
         <nav class="navbar navbar-expand-lg transparent navbar-transparent navbar-dark">
             <div class="container px-3">
-                <a class="navbar-brand" href="/"><img class="img-fluid" width="200" height="150" src="<?= Yii::$app->request->baseUrl ?>/images/logo/logo-dark(2).png" alt="<?= Yii::t('app', '360TravelCare') ?>" /></a>
+                <a class="navbar-brand" href="/"><img class="img-fluid" width="100" height="50" src="<?= Yii::$app->request->baseUrl ?>/images/logo/logo-dark(2).png" alt="<?= Yii::t('app', '360TravelCare') ?>" /></a>
                 <button class="navbar-toggler offcanvas-nav-btn" type="button" aria-label="<?= Yii::t('app', 'Toggle navigation') ?>">
                     <i class="bi bi-list"></i>
                 </button>
 
                 <div class="offcanvas offcanvas-start offcanvas-nav" style="width: 20rem">
                     <div class="offcanvas-header">
-                        <a href="/" class="text-inverse"><img class="img-fluid" width="200" height="150" src="<?= Yii::$app->request->baseUrl ?>/images/logo/logo-dark(2).png" alt="<?= Yii::t('app', '360TravelCare') ?>" /></a>
+                        <a href="/" class="text-inverse"><img class="img-fluid" width="100" height="50" src="<?= Yii::$app->request->baseUrl ?>/images/logo/logo-dark(2).png" alt="<?= Yii::t('app', '360TravelCare') ?>" /></a>
                         <div dir="ltr"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="<?= Yii::t('app', 'Close') ?>"></button>
                         </div>
                     </div>
@@ -171,14 +171,21 @@ AppAsset::register($this);
                                     <li>
                                         <?= Html::a(Yii::t('app', 'Terms & Conditions'), ['/asurance/terms'], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
                                     </li>
-
+                                    <li>
+                                        <?= Html::a(Yii::t('app', 'Check Policy'), ['/asurance/check'], ['class' => 'dropdown-item', 'data-cue' => 'fadeUp']) ?>
+                                    </li>
                                 </ul>
                             </li>
 
-                            <li class="nav-item">
-                                <?= Html::a(Yii::t('app', 'Check Policy'), ['/asurance/check'], ['class' => 'nav-link', 'data-cue' => 'fadeUp']) ?>
-                            </li>
 
+                            <li class="nav-item">
+                                <?= Html::a(Yii::t('app', 'About Us'), '#', [
+                                    'class' => 'nav-link',
+                                    'data-bs-toggle' => 'modal',
+                                    'data-bs-target' => '#AboutUsModal',
+                                    'data-cue' => 'fadeUp',
+                                ]) ?>
+                            </li>
 
                             <li class="nav-item">
                                 <?= Html::a(Yii::t('app', 'Claim'), '#', [
@@ -188,6 +195,20 @@ AppAsset::register($this);
                                     'data-cue' => 'fadeUp',
                                 ]) ?>
                             </li>
+
+                            <li class="nav-item">
+                                <?= Html::a(Yii::t('app', 'Complaints'), '#', [
+                                    'class' => 'nav-link',
+                                    'data-bs-toggle' => 'modal',
+                                    'data-bs-target' => '#ComplaintsModal',
+                                    'data-cue' => 'fadeUp',
+                                ]) ?>
+                            </li>
+
+
+
+
+
 
                         </ul>
 
@@ -250,6 +271,53 @@ AppAsset::register($this);
     </header>
 
 
+
+    <div class="modal fade" id="ComplaintsModal" tabindex="-1" aria-labelledby="ComplaintsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header mt-2 mb-2">
+                    <h5 class="modal-title" id="ComplaintsModalLabel">
+                        <b> <?= Yii::t('app', 'Complaints & Inquiries') ?></b>
+
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        <?= Yii::t('app', 'If you have a complaint or inquiry, please contact Pan North Insurance Agency:') ?>
+                    </p>
+                    <ul>
+                        <li class="text-black mb-1 ">
+                            <i class="bi bi-envelope text-warning"></i> <?= Yii::t('app', 'Email') ?>:
+                            <a href="mailto:sales@pannorthjo.com" class="text-dark">sales@pannorthjo.com</a>
+                        </li>
+                        <li class="text-black">
+                            <i class="bi bi-telephone text-black"></i> <?= Yii::t('app', 'Mobile') ?>:
+                            <a href="tel:+962795093626" class="text-dark">+962 79 509 3626</a>
+                        </li>
+                    </ul>
+                    <p>
+
+                        <?= Yii::t('app', 'Or alternately contact Jordan French Insurance Company:') ?>
+                    </p>
+                    <ul>
+                        <li class="text-black mb-1">
+                            <i class="bi bi-envelope text-black"></i> <?= Yii::t('app', 'Email') ?>:
+                            <a href="mailto:fadi.tadros@jofico.com" class="text-dark">fadi.tadros@jofico.com</a>
+                        </li class="text-black">
+                        <li class="text-black">
+                            <i class="bi bi-telephone text-warning"></i> <?= Yii::t('app', 'Mobile') ?>:
+                            <a href="tel:+962795851272" class="text-dark">+962 79 585 1272</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg ">
             <div class="modal-content">
@@ -293,7 +361,25 @@ AppAsset::register($this);
 
 
 
+    <div class="modal fade" id="AboutUsModal" tabindex="-1" aria-labelledby="AboutUsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AboutUsModalLabel">
+                        <i class="bi bi-info-circle-fill text-warning"></i> <?= Yii::t('app', 'About Us') ?>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        <?= Yii::t('app', 'Pan North Insurance Agency is licensed by the Central Bank of Jordan under registration number 0026/03/5/17 as an insurance agent for Jordan French Insurance Company.') ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

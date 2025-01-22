@@ -39,7 +39,6 @@ class Insurances extends \yii\db\ActiveRecord
             [['photo'], 'file',  'extensions' => 'png, jpg, jpeg'],
             [['benefits_link'], 'file'],
             [['overview', 'description','name','overview_ar', 'description_ar','name_ar'], 'string'],
-            // ['benefits_link', 'url'],
             [['price'], 'number'],
             [['name'], 'string', 'max' => 255],
         ];
@@ -50,7 +49,7 @@ class Insurances extends \yii\db\ActiveRecord
     return [
         [
             'class' => SluggableBehavior::class,
-                'attribute' => 'name', // Attribute from which the slug will be generated
+                'attribute' => 'name', 
                 'slugAttribute' => 'slug'
             
         ],
@@ -69,9 +68,10 @@ class Insurances extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'photo' => Yii::t('app', 'Photo'),
             'price' => Yii::t('app', 'Price'),
-            'benefits_link' => Yii::t('app', 'Benefits Link'),
-
-            'overview_ar'=>Yii::t('app', 'Overview (Arabic)'), 'description_ar'=>Yii::t('app', 'Description (Arabic)'),'name_ar'=>Yii::t('app', 'Name (Arabic)')
+            'benefits_link' => Yii::t('app', 'Policy Wording'),
+            'overview_ar'=>Yii::t('app', 'Overview (Arabic)'),
+              'description_ar'=>Yii::t('app', 'Description (Arabic)'),
+             'name_ar'=>Yii::t('app', 'Name (Arabic)')
         ];
     }
 
