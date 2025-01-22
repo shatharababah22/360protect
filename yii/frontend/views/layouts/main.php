@@ -367,7 +367,7 @@ AppAsset::register($this);
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="AboutUsModalLabel">
-                        <i class="bi bi-info-circle-fill text-warning"></i> <?= Yii::t('app', 'About Us') ?>
+                        <i class="bi bi-info-circle-fill text-warning"></i> <b><?= Yii::t('app', 'About Us') ?></b>
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
