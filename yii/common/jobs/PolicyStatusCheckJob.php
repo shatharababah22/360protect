@@ -72,7 +72,7 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
     {
 
         $apiEndpoint = "https://pannorthjo.com/api/policies/$id";
-        $apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjJlMzM3YmM2LWFmMzMtNDFjNS04ZTM2LWQ2NzJjMWRjNDYyNSIsImlhdCI6IjIwMjQtMDctMDQiLCJpc3MiOjE4M30.jdsWqHcU0cL4ZHKr0oZYBvamRrpYwvfCARitiBTVzqU';
+        $apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjA0NDNhOTIzLTdmZTAtNDlkZS04YzBiLTAzNWRmMTM1NTE3NSIsImlhdCI6MTczNzU0Nzc3NCwiaXNzIjoxOTQ3OH0.BkRLkHv3eD8divBT1lb2heCjcvhcVyF13rkYN8mHdeQ';
 
         $ch = curl_init($apiEndpoint);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -115,7 +115,7 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
             CURLOPT_POSTFIELDS => "sender=360TVLCARE&mobile=$mobile&content=" . urlencode($messageContent),
             CURLOPT_HTTPHEADER => array(
                 "Authorization: Bearer
-                 eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMwMzEzZjgxLTE3Y2QtNGMxMC1iY2Y1LTllYWYyMmQyYzg5ZiIsImlhdCI6MTczMzY2Mzk5NiwiaXNzIjoxOTQ3OH0.JHAzoFErO6Ii8r38Qwt2JkZovNelikVVP7FqzxR6RwM"
+                 eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjA0NDNhOTIzLTdmZTAtNDlkZS04YzBiLTAzNWRmMTM1NTE3NSIsImlhdCI6MTczNzU0Nzc3NCwiaXNzIjoxOTQ3OH0.BkRLkHv3eD8divBT1lb2heCjcvhcVyF13rkYN8mHdeQ"
             ),
         ));
 
