@@ -74,13 +74,19 @@ if ($flashMessage) {
                     <div data-cues="slideInDown">
                         <a href="#booking" class="btn btn-primary me-2"><?= Yii::t('app', 'Get Started') ?></a>
 
-                        <?= 
-Html::a('<i class="bi bi-arrow-down-square me-1"></i> Policy Wording', Yii::getAlias('@web') . '/images/' . $insurance->benefits_link, [
-    'class' => 'btn btn-outline-warning',
-    'target' => '_blank',
-    'download' => $insurance->benefits_link
-]); 
-?>
+                        <?=
+                        Html::a(
+                            '<i class="bi bi-arrow-down-square me-1"></i> Policy Wording',
+                            Yii::$app->request->baseUrl . '/dashboard/images/' . $insurance->benefits_link,
+                            [
+                                'class' => 'btn btn-outline-warning',
+                                'target' => '_blank',
+                                'download' => $insurance->benefits_link,
+                            ]
+                        );
+                        ?>
+
+
 
                     </div>
                 </div>
@@ -432,9 +438,3 @@ assurance, we\'ve got you covered with protection against unexpected events and 
         });
     });
 </script>
-
-
-
-
-
-
