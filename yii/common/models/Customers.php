@@ -31,7 +31,7 @@ class Customers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mobile', 'email', 'country','credit'], 'required'],
+            [['mobile', 'email','credit'], 'required'],
             [['name', 'email'], 'string', 'max' => 255],
             [['mobile', 'country'], 'string', 'max' => 100],
             [['credit'], 'number'],
