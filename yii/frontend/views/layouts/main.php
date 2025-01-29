@@ -177,6 +177,13 @@ AppAsset::register($this);
                                 </ul>
                             </li>
 
+                            <li class="nav-item">
+                                <?= Html::a(
+                                    Yii::t('app', 'Check Policy'),
+                                    ['/asurance/check'],
+                                    ['class' => 'nav-link', 'data-cue' => 'fadeUp']
+                                ) ?>
+                            </li>
 
                             <li class="nav-item">
                                 <?= Html::a(Yii::t('app', 'About Us'), '#', [

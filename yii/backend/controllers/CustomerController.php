@@ -154,8 +154,13 @@ class CustomerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            if (!$model->save()) {
+                $errorMessage = 'Payment save failed. Errors: ' . json_encode($model->errors);
+
+                var_dump($errorMessage);
+            exit;
+            }
             return $this->redirect(['index']);
         }
         return $this->render('update', [
