@@ -87,12 +87,12 @@ $this->title = 'Plan Details';
 
                                 <br />
                                 <span class="text-white-50"><?= Yii::t('app', 'Passenger Type') ?>:</span> <?= '(' . $model->pax_type . ') ' . Yii::t('app', 'Years') ?><br />
-                                <span class="text-white-50"><?= Yii::t('app', 'Policy Wording') ?>:</span>  <?=
+                                <span class="text-white-50 mt-2"><?= Yii::t('app', 'Policy Wording') ?>:</span>  <?=
                         Html::a(
-                            'Download',
+                            '<i class="bi bi-arrow-down-square me-1"></i> Download',
                             Yii::$app->request->baseUrl . '/dashboard/images/' . $insuranceLink,
                             [
-                                'class' => 'text-white',
+                                'class' => ' text-white',
                                 'target' => '_blank',
                                 'download' => $insuranceLink,
                             ]
