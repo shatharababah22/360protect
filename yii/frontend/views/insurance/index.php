@@ -102,7 +102,7 @@ $this->title = 'Plan Details';
                             ]
                         );
                         ?>
-                                                    <img src="<?= Yii::$app->request->baseUrl ?>/dashboard/images/<?= $insuranceCountry->company_logo ?>" class="img-thumbnail" alt="logo" height="160" width="140">
+                                                    <img src="<?= Yii::$app->request->baseUrl ?>/dashboard/images/<?= $insuranceCountry->company_logo ?>" class="img-thumbnail" alt="logo" height="140" width="140">
 
                         </div>
                     </div>
