@@ -87,21 +87,22 @@ $this->title = 'Plan Details';
 
                                 <br />
                                 <span class="text-white-50"><?= Yii::t('app', 'Passenger Type') ?>:</span> <?= '(' . $model->pax_type . ') ' . Yii::t('app', 'Years') ?><br />
-                            </p>
-                        </div>
-
-                        <div data-cues="slideInDown">
-                            <?=
+                                <span class="text-white-50"><?= Yii::t('app', 'Policy Wording') ?>:</span>  <?=
                         Html::a(
-                            '<i class="bi bi-arrow-down-square me-1"></i> Policy Wording',
-                            Yii::$app->request->baseUrl . '/dashboard/images/' . $insuranceLink,
+                         
                             [
                                 'class' => 'btn btn-outline-warning',
                                 'target' => '_blank',
                                 'download' => $insuranceLink,
                             ]
                         );
-                        ?>
+                        ?><br />
+
+                            </p>
+                        </div>
+
+                        <div data-cues="slideInDown">
+                           
 
 <a href="/" class="me-2"><img src="<?= Yii::$app->request->baseUrl ?>/dashboard/images/<?= $insuranceCountry->company_logo ?>" alt="<?= Yii::t('app', 'Company Logo') ?>" class="bg-white rounded" width="120">
 </a>
