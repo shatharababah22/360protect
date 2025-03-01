@@ -13,7 +13,7 @@ use yii\helpers\Url;
 
 
                 <?php $form = ActiveForm::begin([
-                    'options' => ['enctype' => 'multipart/form-data'] // Important for file uploads
+                    'options' => ['enctype' => 'multipart/form-data']
                 ]); ?>
 
 

@@ -22,6 +22,8 @@ use common\models\Pricing;
 use DateTime;
 use frontend\models\InquiryForm;
 use borales\extensions\phoneInput\PhoneInputValidator;
+use common\models\Discount;
+use common\models\DiscountUser;
 use common\models\PaymentMethod;
 // use common\components\LanguageComponent;
 use libphonenumber\PhoneNumberUtil;
@@ -138,6 +140,7 @@ class AsuranceController extends BaseController
         // if($id = null){
 
         $data = Yii::$app->request->get();
+
         if ($data) {
 
             if ($id != null) {
@@ -155,8 +158,6 @@ class AsuranceController extends BaseController
             $model->plan = $data['plan'] ?? null;
             $model->pax_type = $data['pax_type'];
         }
-
-        // }
 
         $fromCountryName = 'Jordan';
         $toCountryName = $this->getCountryName($model->to_country);
@@ -367,6 +368,8 @@ class AsuranceController extends BaseController
             Yii::$app->session->setFlash('errorr', 'No plans are available for the selected options.');
             return $this->redirect(Yii::$app->getRequest()->getReferrer());
         }
+        $insurance= Insurances::findOne($data['type']);
+
         // dd($options);
         return $this->render('/insurance/index', [
             'model' => $model,
@@ -374,6 +377,7 @@ class AsuranceController extends BaseController
             'plans' => $plans,
             'insuranceTitle' => $insuranceTitle ?? '',
             'insuranceCountry' => $insuranceCountry,
+            'insuranceLink' => $insurance->benefits_link,
             'fromCountryName' => $fromCountryName,
             'adultPassenger' => $adultPassenger,
             'childrenPassenger' => $childrenPassenger,
@@ -1530,15 +1534,38 @@ class AsuranceController extends BaseController
         $decodedDraft = base64_decode($draft);
         $policy = PolicyDraft::findOne($decodedDraft);
         $policy->setScenario('update');
-
-
         $model = new \yii\base\DynamicModel(['file']);
-
+        $modelDiscount= new \yii\base\DynamicModel(['code']);
+        $modelDiscount->addRule(['code'], 'string');
+        if ($modelDiscount->load(Yii::$app->request->post()) && $modelDiscount->validate()) {
+            $discount = Discount::findOne(['promo_code' => $modelDiscount->code,'insurance_id' => $policy->insurance_id]);
+            if ($discount !== null) {
+                $existingDiscount = DiscountUser::find()
+                ->where(['email' => $policy->email,'mobile' => $policy->mobile, 'discount_id' => $discount->id])
+                ->exists();
+                if ($existingDiscount) {
+                    Yii::$app->session->setFlash('error', Yii::t('app', 'You have already used this discount.'));
+                } else {
+                    $discountPercentage = (float) $discount->discount_percentage;
+                    $policy->price = $policy->price - ($policy->price * ($discountPercentage / 100));
+            
+                    if ($policy->save()) {
+                        $discountUser = new DiscountUser();
+                        $discountUser->email = $policy->email;
+                        $discountUser->mobile = $policy->mobile;
+                        $discountUser->discount_id = $discount->id;
+                        if ($discountUser->save()) {
+                            Yii::$app->session->setFlash('success', Yii::t('app', 'Discount applied successfully! New Price: JOD' . number_format($policy->price, 2)));
+                        }
+                    }
+                }
+            } else {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Invalid discount code.'));
+            }
+        }
         if ($id !== null) {
-
             $id = base64_decode($id);
             $passengerdraft = PolicyDraftPassengers::findOne($id);
-
             $model->addRule(['file'], 'required');
 
             if ($model->load(Yii::$app->request->post())) {
@@ -1603,6 +1630,7 @@ class AsuranceController extends BaseController
                             return $this->render('/insurance/review', [
                                 'policy' => $policy,
                                 'model' => $model,
+                                'modelDiscount'=>$modelDiscount
                             ]);
                         } else {
                             Yii::$app->session->setFlash('error', 'Document verification failed.');
@@ -1619,7 +1647,7 @@ class AsuranceController extends BaseController
         return $this->render('/insurance/review', [
             'policy' => $policy,
             'model' => $model,
-            // 'modelPayment'=>$modelPayment
+            'modelDiscount'=>$modelDiscount
         ]);
     }
 
@@ -2859,6 +2887,7 @@ class AsuranceController extends BaseController
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($apiPayload));
 
         $apiResponse = curl_exec($ch);
+        $apiResponse = curl_error($ch);
 
         // dd(  $apiPayload);
         $apiResponseData = json_decode($apiResponse, true);
@@ -2887,7 +2916,6 @@ class AsuranceController extends BaseController
         $paymentmethod->save();
 
         if (isset($apiResponseData['id']) && !empty($apiResponseData['id'])) {
-
             $this->processView($policyDraft,  $passengers, $apiResponseData);
         } else {
             $errorMessage = isset($apiResponseData['error']) ? $apiResponseData['error'] : 'Policy purchase failed. Please try again.';

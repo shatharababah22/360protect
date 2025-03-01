@@ -42,7 +42,7 @@ class PolicyStatusCheckJob extends BaseObject implements JobInterface
                 $policy->status_description = 'Completed';
                 if ($policy->save()) {
                     $send = $this->sendMessage($policy->customer->mobile, $policy->PolicyURLLink,$policy->name);
-                    // var_dump( $send );
+                  var_dump( $send );
                     if ($send['status'] == 201) {
                         PolicyDraft::deleteAll();
                         PolicyDraftPassengers::deleteAll();

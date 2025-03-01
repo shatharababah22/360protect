@@ -128,14 +128,35 @@ $this->title = 'Review Your Insurance Details';
                                                     <strong class="text-success">JOD<?= $customer->credit ?></strong>
                                                 </td>
                                             <?php endif; ?>
+                                            <?php $formdis = ActiveForm::begin(); ?>
+
+
+                                            <td colspan="6" class="text-start">
+                                                <div class="input-group ">
+                                                    <?= $formdis->field($modelDiscount, 'code', [
+                                                        'template' => '{input}',
+                                                    ])->textInput([
+                                                        'id' => 'discount-code',
+                                                        'class' => 'form-control',
+                                                        'placeholder' => Yii::t('app', 'Enter discount code'),
+                                                    ]) ?>
+
+                                                    <button type="submit" class="btn btn-primary h-50">
+                                                        <i class="bi bi-tag-fill"></i> <?= Yii::t('app', 'Apply Discount') ?>
+                                                    </button>
+                                                </div>
+                                            </td>
+
+                                            <?php ActiveForm::end(); ?>
                                         </tr>
                                         <tr>
-                                        <td colspan="8">   <label class="form-check-label">
-                                        <input type="checkbox" id="agreement-checkbox" class="form-check-input custom-checkbox">
-                                        <?= Yii::t('app', 'I have read and agree that Travel Assurance once purchased cannot be cancelled or refunded.') ?>
-    </label></td></tr>
+                                            <td colspan="8"> <label class="form-check-label">
+                                                    <input type="checkbox" id="agreement-checkbox" class="form-check-input custom-checkbox">
+                                                    <?= Yii::t('app', 'I have read and agree that Travel Assurance once purchased cannot be cancelled or refunded.') ?>
+                                                </label></td>
+                                        </tr>
                                     </table>
-                               
+
                                 </div> <?php
                                         $price = (float) $policy->price;
                                         $formattedAmount = number_format($price, 2);
@@ -150,25 +171,25 @@ $this->title = 'Review Your Insurance Details';
                                         }
                                         ?>
 
-<div id="continue-section" class="mt-2" style="display: none;">
-    <?php if ($customer !== null && $customer->credit == $price): ?>
-        <?= Html::a(
-            Yii::t('app', 'Continue') . ' ' . '($' . $formattedAmount . ')',
-            ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => ($customer->getPaymentMethod()->one() ? $customer->getPaymentMethod()->one()->method : null)],
-            ['class' => 'btn btn-warning w-100', 'id' => 'continue-btn']
-        ) ?>
-    <?php endif; ?>
-</div>
+                                <div id="continue-section" class="mt-2" style="display: none;">
+                                    <?php if ($customer !== null && $customer->credit == $price): ?>
+                                        <?= Html::a(
+                                            Yii::t('app', 'Continue') . ' ' . '($' . $formattedAmount . ')',
+                                            ['/asurance/payment', 'id' => base64_encode($policy->id), 'method' => ($customer->getPaymentMethod()->one() ? $customer->getPaymentMethod()->one()->method : null)],
+                                            ['class' => 'btn btn-warning w-100', 'id' => 'continue-btn']
+                                        ) ?>
+                                    <?php endif; ?>
+                                </div>
 
-<div id="pay-now-section" class="mt-2" style="display: none;">
-    <?php if (!($customer !== null && $customer->credit == $price)): ?>
-        <?= Html::a(
-            Yii::t('app', 'Pay Now') . ' ($' . ($formattedAmount ? $formattedAmount : '0') . ')',
-            ['/asurance/payment-method', 'id' => base64_encode($policy->id)],
-            ['class' => 'btn btn-warning w-100', 'id' => 'pay-now-btn']
-        ) ?>
-    <?php endif; ?>
-</div>
+                                <div id="pay-now-section" class="mt-2" style="display: none;">
+                                    <?php if (!($customer !== null && $customer->credit == $price)): ?>
+                                        <?= Html::a(
+                                            Yii::t('app', 'Pay Now') . ' ($' . ($formattedAmount ? $formattedAmount : '0') . ')',
+                                            ['/asurance/payment-method', 'id' => base64_encode($policy->id)],
+                                            ['class' => 'btn btn-warning w-100', 'id' => 'pay-now-btn']
+                                        ) ?>
+                                    <?php endif; ?>
+                                </div>
 
 
 
@@ -300,12 +321,11 @@ $this->title = 'Review Your Insurance Details';
             preloader.style.display = 'none';
         });
     });
-    document.getElementById('agreement-checkbox').addEventListener('change', function () {
-    const isChecked = this.checked;
-    document.getElementById('continue-section').style.display = isChecked ? 'block' : 'none';
-    document.getElementById('pay-now-section').style.display = isChecked ?'block' : 'none';
-});
-
+    document.getElementById('agreement-checkbox').addEventListener('change', function() {
+        const isChecked = this.checked;
+        document.getElementById('continue-section').style.display = isChecked ? 'block' : 'none';
+        document.getElementById('pay-now-section').style.display = isChecked ? 'block' : 'none';
+    });
 </script>
 
 <!--Contact us end

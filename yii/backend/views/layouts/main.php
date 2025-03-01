@@ -467,11 +467,12 @@ AppAsset::register($this);
 
               <!-- Collapse -->
               <div class="nav-item">
-                <a class="nav-link " href="<?= Url::to(['/policy/index']) ?>">
-                  <i class="bi bi-card-checklist nav-icon"></i>
-                  <span class="nav-link-title">Policies</span>
-                </a>
-              </div>
+    <a class="nav-link" href="<?= Url::to(['/discount/index']) ?>">
+        <i class="bi bi-tag nav-icon"></i>
+        <span class="nav-link-title">Discounts</span>
+    </a>
+</div>
+
               <!-- End Collapse -->
 
 

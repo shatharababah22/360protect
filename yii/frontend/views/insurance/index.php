@@ -91,7 +91,19 @@ $this->title = 'Plan Details';
                         </div>
 
                         <div data-cues="slideInDown">
-                            <img src="<?= Yii::$app->request->baseUrl ?>/dashboard/images/<?= $insuranceCountry->company_logo ?>" class="img-thumbnail" alt="logo" height="160" width="140">
+                            <?=
+                        Html::a(
+                            '<i class="bi bi-arrow-down-square me-1"></i> Policy Wording',
+                            Yii::$app->request->baseUrl . '/dashboard/images/' . $insuranceLink,
+                            [
+                                'class' => 'btn btn-outline-warning',
+                                'target' => '_blank',
+                                'download' => $insuranceLink,
+                            ]
+                        );
+                        ?>
+                                                    <img src="<?= Yii::$app->request->baseUrl ?>/dashboard/images/<?= $insuranceCountry->company_logo ?>" class="img-thumbnail" alt="logo" height="160" width="140">
+
                         </div>
                     </div>
                 </div>
